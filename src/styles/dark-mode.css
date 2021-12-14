@@ -1,0 +1,8 @@
+/* DEFAULT DARK MODE - DO NOT TOUCH */
+html {
+  transition: background 0.2s ease-in-out;
+}
+html.dark {
+  background: #000000;
+  color: white;
+}

@@ -1,0 +1,16 @@
+/* Imports */
+@import './dark-mode.css';
+@import './nprogress.css';
+
+/* DEFAULT - DO NOT TOUCH */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*, *:before, *:after { 
+  box-sizing: border-box; 
+}
