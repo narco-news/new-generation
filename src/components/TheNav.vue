@@ -56,10 +56,11 @@ nav {
   z-index: 500;
   transition: background-color 0.2s ease-in-out;
   border-bottom: 1px solid black;
-  margin-top: 1em;
+  padding-top: 1em;
   & .nav__left {
     font-size: x-large;
     padding-left: 0.5em;
+    padding-top: 5px;
     & .nav-left__logo {
       color: black;
       text-decoration: none;
