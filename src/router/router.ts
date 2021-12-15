@@ -27,6 +27,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('~/pages/Map.vue'),
   },
   {
+    path: '/wire',
+    name: 'Wire',
+    component: () => import('~/pages/Wire.vue'),
+  },
+  {
     path: '/articles',
     name: 'Articles',
     component: () => import('~/pages/Articles.vue'),

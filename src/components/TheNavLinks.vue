@@ -2,14 +2,14 @@
   <router-link to="/">
     Home
   </router-link>
-  <router-link to="/about">
-    About
-  </router-link>
   <router-link to="/library">
     Library
   </router-link>
   <router-link to="/map">
     Map
+  </router-link>
+  <router-link to="/wire">
+    Wire
   </router-link>
   <router-link to="/articles">
     Articles
@@ -25,7 +25,7 @@ a {
   flex-wrap: none;
   justify-content: center;
   display: inline-flex;
-  padding: 0 0.5em 1em 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
   &:hover {
     color: #eb5757;
   }
@@ -34,6 +34,11 @@ a {
   }
   &.router-link-active {
     border-bottom: 3px solid #eb5757;
+    color: #eb5757;
+    &:nth-child(1) {
+      color: black;
+      border-color: transparent;
+    }
   }
 }
 
