@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useElementVisibility } from '@vueuse/core'
 import { annotate, annotationGroup } from 'rough-notation'
+useHead({
+  title: 'About',
+})
 
 const infoCluster = ref(null)
 const infoClusterIsVisible = useElementVisibility(infoCluster)

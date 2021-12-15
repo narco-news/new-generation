@@ -4,6 +4,9 @@ import { ContentLoader } from 'vue-content-loader'
 import dayjs from 'dayjs'
 import { useGhostStore } from '~/stores/ghost'
 // import { useTimeoutFn } from '@vueuse/core'
+useHead({
+  title: 'Articles',
+})
 // Declare store
 const ghost = useGhostStore()
 // Grab latest posts from the store

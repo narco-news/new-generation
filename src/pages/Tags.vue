@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 import { useGhostStore } from '../stores/ghost'
 import TagsBox from '../components/TagsBox.vue'
+useHead({
+  title: 'Tags',
+})
 const ghost = useGhostStore()
 ghost.getTags()
 const tags = computed(() => ghost.listTags)
