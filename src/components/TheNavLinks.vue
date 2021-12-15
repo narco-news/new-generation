@@ -46,10 +46,18 @@ html.dark {
   & a {
     color: white;
     &:hover {
-      color: #F06B84;
+      color: #eb5757;
     }
     &:focus {
-      outline-color: #F06B84;
+      outline-color: #eb5757;
+    }
+    &.router-link-active {
+      border-bottom: 3px solid #eb5757;
+      color: #eb5757;
+      &:nth-child(1) {
+        color: white;
+        border-color: transparent;
+      }
     }
   }
 }
