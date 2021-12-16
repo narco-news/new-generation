@@ -24,6 +24,7 @@ function langToggle() {
   padding: 10px;
   border-radius: 6px;
   color: black;
+  cursor: pointer;
 }
 
 html.dark {

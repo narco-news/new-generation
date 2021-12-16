@@ -17,6 +17,7 @@ import { isDark, toggleDark } from '../composables'
   border: 1px solid black;
   padding: 9px 10px;
   border-radius: 6px;
+  cursor: pointer;
   & img {
     width: 20px;
     height: 20px;
