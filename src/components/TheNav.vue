@@ -59,7 +59,7 @@ nav {
   padding-top: 1em;
   & .nav__left {
     font-size: x-large;
-    padding-left: 0.5em;
+    padding-left: 0.3em;
     padding-top: 5px;
     & .nav-left__logo {
       color: black;

@@ -11,17 +11,21 @@ import { isDark, toggleDark } from '../composables'
 
 <style lang="postcss" scoped>
 .dark-mode-button {
+  display: grid;
+  place-content: center;
   background: none;
-  border: none;
+  border: 1px solid black;
+  padding: 9px 10px;
+  border-radius: 6px;
   & img {
-    height: 20px;
     width: 20px;
+    height: 20px;
   }
 }
 
 html.dark {
-  & button {
-    border: none;
+  & .dark-mode-button {
+    border-color: white;
   }
 }
 </style>

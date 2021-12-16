@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
 <template>
-  <footer class="footer">
+  <div class="footer">
     narco.news
-  </footer>
+  </div>
 </template>
+
 <style lang="postcss">
 .footer {
   position: absolute;
@@ -11,7 +11,8 @@
   width: 100%;
   border-top: 1px solid black;
   height: 2rem;
-  text-align: center;
+  display: grid;
+  place-content: center;
 }
 
 html.dark {

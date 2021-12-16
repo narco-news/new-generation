@@ -17,33 +17,19 @@ function langToggle() {
 
 <style lang="postcss" scoped>
 .lang-toggle {
+  display: grid;
+  place-content: center;
   background: none;
   border: 1px solid black;
+  padding: 10px;
   border-radius: 6px;
-  outline: 2px solid transparent;
-  font-size: small;
-  padding: 0.5em 1em;
-  &:hover {
-    border-color: transparent;
-    outline-color: #eb5757;
-  }
-  &:focus {
-    border-color: transparent;
-    outline-color: #eb5757;
-  }
+  color: black;
 }
+
 html.dark {
   & .lang-toggle {
-    color: white;
     border-color: white;
-    &:hover {
-      border-color: transparent;
-      outline-color: #f06b84;
-    }
-    &:focus {
-      border-color: transparent;
-      outline-color: #f06b84;
-    }
+    color: white;
   }
 }
 </style>
