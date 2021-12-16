@@ -28,8 +28,15 @@ import GhostContentAPI from '@tryghost/content-api'
 import NProgress from 'nprogress'
 //
 //
+//
+// Layouts
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
+
 // Routes
-import { routes } from '~/router/router'
+// import { routes } from '~/router/router'
+// const layoutRoutes = setupLayouts(routes)
+const routes = setupLayouts(generatedRoutes)
 
 //
 // Set Ghost creds
@@ -43,6 +50,7 @@ const ghost = new GhostContentAPI({
 // Declare options
 const Options: Parameters<typeof viteSSR>['1'] = {
   routes,
+  // layoutRoutes,
   pageProps: {
     passToPage: false,
   },

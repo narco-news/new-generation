@@ -5,6 +5,8 @@ import SSR from 'vite-ssr/plugin'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,6 +48,10 @@ export default defineConfig({
       ],
       dts: 'src/components.d.ts',
     }),
+    Pages({
+      extensions: ['vue'],
+    }),
+    Layouts(),
   ],
   optimizeDeps: {
     include: [
