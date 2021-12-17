@@ -4,11 +4,17 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ArticlesArticlesBox: typeof import('./components/ArticlesArticlesBox.vue')['default']
     ArticlesBox: typeof import('./components/ArticlesBox.vue')['default']
     ArticlesBoxArticle: typeof import('./components/ArticlesBoxArticle.vue')['default']
+    ArticlesFeaturedFourBox: typeof import('./components/ArticlesFeaturedFourBox.vue')['default']
+    ArticlesFeaturedFourBoxArticle: typeof import('./components/ArticlesFeaturedFourBoxArticle.vue')['default']
+    ArticlesOtherBox: typeof import('./components/ArticlesOtherBox.vue')['default']
+    ArticlesTagBox: typeof import('./components/ArticlesTagBox.vue')['default']
     TagsBox: typeof import('./components/TagsBox.vue')['default']
     TagsBoxTag: typeof import('./components/TagsBoxTag.vue')['default']
     TheFooter: typeof import('./components/TheFooter.vue')['default']
+    TheHeadlinesMarquee: typeof import('./components/TheHeadlinesMarquee.vue')['default']
     TheNav: typeof import('./components/TheNav.vue')['default']
     TheNavDarkMode: typeof import('./components/TheNavDarkMode.vue')['default']
     TheNavLangToggle: typeof import('./components/TheNavLangToggle.vue')['default']

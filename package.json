@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite-ssr --host",
     "build": "vite-ssr build && npm run move",
@@ -20,7 +20,7 @@
     "pinia": "^2.0.6",
     "vite-ssr": "^0.14.3",
     "vue": "^3.2.16",
-    "vue-i18n": "^8.26.7",
+    "vue-i18n": "^9.2.0-beta.23",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -40,6 +40,8 @@
     "fs-extra": "^10.0.0",
     "hover.css": "^2.3.2",
     "normalize.css": "^8.0.1",
+    "pattern.css": "^1.0.0",
+    "postcss": "^8.4.5",
     "postcss-nested": "^5.0.6",
     "prettier": "^2.5.1",
     "rough-notation": "^0.5.1",
@@ -47,6 +49,7 @@
     "unplugin-auto-import": "^0.5.3",
     "unplugin-vue-components": "^0.17.9",
     "vite": "^2.6.4",
+    "vite-plugin-fonts": "^0.2.2",
     "vite-plugin-pages": "^0.19.3",
     "vite-plugin-vue-layouts": "^0.5.0",
     "vue-content-loader": "^2.0.1",
