@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const lang = ref('Spanish')
-function langToggle() {
-  if (lang.value === 'English')
-    return lang.value = 'Spanish'
-  else
-    return lang.value = 'English'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES as locales } from '~/locales'
+const { t, locale } = useI18n()
+const route = useRoute()
+const toggleLocales = () => {
+  // change to some real logic
+  const nextLocale
+    = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+  const base = nextLocale === DEFAULT_LOCALE ? '' : `/${nextLocale}`
+  window.location.pathname = base + route.fullPath
 }
 </script>
 
 <template>
-  <button class="lang-toggle" @click="langToggle()">
-    {{ lang }}
+  <button class="lang-toggle" :title="t('nav.toggle_langs')" @click="toggleLocales">
+    <span v-if="locale === 'es'">English</span>
+    <span v-else>Spanish</span>
   </button>
 </template>
 

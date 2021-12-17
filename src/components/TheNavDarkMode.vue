@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { isDark, toggleDark } from '../composables'
+const { t } = useI18n()
 </script>
 
 <template>
-  <button class="dark-mode-button" @click="toggleDark()">
+  <button class="dark-mode-button" :title="t('nav.toggle_dark')" @click="toggleDark()">
     <img v-if="!isDark" src="../assets/moon.svg">
     <img v-else src="../assets/sun.svg">
   </button>

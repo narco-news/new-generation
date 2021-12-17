@@ -1,18 +1,22 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+</script>
 <template>
   <router-link to="/">
-    Home
+    {{ t('nav.home') }}
   </router-link>
   <router-link to="/library">
-    Library
+    {{ t('nav.library') }}
   </router-link>
   <router-link to="/map">
-    Map
+    {{ t('nav.map') }}
   </router-link>
   <router-link to="/wire">
-    Wire
+    {{ t('nav.wire') }}
   </router-link>
   <router-link to="/articles">
-    Articles
+    {{ t('nav.articles') }}
   </router-link>
 </template>
 
