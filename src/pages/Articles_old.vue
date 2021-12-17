@@ -3,6 +3,11 @@ import { computed, ref } from 'vue'
 import { ContentLoader } from 'vue-content-loader'
 import dayjs from 'dayjs'
 import { useGhostStore } from '~/stores/ghost'
+import TheHeadlinesMarquee from '~/components/TheHeadlinesMarquee.vue'
+import ArticlesFeaturedFourBox from '~/components/ArticlesFeaturedFourBox.vue'
+import ArticlesOtherBox from '~/components/ArticlesOtherBox.vue'
+import ArticlesTagBox from '~/components/ArticlesTagBox.vue'
+import ArticlesArticlesBox from '~/components/ArticlesArticlesBox.vue'
 // import { useTimeoutFn } from '@vueuse/core'
 useHead({
   title: 'Articles',
@@ -28,8 +33,14 @@ function formatDate(date) {
 }
 </script>
 <template>
-  <h1>Articles</h1>
-  <div class="article-wrapper">
+  <section>
+    <the-headlines-marquee />
+    <articles-featured-four-box />
+    <articles-other-box />
+    <articles-tag-box />
+    <articles-articles-box />
+  </section>
+  <!-- <div class="article-wrapper">
     <article v-for="post in latestPosts" :key="post.slug" class="article">
       <content-loader
         v-show="isLoaded"
@@ -96,10 +107,14 @@ function formatDate(date) {
         </p>
       </div>
     </article>
-  </div>
+  </div> -->
 </template>
 
 <style lang="postcss" scoped>
+section {
+  margin: 0 auto;
+  max-width: 1200px;
+}
 .article-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

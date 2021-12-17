@@ -34,7 +34,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/articles',
     name: 'Articles',
-    component: () => import('~/pages/Articles.vue'),
+    component: () => import('~/pages/Articles_old.vue'),
   },
   {
     path: '/articles/:slug',
