@@ -3,4 +3,29 @@
   --red: #EB1010;
 
   --purple: #9048F9;
+
+
+  /* Tailwind colors */
+  /* https://tailwindcss.com/docs/customizing-colors */
+  --slate-50:   #F8FAFC;
+  --slate-100:  #F1F5F9;
+  --slate-200:  #E2E8F0;
+  --slate-300:  #CBD5E1;
+  --slate-400:  #94A3B8;
+  --slate-500:  #64748B;
+  --slate-600:  #475569;
+  --slate-700:  #334155;
+  --slate-800:  #1E293B;
+  --slate-900:  #0F172A;
+
+  --green-50:   #ECFDF5;
+  --green-100:  #D1FAE5;
+  --green-200:  #A7F3D0;
+  --green-300:  #6EE7B7;
+  --green-400:  #34D399;
+  --green-500:  #10B981;
+  --green-600:  #059669;
+  --green-700:  #047857;
+  --green-800:  #065F46;
+  --green-900:  #064E3B;
 }
