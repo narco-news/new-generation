@@ -1,8 +1,15 @@
+<script setup lang="ts">
+const router = useRouter()
+const { t } = useI18n()
+</script>
+
 <template>
-  <header>
-    <the-nav />
-  </header>
   <main>
+    <button
+      @click="router.back()"
+    >
+      {{ t('nav.back') }}
+    </button>
     <div class="page_wrapper">
       <router-view v-bind="$attrs" />
     </div>
@@ -14,11 +21,12 @@
 
 <style lang="postcss" scoped>
 main {
-  display: flex;
-  justify-content: center;
   background-color: var(--slate-100);
   & .page_wrapper {
-    width: 1200px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid red;
+    overflow: hidden;
   }
 }
 </style>

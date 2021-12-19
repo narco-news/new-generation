@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-// import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
 const router = useRouter()
-// const { t } = useI18n()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -10,11 +10,9 @@ const router = useRouter()
     <router-view v-bind="$attrs" />
     <div>
       <button
-        class="btn m-3 text-sm mt-8"
         @click="router.back()"
       >
-        <!-- {{ t('button.back') }} -->
-        Back
+        {{ t('nav.back') }}
       </button>
     </div>
   </main>
