@@ -61,19 +61,19 @@ export default defineConfig({
         families: [
           {
             name: 'Oswald',
-            styles: 'wght@400;500;600;700'
+            styles: 'wght@400;500;600;700',
           },
           {
             name: 'Noto Serif',
-            styles: 'ital,wght@0,400;0,700;1,400;1,700'
+            styles: 'ital,wght@0,400;0,700;1,400;1,700',
           },
           {
             name: 'Noto Serif Display',
-            styles: 'ital,wght@0,400;0,500;0,700;1,400;1,500;1,700'
-          }
-        ]
-      }
-    })
+            styles: 'ital,wght@0,400;0,500;0,700;1,400;1,500;1,700',
+          },
+        ],
+      },
+    }),
   ],
   optimizeDeps: {
     include: [
