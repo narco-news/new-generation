@@ -41,7 +41,7 @@ watchEffect(() => {
   ::v-deep(a) {
     font-size: small;
   }
-  @media (min-width: 430px) {
+  @media (min-width: 810px) {
     display: none;
   }
 }
@@ -123,7 +123,7 @@ nav {
     display: flex;
     & .right__links {
       margin-right: 2em;
-      @media (max-width: 430px) {
+      @media (max-width: 810px) {
         display: none;
       }
     }
