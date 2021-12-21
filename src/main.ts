@@ -7,7 +7,7 @@
 import '../node_modules/normalize.css/normalize.css'
 import '../node_modules/animate.css/animate.min.css'
 import '../node_modules/hover.css/css/hover-min.css'
-import '../node_modules/pattern.css/dist/pattern.min.css'
+// import '../node_modules/pattern.css/dist/pattern.min.css'
 import '../src/styles/main.css'
 //
 // Pinia
@@ -83,67 +83,36 @@ export default viteSSR(App, Options, async(params) => {
   // Create <ClientOnly> component
   app.component(ClientOnly.name, ClientOnly)
 
+  app.provide('initialState', initialState)
   //
   // Load language asyncrhonously to avoid bundling all languages
   await installI18n(app, extractLocaleFromPath(initialRoute.href))
 
-  //
-  // Load state if client
   if (isClient) {
-    pinia.state.value = initialState.pinia
     router.beforeEach(() => { NProgress.start() })
     router.afterEach(() => { NProgress.done() })
-  }
-
-  else {
-    initialState.pinia = pinia.state.value
-  }
-
-  //
-  // Grab articles from Ghost API and put them into store
-  try {
+    //
+    // Grab article before /articles/:slug
+    router.beforeEach(async(to) => {
+      if (to.matched[0].path === '/articles/:slug') {
+        const article = await ghost.posts.read({
+          slug: String(to.params.slug),
+        })
+        initialState.currentArticle = article
+      }
+    })
+    //
+    // Get all articles and put them into the store
     const allArticles = await ghost.posts.browse({
       limit: 'all',
       include: ['authors', 'tags'],
-      fields: 'slug, title, featured, feature_image, primary_author',
-      // fields: 'slug,title,tags,primary_author,feature_image,published_at,excerpt,custom_excerpt,featured',
+      fields: 'slug, title, featured, feature_image, primary_author, published_at, excerpt, custom_excerpt, reading_time',
     })
-    initialState.pinia.ghostStore = {
-      allArticles,
-    }
+    initialState.pinia.articles = allArticles
+    pinia.state.value = initialState.pinia
   }
-  catch (error) {
-    console.error(error)
-  }
-  //
-  //
-  // Make changes before route changes
-  router.beforeEach(async(to, from, next) => {
-    if (!!to.meta.state && (!import.meta.env.DEV || import.meta.env.SSR)) {
-      // This route has state already (from server) so it can be reused.
-      return next()
-    }
 
-    // Call ghost API server-side in order to grab article content
-    // inbetween routes.
-    // if (to.matched[0].path === '/articles/:slug') {
-    //   try {
-    //     const post = await ghost.posts.read({
-    //       slug: to.params.slug,
-    //     })
-    //     // Set API response to value in ghostStore
-    //     // to.meta.state.ghostStore
-    //     // pinia.state.value.ghostStore
-    //     // to.meta.state = post
-    //     if (pinia)
-    //       to.meta.state.pinia.ghostStore.currentPost = post
-    //   }
-    //   catch (error) {
-    //     console.log(error)
-    //   }
-    next()
-  })
-
+  else { initialState.pinia = pinia.state.value }
   return {
     head,
   }
