@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
 
-export default function formatDate(date) {
-  return dayjs(date).format('MMM D')
+export default function formatDate(date: string, format = 'MMM D') {
+  return dayjs(date).format(format)
 }
