@@ -144,7 +144,6 @@ const latestArticles = computed(() => ghostStore.listLatestArticles(12))
 
 html.dark {
   & .articles-latest {
-    background-color: lightcoral;
   }
 }
 </style>

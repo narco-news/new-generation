@@ -37,6 +37,17 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
+        {
+          'vue-content-loader': [
+            'content-loader',
+          ],
+          'dayjs': [
+            'dayjs',
+          ],
+          'vue3-popper': [
+            'popper',
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
     }),
@@ -82,6 +93,9 @@ export default defineConfig({
       '@vueuse/core',
       'animate.css',
       'hover.css',
+      'vue-content-loader',
+      'dayjs',
+      'axios',
     ],
   },
 })

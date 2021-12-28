@@ -6,11 +6,25 @@ interface Article {
 const props = defineProps<{
   article: Article
 }>()
+const articleRef = ref()
+const articleHovered = useElementHover(articleRef)
+const hoverTextStyles = ref('none')
+const hoverImageStyles = ref('grayscale(80%)')
+watchEffect(() => {
+  if (articleHovered.value) {
+    hoverTextStyles.value = 'underline'
+    hoverImageStyles.value = 'none'
+  }
+  else {
+    hoverTextStyles.value = 'none'
+    hoverImageStyles.value = 'grayscale(80%)'
+  }
+})
 </script>
 
 <template>
   <router-link :to="`/articles/${props.article.slug}`">
-    <article class="article-opinion">
+    <article ref="articleRef" class="article-opinion">
       <div class="meta">
         <p class="article-opinion__author-name">
           {{ props.article.primary_author.name }}
@@ -19,7 +33,11 @@ const props = defineProps<{
           {{ props.article.title }}
         </h2>
       </div>
-      <img :src="props.article.primary_author.profile_image" :alt="props.article.primary_author.name" class="article-opinion__author-image">
+      <img
+        :src="props.article.primary_author.profile_image"
+        :alt="props.article.primary_author.name"
+        class="article-opinion__author-image"
+      >
     </article>
   </router-link>
 </template>
@@ -49,21 +67,23 @@ a {
     margin: 0;
     padding: 0;
     font-weight: 400;
-    font-size: calc(0.8rem + 1vw);
+    font-size: clamp(100%, 0.8rem + 2vw, 28px);
     color: var(--slate-800);
+    text-decoration: v-bind('hoverTextStyles');
   }
   /* Author name */
   & .article-opinion__author-name {
     padding: 0;
     margin: 0;
-    color: red;
+    color: var(--green);
   }
   /* Author image */
   & .article-opinion__author-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
-    filter: grayscale(50%);
+    filter: v-bind('hoverImageStyles');
+    margin: 10px;
     &:hover {
       filter: grayscale(0);
     }
@@ -71,6 +91,16 @@ a {
     @media (max-width: 810px) {
       width: 40px;
       height: 40px;
+    }
+  }
+}
+
+html.dark {
+  & .article-opinion {
+    color: white;
+
+    & .article-opinion__title {
+      color: white;
     }
   }
 }

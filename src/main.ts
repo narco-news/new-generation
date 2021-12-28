@@ -34,7 +34,12 @@ import generatedRoutes from 'virtual:generated-pages'
 //
 //
 // i18n
+
+import { useGhostStore } from './stores/ghost'
 import { installI18n, extractLocaleFromPath, DEFAULT_LOCALE } from '~/locales'
+
+//
+// Shared Element
 
 // Routes
 // import { routes } from '~/router/router'
@@ -83,32 +88,20 @@ export default viteSSR(App, Options, async(params) => {
   // Create <ClientOnly> component
   app.component(ClientOnly.name, ClientOnly)
 
-  app.provide('initialState', initialState)
+  // app.provide('initialState', initialState)
+
   //
   // Load language asyncrhonously to avoid bundling all languages
   await installI18n(app, extractLocaleFromPath(initialRoute.href))
 
   if (isClient) {
+    // if (import.meta.env.SSR) {
+    // router.beforeEach(SharedElementRouteGuard)
     router.beforeEach(() => { NProgress.start() })
     router.afterEach(() => { NProgress.done() })
-    //
-    // Grab article before /articles/:slug
-    router.beforeEach(async(to) => {
-      if (to.matched[0].path === '/articles/:slug') {
-        const article = await ghost.posts.read({
-          slug: String(to.params.slug),
-        })
-        initialState.currentArticle = article
-      }
+    router.beforeEach(() => {
+      const ghost = useGhostStore(pinia)
     })
-    //
-    // Get all articles and put them into the store
-    const allArticles = await ghost.posts.browse({
-      limit: 'all',
-      include: ['authors', 'tags'],
-      fields: 'slug, title, featured, feature_image, primary_author, published_at, excerpt, custom_excerpt, reading_time',
-    })
-    initialState.pinia.articles = allArticles
     pinia.state.value = initialState.pinia
   }
 

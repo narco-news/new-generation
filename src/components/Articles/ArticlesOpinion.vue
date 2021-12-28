@@ -1,24 +1,46 @@
 <script setup lang="ts">
-import { useGhostStore } from '~/stores/ghost'
-const ghostStore = useGhostStore()
-const articlesList = computed(() => ghostStore.listOpinionArticles)
+interface Article {
+  slug: string
+  title: string
+  profile_image: string
+}
+interface Articles {
+  article: Article
+}
+const props = defineProps<{
+  articles: Articles
+}>()
 </script>
 <template>
-  <h1 class="articles-opinion__header">
-    Opinion
-  </h1>
-  <div class="articles-opinion">
-    <div v-for="article in articlesList" :key="article.slug" class="articles-wrapper">
-      <articles-opinion-article :article="article" />
+  <section>
+    <h1 class="opinion__header">
+      Opinion
+    </h1>
+    <div class="articles-opinion">
+      <div
+        v-for="article in props.articles"
+        :key="article.slug"
+        class="articles-wrapper"
+      >
+        <articles-opinion-article :article="article" />
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="postcss" scoped>
+.opinion__header {
+  font-size: clamp(100%, 1rem + 2vw, 24px);
+  font-family: 'Oswald';
+  margin: 0;
+  padding: 0 10px;
+  font-weight: 400;
+  color: var(--green);
+}
 .articles-opinion {
-  /* border: 1px solid red; */
   color: black;
-  padding: 5px;
+  margin: 10px 0;
+  padding: 10px;
   width: 100%;
   overflow: hidden;
   /* first breakpoint*/
@@ -45,14 +67,9 @@ const articlesList = computed(() => ghostStore.listOpinionArticles)
   );
   gap: 10px;
 }
-
-.articles-opinion__header {
-    margin: 0.5em 0;
-    padding: 0;
-}
 html.dark {
   & .articles-opinion {
-    background-color: lightcoral;
+    color: white;
   }
 }
 </style>
