@@ -9,12 +9,6 @@ const { t } = useI18n()
   <router-link to="/library">
     {{ t('nav.library') }}
   </router-link>
-  <router-link to="/map">
-    {{ t('nav.map') }}
-  </router-link>
-  <router-link to="/wire">
-    {{ t('nav.wire') }}
-  </router-link>
   <router-link to="/articles">
     {{ t('nav.articles') }}
   </router-link>
@@ -29,7 +23,12 @@ a {
   flex-wrap: none;
   justify-content: center;
   display: inline-flex;
-  padding: 0.5em 0.5em 1em 0.5em;
+  padding: 0.5em 0.5em 1.2em 0.5em;
+  border-bottom: 3px solid transparent;
+
+  @media (max-width: 810px) {
+    border-top: 3px solid transparent;
+  }
   &:hover {
     color: #eb5757;
   }
@@ -43,24 +42,21 @@ a {
       color: black;
       border-color: transparent;
     }
+
+    @media (max-width: 810px) {
+      border-top: 3px solid #eb5757;
+      border-bottom: none;
+    }
   }
 }
 
 html.dark {
-  & a {
+  a {
     color: white;
-    &:hover {
-      color: #eb5757;
-    }
-    &:focus {
-      outline-color: #eb5757;
-    }
     &.router-link-active {
-      border-bottom: 3px solid #eb5757;
       color: #eb5757;
       &:nth-child(1) {
         color: white;
-        border-color: transparent;
       }
     }
   }

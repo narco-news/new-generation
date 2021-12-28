@@ -1,21 +1,15 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
-useHead({
-  title: 'Home | narco.news',
-})
+import { useGhostStore } from '~/stores/ghost'
+// // Store
+const useGhost = useGhostStore()
+const featuredArticles = computed(() => useGhost.listFeaturedFourArticles)
 </script>
 
 <template>
-  <section />
+  <template v-if="featuredArticles">
+    <articles-featured :articles="featuredArticles" />
+  </template>
+  <div v-else>
+    Loading...
+  </div>
 </template>
-
-<style lang="postcss" scoped>
-section {
-    margin: 2em 0;
-}
-html.dark {
-  & h1 {
-    color: white;
-  }
-}
-</style>

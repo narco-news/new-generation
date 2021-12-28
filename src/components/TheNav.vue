@@ -37,7 +37,7 @@ watchEffect(() => {
 .mobile-bottom-links {
   display: flex;
   justify-content: center;
-  margin-top: 0.5em;
+  margin-top: 0;
   ::v-deep(a) {
     font-size: small;
   }
@@ -50,7 +50,7 @@ nav {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  background-color: rgba(255, 255, 255, 0.753);
+  background-color: var(--slate-100);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   z-index: 500;
@@ -149,6 +149,10 @@ html.dark {
         color: white;
       }
     }
+  }
+
+  .mobile-bottom-links {
+    background-color: black;
   }
 }
 </style>

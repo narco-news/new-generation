@@ -14,7 +14,7 @@ const toggleLocales = () => {
 <template>
   <button class="lang-toggle" :title="t('nav.toggle_langs')" @click="toggleLocales">
     <span v-if="locale === 'es'">English</span>
-    <span v-else>Spanish</span>
+    <span v-else>Español</span>
   </button>
 </template>
 
@@ -28,10 +28,13 @@ const toggleLocales = () => {
   border-radius: 6px;
   color: black;
   cursor: pointer;
+  font-size: 15px;
 }
 
 html.dark {
   & .lang-toggle {
+    /* border-color: white; */
+    /* outline-color: #2f2f30; */
     border-color: white;
     color: white;
   }

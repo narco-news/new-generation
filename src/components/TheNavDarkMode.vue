@@ -4,9 +4,16 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <button class="dark-mode-button" :title="t('nav.toggle_dark')" @click="toggleDark()">
-    <img v-if="!isDark" src="../assets/moon.svg">
-    <img v-else src="../assets/sun.svg">
+  <button
+    class="dark-mode-button"
+    :aria-label="t('nav.toggle_dark')"
+    :title="t('nav.toggle_dark')"
+    @click="toggleDark()"
+  >
+    <transition name="slide" mode="out-in">
+      <moon-color-icon v-if="!isDark" src="../assets/moon.svg" alt="Moon" />
+      <sun-color-icon v-else alt="Sun" />
+    </transition>
   </button>
 </template>
 
@@ -15,19 +22,45 @@ const { t } = useI18n()
   display: grid;
   place-content: center;
   background: none;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border: none;
   padding: 9px 10px;
   border-radius: 6px;
   cursor: pointer;
+  overflow: hidden;
+  border: 1px solid black;
   & img {
     width: 20px;
     height: 20px;
+  }
+
+  /*
+  Credit to Máximo Mussini for transition
+  https://github.com/ElMassimo/iles/blob/main/docs/src/components/DarkModeSwitch.vue
+   */
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform 0.15s ease-out;
+  }
+  .slide-enter-from {
+    transform: translateY(-100%);
+  }
+  .slide-enter-to,
+  .slide-leave-from {
+    transform: translateY(0);
+  }
+  .slide-leave-to {
+    transform: translateY(100%);
+    opacity: 100;
   }
 }
 
 html.dark {
   & .dark-mode-button {
+    /* border-color: white; */
+    /* outline-color: #2f2f30; */
     border-color: white;
+    color: white;
   }
 }
 </style>
