@@ -13,17 +13,16 @@ function imageLoaded() {
 <template>
   <div class="article__image-wrapper">
     <img
-      v-show="hasLoaded"
       loading="lazy"
       :src="props.featureImage"
       :alt="props.title"
       class="article-image"
       @load="imageLoaded"
     >
-    <content-loader
+    <!-- <content-loader
       v-show="!hasLoaded"
       :width="1000"
-      :height="600"
+      :height="500"
       :speed="2"
       primary-color="#f3f3f3"
       secondary-color="#ecebeb"
@@ -35,9 +34,9 @@ function imageLoaded() {
         rx="2"
         ry="2"
         width="1000"
-        height="600"
+        height="500"
       />
-    </content-loader>
+    </content-loader> -->
   </div>
 </template>
 
