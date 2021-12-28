@@ -35,7 +35,11 @@ if (!useGhost.allArticles[0]) {
   display: flex;
   justify-content: center;
   background-color: var(--slate-100);
+  margin-top: 0.5em;
   margin-bottom: 4em;
+  @media (min-width: 768px) {
+    margin-top: 2em;
+  }
   & .page_wrapper {
     width: 1200px;
   }
