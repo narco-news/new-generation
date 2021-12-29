@@ -33,9 +33,10 @@ const props = defineProps<{
   font-size: clamp(100%, 1rem + 2vw, 24px);
   font-family: 'Oswald';
   margin: 0;
-  padding: 0 10px;
   font-weight: 400;
-  color: var(--green);
+  padding: 5px;
+  background-color: var(--green);
+  color: var(--slate-50);
 }
 .articles-opinion {
   color: black;

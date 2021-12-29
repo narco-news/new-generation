@@ -18,7 +18,7 @@ watchEffect(() => {
   <router-link
     :to="`/articles/${props.article.slug}`"
     :title="props.article.title"
-    class="article-featured"
+    class="article-featured hvr-bob"
   >
     <div ref="articleLink">
       <div class="article-featured__meta">
