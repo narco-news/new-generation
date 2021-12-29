@@ -25,6 +25,12 @@ onMounted(() => {
       font-family: 'Noto Serif';
       line-height: 1.5;
 
+      a {
+        color: var(--green);
+        text-decoration: none;
+        border-bottom: 1px dotted var(--green);
+      }
+
       & p {
         margin: 1em auto;
         max-width: 65ch;
@@ -36,7 +42,6 @@ onMounted(() => {
         width: 100%;
         height: auto;
         overflow: hidden;
-        border: 2px solid red;
         margin: 0.5em 0;
       }
 
