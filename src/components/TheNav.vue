@@ -1,158 +1,97 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { useWindowScroll } from '@vueuse/core'
-const { y } = useWindowScroll()
-const shadowStyle = ref('')
+const navTitle = ref()
+const isNavTitleHovered = useElementHover(navTitle)
+const navTitleColor = ref('black')
+const navTitleDotColor = ref('var(--green')
 watchEffect(() => {
-  if (y.value > 100)
-    shadowStyle.value = 'box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;'
-  else
-    shadowStyle.value = ''
+  if (isNavTitleHovered.value) {
+    navTitleColor.value = 'var(--green)'
+    navTitleDotColor.value = 'black'
+  }
+  else {
+    navTitleColor.value = 'black'
+    navTitleDotColor.value = 'var(--green)'
+  }
 })
 </script>
+
 <template>
-  <nav class="nav" :style="shadowStyle">
-    <div class="nav__left">
-      <router-link to="/" class="nav-left__logo">
-        narco.news
-      </router-link>
-    </div>
-    <div class="nav__right">
-      <div class="right__links">
-        <TheNavLinks />
+  <nav class="the-nav">
+    <div class="the-nav__wrapper">
+      <div ref="navTitle" class="the-nav__title-wrapper">
+        <router-link to="/" class="the-nav__title">
+          <strong>narco</strong>
+          <span>.</span>news
+        </router-link>
       </div>
-      <div class="right__buttons">
+      <div class="the-nav__right-side">
+        <TheNavLinks class="desktop-links" />
         <TheNavLangToggle />
-        <TheNavDarkMode />
       </div>
     </div>
+    <TheNavLinks class="mobile-links" />
   </nav>
-  <!-- Mobile bottom links -->
-  <div class="mobile-bottom-links">
-    <TheNavLinks />
-  </div>
 </template>
 
 <style lang="postcss" scoped>
-.mobile-bottom-links {
-  display: flex;
-  justify-content: center;
-  margin-top: 0;
-  ::v-deep(a) {
-    font-size: small;
+.desktop-links {
+  @media (max-width: 810px) {
+    display: none;
   }
+}
+.mobile-links {
+  height: auto;
+  margin: 0 auto;
   @media (min-width: 810px) {
     display: none;
   }
 }
-nav {
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background-color: var(--slate-100);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  z-index: 500;
-  transition: background-color 0.2s ease-in-out;
-  border-bottom: 1px solid black;
-  padding-top: 1em;
-  & .nav__left {
-    font-size: x-large;
-    padding-left: 0.3em;
-    padding-top: 5px;
-    & .nav-left__logo {
-      color: black;
-      text-decoration: none;
-      -webkit-tap-highlight-color: none;
-      border: none;
-      outline: none;
-      cursor: none;
-      &:hover {
-        outline: none;
-        background: #eb5757;
-        background: -webkit-linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        background: -moz-linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        background: linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      &:focus {
-        outline: none;
-        background: #eb5757;
-        background: -webkit-linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        background: -moz-linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        background: linear-gradient(
-          to right,
-          #eb5757 0%,
-          #f2994a 45%,
-          #f2c94c 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        outline-color: #eb5757;
-      }
-    }
-  }
-  & .nav__right {
+.the-nav {
+  width: 100%;
+  height: 4em;
+  border-bottom: 1px solid var(--vue-black);
+  padding: 0 10px;
+  .the-nav__wrapper {
     display: flex;
-    & .right__links {
-      margin-right: 2em;
-      @media (max-width: 810px) {
-        display: none;
-      }
-    }
-    & .right__buttons {
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    height: 4em;
+    margin: 0 auto;
+    .the-nav__right-side {
       display: flex;
       align-items: center;
-      & button {
-        margin: 0 0.5em 1em 0.5em;
-      }
+
+    }
+  }
+
+  .the-nav__title {
+    color: v-bind('navTitleColor');
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    font-size: clamp(100%, 1rem + 2vw, 22px);
+    font-weight: 400;
+    transition: color 180ms ease-in;
+    cursor: none;
+    user-select: none;
+    strong {
+      font-weight: 500;
+    }
+    span {
+      font-weight: 600;
+      color: v-bind('navTitleDotColor');
     }
   }
 }
-/*
-  Dark mode styles
-*/
+
 html.dark {
-  & nav {
+  .the-nav {
     background-color: #161618;
-    border-bottom-color: white;
-
-    & .nav__left {
-      & a {
-        color: white;
-      }
+    border-color: white;
+    .the-nav__title {
+      color: white;
     }
-  }
-
-  .mobile-bottom-links {
-    background-color: black;
   }
 }
 </style>

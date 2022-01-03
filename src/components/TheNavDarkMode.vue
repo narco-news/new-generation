@@ -28,7 +28,12 @@ const { t } = useI18n()
   border-radius: 6px;
   cursor: pointer;
   overflow: hidden;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: 0 0 0 1px black;
+  transition: box-shadow 180ms ease-in;
+  &:hover {
+    box-shadow: 0 0 0 2px var(--green);
+  }
   & img {
     width: 20px;
     height: 20px;
@@ -57,9 +62,7 @@ const { t } = useI18n()
 
 html.dark {
   & .dark-mode-button {
-    /* border-color: white; */
-    /* outline-color: #2f2f30; */
-    border-color: white;
+    box-shadow: 0 0 0 1px white;
     color: white;
   }
 }

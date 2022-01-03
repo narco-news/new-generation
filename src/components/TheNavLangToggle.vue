@@ -12,31 +12,47 @@ const toggleLocales = () => {
 </script>
 
 <template>
-  <button class="lang-toggle" :title="t('nav.toggle_langs')" @click="toggleLocales">
+  <button
+    class="the-nav__lang-toggle"
+    :title="t('nav.toggle_langs')"
+    @click="toggleLocales"
+  >
     <span v-if="locale === 'es'">English</span>
     <span v-else>Español</span>
   </button>
 </template>
 
 <style lang="postcss" scoped>
-.lang-toggle {
+.the-nav__lang-toggle {
   display: grid;
   place-content: center;
   background: none;
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 6px;
-  color: black;
-  cursor: pointer;
-  font-size: 15px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  align-self: flex-end;
+  margin-left: 2em;
+  span {
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 500;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px black;
+    padding: 8px;
+    transition: box-shadow 180ms ease-in;
+    &:hover {
+      box-shadow: 0 0 0 2px var(--green);
+    }
+  }
 }
 
 html.dark {
-  & .lang-toggle {
-    /* border-color: white; */
-    /* outline-color: #2f2f30; */
-    border-color: white;
-    color: white;
+  .the-nav__lang-toggle {
+    span {
+      color: white;
+      box-shadow: 0 0 0 1px white;
+    }
   }
 }
 </style>
