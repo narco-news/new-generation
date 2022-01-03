@@ -1,8 +1,0 @@
-Atomicons Free License 
--------------------------
-Atomicons Free is free, open source, and GPL friendly. You can use it for commercial projects, open source projects, or anywhere you want.
-
-Icons: CC BY 4.0 License  
-The icons (.svg) files are free to download are licensed under CC 4.0 .
-Attribution is required by CC BY licenses. Downloaded Atomicons Free files already contain embedded comments with sufficient attribution, you aren't required to do anything more. 
-We've kept attribution comments short and precise, so we ask that you do not actively work to remove them from files, especially code. They're a great way for people to learn about Atomicons.
