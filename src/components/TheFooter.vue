@@ -56,12 +56,12 @@ const { t } = useI18n()
             </router-link>
           </li>
           <li>
-            <router-link to="/tags/translations">
+            <router-link to="/tags/translation">
               {{ t('articles.translations') }}
             </router-link>
           </li>
           <li>
-            <router-link to="/tags/atw">
+            <router-link to="/tags/around-the-web">
               {{ t('articles.atw') }}
             </router-link>
           </li>
@@ -95,17 +95,17 @@ const { t } = useI18n()
               {{ t('footer.south-a') }}
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link to="/tags/europe">
               {{ t('footer.europe') }}
             </router-link>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="footer__article-links" style="display: flex;flex-direction:column;margin-top: 1em">
         <TheNavDarkMode style="align-self: flex-end;margin-bottom: 1em" />
         <TheNavLangToggle style="margin-bottom: 1em" />
-        <a href="https://discord.com/invite/Fv4qHxHU" target="_blank" title="Join Discord server">
+        <a href="https://discord.gg/jvA59aZV7c" style="border:none" target="_blank" title="Join Discord server">
           <img
             :src="`https://img.shields.io/discord/927298048248414209?color=17A578&label=${t('footer.chat')}&logo=discord&logoColor=white`"
             alt="Discord invite"
@@ -149,8 +149,8 @@ const { t } = useI18n()
                 margin: 0;
             }
             li {
-              margin: 5px 0;
               font-size: 12px;
+              margin-bottom: 8px;
             }
             h3 {
                 margin-bottom: 0.5em;
@@ -159,6 +159,12 @@ const { t } = useI18n()
             }
             a {
                 color: var(--slate-600);
+                text-decoration: none;
+                border-bottom: 1px dotted var(--slate-600);
+                &:hover {
+                  color: var(--slate-800);
+                  border-bottom: 1px solid var(--slate-800);
+                }
             }
             .disabled {
               color: var(--slate-400);
@@ -183,7 +189,7 @@ const { t } = useI18n()
         cursor: none;
         user-select: none;
         width: 100%;
-        padding-top: 5em;
+        padding-top: 4em;
         &:hover {
             color: var(--green);
         }
@@ -203,7 +209,12 @@ html.dark {
         .footer__main-content {
             .footer__article-links {
                 a {
-                    color: white;
+                    color: var(--slate-400);
+                    border-bottom: 1px dotted var(--slate-400);
+                    &:hover {
+                      color: var(--slate-500);
+                      border-bottom: 1px solid var(--slate-500);
+                    }
                 }
                 .disabled {
                   color: var(--slate-700);
