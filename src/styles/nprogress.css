@@ -15,5 +15,5 @@
 }
 
 html.dark #nprogress .bar {
-  background-color: rgba(255, 28, 104, 0.829)
+  background-color: var(--green);
 }

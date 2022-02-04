@@ -7,6 +7,14 @@ html.dark {
   color: white;
 }
 
+html.dark body::-webkit-scrollbar-track {
+  background: #161618;
+}
+
+html.dark body::-webkit-scrollbar-thumb {
+  border-color: #161618;
+}
+
 html.dark #app {
   background-color: #000000;
 }
