@@ -7,21 +7,43 @@ watchEffect(() => {
   if (isNavTitleHovered.value) {
     navTitleColor.value = 'var(--green)'
     navTitleDotColor.value = 'black'
+    useTimeoutFn(() => {
+      navTitleColor.value = 'black'
+      navTitleDotColor.value = 'var(--green)'
+    }, 2000)
   }
   else {
     navTitleColor.value = 'black'
     navTitleDotColor.value = 'var(--green)'
   }
 })
+const route = useRoute()
+const bounceStyle = ref('')
+function bounce() {
+  if (route.path === '/')
+
+    bounceStyle.value = ' bounce'
+
+  navTitleColor.value = 'var(--green)'
+  navTitleDotColor.value = 'black'
+  useTimeoutFn(() => {
+    bounceStyle.value = ''
+    navTitleColor.value = 'black'
+    navTitleDotColor.value = 'var(--green)'
+  }, 2000)
+}
 </script>
 
 <template>
-  <nav class="the-nav">
+  <nav ref="target" class="the-nav">
     <div class="the-nav__wrapper">
-      <div ref="navTitle" class="the-nav__title-wrapper">
+      <div class="the-nav__title-wrapper" @click="bounce()">
         <router-link to="/" class="the-nav__title">
           <strong>narco</strong>
-          <span>.</span>news
+          <span
+            class="dot"
+            :class="bounceStyle"
+          >.</span>news
         </router-link>
       </div>
       <div class="the-nav__right-side">
@@ -73,7 +95,7 @@ watchEffect(() => {
     font-size: clamp(100%, 1rem + 2vw, 22px);
     font-weight: 400;
     transition: color 180ms ease-in;
-    cursor: none;
+    /* cursor: none; */
     user-select: none;
     strong {
       font-weight: 500;
@@ -81,6 +103,8 @@ watchEffect(() => {
     span {
       font-weight: 600;
       color: v-bind('navTitleDotColor');
+      height: 5px;
+      display: inline-flex;
     }
   }
 }
@@ -93,5 +117,22 @@ html.dark {
       color: white;
     }
   }
+}
+
+@keyframes bounce {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.bounce {
+  animation: bounce 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
 }
 </style>

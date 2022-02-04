@@ -28,7 +28,7 @@ const toggleLocales = () => {
   place-content: center;
   background: none;
   border: none;
-  padding: 0;
+  padding: 1px;
   margin: 0;
   align-self: flex-end;
   margin-left: 2em;

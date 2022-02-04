@@ -1,0 +1,32 @@
+<!-- Atomicons Free 1.00 by @atisalab License - https://atomicons.com/license/ (Icons: CC BY 4.0) Copyright 2021 Atomicons -->
+<template>
+  <div class="maximize-icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="36"
+      height="36"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ><path d="M22,14v6a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V14" /><polyline points="17 12 12 17 7 12" /><line x1="12" y1="17" x2="12" y2="3" /></svg>
+  </div>
+</template>
+
+<style lang="postcss" scoped>
+.maximize-icon {
+    display: grid;
+    place-content: center;
+    color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 6px;
+    margin: 0 5px;
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+</style>

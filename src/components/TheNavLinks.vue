@@ -30,25 +30,25 @@ const { t } = useI18n()
   margin: 0 5px;
   /* padding: 10px 0; */
   border-bottom: 2px solid transparent;
-  padding-bottom: 20px;
+  padding-bottom: 21px;
   transition: color 180ms ease-in;
+  -webkit-tap-highlight-color: transparent;
   @media (max-width: 810px) {
     padding-bottom: 0;
     border-bottom: 0;
     border-top: 2px solid transparent;
-    padding-top: 10px;
+    padding: 10px 10px 0 10px;
   }
   &.router-link-active {
     border-color: var(--green);
-    @media (max-width: 810px) {
-      border-color: var(--green);
-    }
-    &:hover {
-      color: black;
-    }
+    color: var(--green);
+    font-weight: 500;
   }
   &:first-of-type {
     border-color: transparent;
+    &.router-link-active {
+      color: black;
+    }
   }
   &:hover {
     color: var(--green);
@@ -60,6 +60,11 @@ html.dark {
     color: white;
     &.router-link-active {
       &:hover {
+        color: white;
+      }
+    }
+    &:first-of-type {
+      &.router-link-active {
         color: white;
       }
     }
