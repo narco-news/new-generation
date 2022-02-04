@@ -5,7 +5,7 @@
 //
 // Import CSS styles
 import '../node_modules/normalize.css/normalize.css'
-import '../node_modules/animate.css/animate.min.css'
+// import '../node_modules/animate.css/animate.min.css'
 import '../node_modules/hover.css/css/hover-min.css'
 // import '../node_modules/pattern.css/dist/pattern.min.css'
 import '../src/styles/main.css'
@@ -22,36 +22,28 @@ import { viteSSR, ClientOnly } from 'vite-ssr/vue'
 // App.vue
 import App from '/src/App.vue'
 //
-// Ghost Content API
-import GhostContentAPI from '@tryghost/content-api'
+// Import devalue
+import devalue from '@nuxt/devalue'
 //
 // NProgress loading indicator
 import NProgress from 'nprogress'
 //
+//
+//
 // Layouts
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
+import VueLazyLoad from 'vue3-lazyload'
+import { MotionPlugin } from '@vueuse/motion'
+import { useGhostStore } from './stores/ghost'
+
 //
 //
 // i18n
-
-import { useGhostStore } from './stores/ghost'
 import { installI18n, extractLocaleFromPath, DEFAULT_LOCALE } from '~/locales'
 
-//
-// Shared Element
-
 // Routes
-// import { routes } from '~/router/router'
 const routes = setupLayouts(generatedRoutes)
-
-//
-// Set Ghost creds
-const ghost = new GhostContentAPI({
-  url: String(import.meta.env.VITE_GHOST_URI),
-  key: String(import.meta.env.VITE_GHOST_KEY),
-  version: 'v3',
-})
 
 //
 // Declare options
@@ -61,8 +53,23 @@ const Options: Parameters<typeof viteSSR>['1'] = {
     const locale = extractLocaleFromPath(url.pathname)
     return locale === DEFAULT_LOCALE ? '/' : `/${locale}/`
   },
+  transformState(state) {
+    return import.meta.env.SSR ? devalue(state) : state
+  },
   pageProps: {
     passToPage: false,
+  },
+  routerOptions: {
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      }
+      else {
+        return {
+          top: 0,
+        }
+      }
+    },
   },
 }
 
@@ -80,32 +87,31 @@ export default viteSSR(App, Options, async(params) => {
   //
   // Declare pinia
   const pinia = createPinia()
+
   //
   // Connect head and pinia to App
-  app.use(pinia).use(head)
+  app.use(pinia).use(head).use(MotionPlugin).use(VueLazyLoad)
 
   //
   // Create <ClientOnly> component
   app.component(ClientOnly.name, ClientOnly)
-
-  // app.provide('initialState', initialState)
 
   //
   // Load language asyncrhonously to avoid bundling all languages
   await installI18n(app, extractLocaleFromPath(initialRoute.href))
 
   if (isClient) {
-    // if (import.meta.env.SSR) {
-    // router.beforeEach(SharedElementRouteGuard)
-    router.beforeEach(() => { NProgress.start() })
-    router.afterEach(() => { NProgress.done() })
     router.beforeEach(() => {
-      const ghost = useGhostStore(pinia)
+      NProgress.start()
+      useGhostStore(pinia)
+      // const store = useGhostStore(pinia)
     })
+    router.afterEach(() => { NProgress.done() })
     pinia.state.value = initialState.pinia
   }
 
   else { initialState.pinia = pinia.state.value }
+
   return {
     head,
   }

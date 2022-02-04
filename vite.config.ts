@@ -23,12 +23,6 @@ export default defineConfig({
   plugins: [
     vue(),
     SSR(),
-    // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
-    VueI18n({
-      runtimeOnly: true,
-      compositionOnly: true,
-      include: [path.resolve(__dirname, 'locales/**')],
-    }),
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
@@ -66,6 +60,7 @@ export default defineConfig({
     Layouts(),
     VueI18n({
       include: [path.resolve(__dirname, 'src/locales/translations/**')],
+      globalSFCScope: true,
     }),
     ViteFonts({
       google: {
