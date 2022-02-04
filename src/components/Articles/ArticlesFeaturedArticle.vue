@@ -10,7 +10,7 @@ watchEffect(() => {
   if (isHovered.value)
     imageHoverStyles.value = 'none'
   else
-    imageHoverStyles.value = 'grayscale(60%) blur(3px) brightness(70%)'
+    imageHoverStyles.value = 'brightness(0.55) saturate(1.55)'
 })
 </script>
 
@@ -18,13 +18,10 @@ watchEffect(() => {
   <router-link
     :to="`/articles/${props.article.slug}`"
     :title="props.article.title"
-    class="article-featured hvr-bob"
+    class="article-featured"
   >
     <div ref="articleLink">
       <div class="article-featured__meta">
-        <p class="article-featured__author">
-          {{ props.article.primary_author?.name }}
-        </p>
         <h1 class="article-featured__title">
           {{ props.article.title }}
         </h1>
@@ -34,6 +31,7 @@ watchEffect(() => {
           :src="String(props.article.feature_image)"
           :alt="props.article.title"
           class="article-featured__image"
+          loading="lazy"
         >
       </div>
     </div>
@@ -47,9 +45,11 @@ watchEffect(() => {
   overflow: hidden;
   display: block;
   width: 100%;
-  height: 165px;
+  height: 100%;
+  min-height: 165px;
   border-radius: 8px;
-  border: 1px solid var(--green);
+  border: 2px solid var(--slate-100);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 
   @media (max-width: 425px) {
     height: 120px;
@@ -66,13 +66,13 @@ watchEffect(() => {
       padding: 0;
       font-family: "Oswald";
       font-weight: 400;
-      color: var(--green);
+      color: white;
     }
     & .article-featured__title {
       margin: 0;
       padding: 0;
       color: white;
-      font-size: calc(1rem + 1vw);
+      font-size: clamp(100%, 1rem + 2vw, 24px);
     }
   }
 
@@ -88,6 +88,12 @@ watchEffect(() => {
       filter: v-bind(imageHoverStyles);
       border-radius: 8px;
     }
+  }
+}
+
+html.dark {
+  .article-featured {
+    border-color: var(--slate-300);
   }
 }
 </style>

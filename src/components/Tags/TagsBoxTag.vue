@@ -37,7 +37,7 @@ function selectTag(tagElement: TagElement, tagSlug: string) {
   border: 1px solid black;
   border-radius: 9999px;
   outline: 2px solid transparent;
-  font-size: large;
+  font-size: small;
   padding: 1em 2em;
   transition: border 0.3s ease-out;
   transition: outline 0.3s ease-in-out;

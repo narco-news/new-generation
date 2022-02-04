@@ -43,6 +43,7 @@ export async function installI18n(app: App, locale = '') {
 
   const i18n = createI18n({
     legacy: false,
+    globalInjection: true,
     locale,
     fallbackLocale: DEFAULT_LOCALE,
     messages: {

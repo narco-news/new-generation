@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { PostsOrPages } from '@tryghost/content-api'
+import { Articles } from '~/ghostTypes'
+const { t } = useI18n()
 const props = defineProps<{
-  articles: PostsOrPages
+  articles: Articles
 }>()
 </script>
 
 <template>
   <section class="articles-featured">
-    <h1 class="articles-featured__header">
-      Featured
-    </h1>
-    <div class="articles-featured__wrapper">
+    <div class="articles-featured__header-wrapper">
+      <h1 class="articles-featured__header">
+        {{ t('articles.featured') }}
+      </h1>
+    </div>
+    <div class="articles-featured__articles-wrapper">
       <article
         v-for="article in props.articles"
         :key="article.slug"
@@ -24,62 +27,61 @@ const props = defineProps<{
 
 <style lang="postcss" scoped>
 .articles-featured {
-  & .articles-featured__wrapper {
-    /* border: 1px solid red; */
-    position: relative;
-    margin: 0.5em 0;
-    padding: 10px;
-    width: 100%;
-    overflow: hidden;
-    /* first breakpoint*/
-    --w1: 800px;
-    --n: 4;
-    /* second breakpoint*/
-    --w2: 390px;
-    --m: 2;
-    display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(
-        clamp(
-          clamp(
-            100%/ (var(--n) + 1) + 0.1%,
-            (var(--w1) - 100vw) * 1000,
-            100%/ (var(--m) + 1) + 0.1%
-          ),
-          (var(--w2) - 100vw) * 1000,
-          100%
-        ),
-        1fr
-      )
-    );
-    gap: 25px;
-
-    @media (max-width: 768px) {
-      gap: 15px;
-    }
-
-    & .articles-featured__article {
-      height: 165px;
-
-      @media (max-width: 425px) {
-        height: 120px;
-      }
+  padding: 1rem;
+  background-color: var(--green);
+  @media (min-width: 1100px) {
+    margin: 0 0rem 1rem 0rem;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+  }
+  .articles-featured__header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 200;
+    background-color: var(--green);
+    padding: 0.5rem 0;
+    .articles-featured__header {
+      color: white;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+      font-size: clamp(100%, 1rem + 2vw, 32px);
     }
   }
-  & .articles-featured__header {
-    font-size: clamp(100%, 1rem + 2vw, 24px);
-    font-family: 'Oswald';
-    font-weight: 400;
-    margin: 0;
-    padding: 0 0.5em;
-    color: var(--green);
+  .articles-featured__articles-wrapper {
+    margin: 1rem 0;
+    --min: 45ch;
+    --gap: 1.5rem;
+
+    display: grid;
+    grid-gap: var(--gap);
+    /* min() with 100% prevents overflow
+    in extra narrow spaces */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+    .articles-featured__article {
+      /* margin: 0 0 1.5rem 0; */
+    }
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }
 
 html.dark {
-  .articles-featured__header {
-    color: white;
+  .articles-featured {
+    background-color: #1cc992;
+    .articles-featured__header-wrapper {
+      background-color: #1cc992;
+    }
   }
 }
 </style>

@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "library": "Library",
-    "map": "Map",
+    "map": "Live Map",
     "wire": "Wire",
     "about": "About",
     "articles": "Articles",
@@ -10,6 +10,10 @@
     "go": "GO",
     "toggle_dark": "Toggle dark mode",
     "toggle_langs": "Change languages"
+  },
+  "library": {
+    "intro": "These should not be viewed as recommendations, but instead what all is available on the topic. Aside from which book was chosen for position one—everyone should start with {book}—there really is no order.",
+    "narcoHistory": "A Narco History"
   },
   "footer": {
     "central-a": "Central America",
@@ -40,5 +44,8 @@
     "authors": "Authors",
     "tags": "Tags",
     "atw": "Around the Web"
+  },
+  "article": {
+    "minutes": "minutes"
   }
 }

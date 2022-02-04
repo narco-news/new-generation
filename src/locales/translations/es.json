@@ -2,7 +2,7 @@
   "nav": {
     "home": "Inicio",
     "library": "Biblioteca",
-    "map": "Mapa",
+    "map": "Mapa en vivo",
     "wire": "Novedades",
     "about": "Acerca de",
     "articles": "Artículos",
@@ -10,6 +10,10 @@
     "go": "Ir",
     "toggle_dark": "Alternar modo oscuro",
     "toggle_langs": "Cambiar idiomas"
+  },
+  "library": {
+    "intro": "Estos no deben verse como recomendaciones, sino como todo lo que está disponible sobre el tema. Aparte de qué libro se eligió para la posición uno (todos deben comenzar con {book}), en realidad no hay orden.",
+    "narcoHistory": "Una historia narco"
   },
   "footer": {
     "central-a": "Centroamérica",
@@ -40,5 +44,8 @@
     "authors": "Autores",
     "tags": "Etiquetas",
     "atw": "En la red"
+  },
+  "article": {
+    "minutes": "minutos"
   }
 }

@@ -9,12 +9,16 @@
     "deploy": "cd ./serverless && vercel --prod"
   },
   "dependencies": {
+    "@nuxt/devalue": "^2.0.0",
+    "@types/resize-observer-browser": "^0.1.6",
     "@vue/runtime-dom": "^3.2.24",
     "@vue/server-renderer": "^3.2.24",
     "@vueuse/core": "^7.1.2",
     "@vueuse/head": "^0.7.2",
+    "@vueuse/motion": "^2.0.0-beta.9",
     "axios": "^0.24.0",
     "express": "^4.17.1",
+    "mitt": "^3.0.0",
     "node-fetch": "^3.1.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.6",
@@ -23,6 +27,7 @@
     "vue": "^3.2.26",
     "vue-i18n": "^9.2.0-beta.23",
     "vue-router": "^4.0.12",
+    "vue3-lazyload": "^0.2.5-beta",
     "vue3-popper": "^1.4.1"
   },
   "devDependencies": {
@@ -43,6 +48,7 @@
     "fs-extra": "^10.0.0",
     "hover.css": "^2.3.2",
     "normalize.css": "^8.0.1",
+    "patch-vue-directive-ssr": "^0.0.1",
     "pattern.css": "^1.0.0",
     "postcss": "^8.4.5",
     "postcss-nested": "^5.0.6",

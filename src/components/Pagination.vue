@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useGhostStore } from '~/stores/ghost'
-const useGhost = useGhostStore()
 const props = defineProps<{
   articles: Array<[]>
 }>()
@@ -8,18 +6,10 @@ const props = defineProps<{
 
 <template>
   <section class="pagination">
-    <h1 class="pagination__header">
-      Latest
-    </h1>
     <div class="pagination__wrapper">
       <article v-for="article in props.articles" :key="article.slug">
         <pagination-article :article="article" />
       </article>
-    </div>
-    <div class="load-more-wrapper">
-      <button @click="useGhost.loadMoreLatest">
-        Load More
-      </button>
     </div>
   </section>
 </template>

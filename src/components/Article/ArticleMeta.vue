@@ -1,202 +1,239 @@
 <script setup lang="ts">
-import Popper from 'vue3-popper'
 import formatDate from '~/composables/formatDate'
+import { Article } from '~/ghostTypes'
 const emits = defineEmits(['titleVisible'])
 const props = defineProps<{
-  title: string
-  tags: []
-  primaryAuthor: {}
-  publishedAt: string
-  readingTime: number
+  article?: Article
 }>()
+const { t } = useI18n()
 const articleTitle = ref()
 const isTitleVisible = useElementVisibility(articleTitle)
-watchEffect(() => {
-  if (isTitleVisible.value === false)
-    emits('titleVisible', false)
-  else
-    emits('titleVisible', true)
+tryOnMounted(() => {
+  watchEffect(() => {
+    if (isTitleVisible.value === true)
+      emits('titleVisible', true)
+    else
+      emits('titleVisible', false)
+  })
 })
 </script>
+
 <template>
-  <div class="article__meta">
-    <div class="article-meta__tags">
-      <router-link v-for="tag in props.tags.slice(0, 3)" :key="tag.id" :to="`/tags/${tag.slug}`" class="article-meta__tag">
-        #{{ tag.slug }}
+  <div class="article-meta__wrapper">
+    <div class="article-meta__date-reading-wrapper">
+      <p class="article-meta__date">
+        {{ formatDate(String(props.article.published_at), 'MMM D, YYYY') }}
+      </p>
+      <span>
+        –
+      </span>
+      <p>
+        {{ props.article.reading_time }}
+        {{ t('article.minutes') }}
+      </p>
+      <span style="color:var(--green)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.10876 14L9.46582 1H10.8178L5.46074 14H4.10876Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" /></svg>
+      </span>
+      <router-link
+        v-for="tag in props.article.tags?.slice(0, 1)"
+        :key="tag.id"
+        :to="`/tags/${tag?.slug}`"
+        class="article-meta__tag"
+      >
+        {{ tag.name }}
       </router-link>
     </div>
-    <h1 ref="articleTitle" class="article-meta__title">
-      {{ props.title }}
+    <h1
+      ref="articleTitle"
+      class="article-meta__title"
+    >
+      {{ props.article.title }}
     </h1>
-    <div class="article-meta__author-date-reading">
-      <div class="article-meta__author">
-        <ClientOnly>
-          <Popper>
-            <button class="popper-button">
-              {{ props.primaryAuthor.name }}
-            </button>
-            <template #content>
-              <div class="article-meta__author-popup">
-                <img :src="props.primaryAuthor.profile_image" class="article-meta__author-image">
-                <router-link :to="`/authors/${props.primaryAuthor.slug}`" class="article-meta__author-name">
-                  {{ props.primaryAuthor.name }}
-                </router-link>
-                <div class="article-meta__post-count">
-                  XX Posts
-                </div>
-                <div class="article-meta__social-icons">
-                  <router-link v-if="props.primaryAuthor.twitter" :to="`https://twitter.com/${props.primaryAuthor.twitter}`">
-                    <!-- <img src="../../assets/twitter.svg" style="width: 20px;height:20px;"> -->
-                  </router-link>
-                </div>
-              </div>
-            </template>
-          </Popper>
-        </ClientOnly>
-      </div>
-      <div class="article-meta__date">
-        {{ formatDate(props.publishedAt, 'MMM DD, YYYY') }}
-      </div>
-      <div class="article-meta__reading-time">
-        {{ props.readingTime }} minutes
-      </div>
+    <div class="article-meta__author-date-wrapper">
+      <router-link
+        :to="`/authors/${props.article?.primary_author?.slug}`"
+      >
+        <div class="article-meta__author-wrapper">
+          <img
+            :src="props.article?.primary_author?.profile_image"
+            class="article-meta__author-image"
+          >
+          <h2
+            class="article-meta__author"
+          >
+            {{ props.article.primary_author?.name }}
+          </h2>
+        </div>
+      </router-link>
     </div>
+    <p
+      v-if="props.article?.custom_excerpt"
+      class="article-meta__excerpt"
+    >
+      {{ props.article.custom_excerpt }}
+    </p>
+    <p
+      v-else
+      class="article-meta__excerpt line-clamp-three"
+    >
+      {{ props.article.excerpt }}
+    </p>
   </div>
 </template>
 
 <style lang="postcss" scoped>
-.popper-button {
-  background: none;
-  border: none;
-  display: grid;
-  place-content: center;
-  margin-right: 1em;
-  padding: 0;
-  color: var(--slate-600);
-  border-bottom: 1px dotted var(--slate-500);
-}
-.article__meta {
-  /*  */
-  width: 100%;
-  max-width: 800px;
+.article-meta__wrapper {
+  width: min(90ch, 100vw);
   margin: 0 auto;
-  padding: 1em;
-  & .article-meta__title {
-    margin: 0;
-    padding: 0.3em 0;
-    font-size: clamp(100%, 1rem + 2vw, 56px);
+  padding: 0 2em;
+  @media (max-width: 425px) {
+    padding: 0 10px;
   }
+  /*
 
-  & .article-meta__tags {
-    /*  */
+   */
+  /* TAGS */
+  .article-meta__tags-wrapper {
+    list-style: none;
     display: flex;
-    flex-wrap: none;
-    & .article-meta__tag {
-      /*  */
-      display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 0;
+    margin: 0.5rem 0;
+    .article-meta__tag {
+      color: var(--slate-600);
       text-decoration: none;
       border-bottom: 1px dotted var(--slate-600);
-      margin-right: 1em;
-      font-family: monospace;
+      font-weight: 500;
+      font-size: 11px;
+      @media (min-width: 768px) {
+        font-size: 13px;
+      }
+    }
+  }
+  /* DATE & READING TIME */
+    .article-meta__date-reading-wrapper {
+      display: flex;
+      align-items: center;
       font-size: 12px;
-      color: var(--slate-600);
-      padding-bottom: 2px;
-      &:nth-child(1) {
+      font-family: monospace;
+      span {
+        padding: 0 0.5rem;
+      }
+      a {
         color: var(--green);
+        text-decoration: none;
         border-bottom: 1px dotted var(--green);
       }
     }
-  }
-
-  & .article-meta__author-date-reading {
-    display: flex;
-    align-items: center;
-    flex-wrap: none;
-    & .article-meta__author {
+    .article-meta__date {
+      font-weight: 500;
+      white-space: nowrap;
+      margin: 0;
       color: var(--slate-600);
+    }
+  /* TITLE */
+  .article-meta__title {
+    font-size: clamp(100%, 2rem + 2vw, 42px);
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    /* margin: 1rem 0 2rem 0; */
+    color: black;
+    @media (min-width: 768px) {
+      margin: 1rem 0 2rem 0;
+    }
+  }
+  /* AUTHOR DATE WRAPPER */
+  .article-meta__author-date-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    color: var(--slate-600);
+    margin: 1rem 0;
+    padding: 0;
+    width: 100%;
+    a {
       text-decoration: none;
-      margin-right: 1em;
-
-      & .article-meta__author-popup {
-        background-color: white;
-        border: 1px solid var(--slate-400);
-        border-radius: 6px;
-        padding: 0.6em 1em 0 1em;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-        background-color: rgba(255, 255, 255, 0.404);
-        -webkit-backdrop-filter: blur(6px);
-        backdrop-filter: blur(6px);
-
-        & .article-meta__author-image {
-          width: 40px;
-          height: 40px;
-          border-radius: 100%;
-          float: left;
-          margin-right: 1.5em;
-        }
-
-        & .article-meta__post-count {
-          font-weight: 600;
-          margin-top: 0.5em;
-        }
-
-        & .article-meta__social-icons {
-          margin-top: 0.5em;
-          & a {
-            border: none;
-          }
-        }
-
-        & a {
-          color: var(--slate-600);
-          text-decoration: none;
-          border-bottom: 2px dotted var(--slate-600);
-        }
+    }
+    .article-meta__author-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0;
+    }
+    .article-meta__author {
+      display: inline-flex;
+      color: var(--green);
+      font-size: clamp(100%, 0.8rem + 2vw, 24px);
+      font-weight: 400;
+      border-bottom: 1px dotted var(--green);
+      padding-bottom: 3px;
+      white-space: nowrap;
+      margin: 0;
+    }
+    .article-meta__author-image {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      @media (min-width: 768px) {
+        width: 45px;
+        height: 45px;
       }
     }
+  }
+  .article-meta__excerpt {
+    color: var(--slate-500);
+    line-height: 1.5;
+    margin: 0;
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    width: auto;
+    max-width: 65ch;
+    @media (min-width: 768px) {
+      max-width: 70ch;
+      font-size: 16px;
+    }
+  }
+}
 
-    & .article-meta__date {
-      color: var(--slate-600);
-      margin-right: 1em;
+/* SAFARI OUTDATED FLEX GAP FIX */
+@supports (-webkit-touch-callout: none) and (not(translate: none)) {
+  .article-meta__tags-wrapper {
+    .article-meta__tag {
+      margin-right: 20px;
     }
-    & .article-meta__reading-time {
-      color: var(--slate-600);
+  }
+  .article-meta__author-date-wrapper {
+  .article-meta__author-wrapper {
+    .article-meta__author {
+      margin-left: 1rem;
     }
+  }
   }
 }
 
 html.dark {
-
-  .popper-button {
+  .article-meta__title {
     color: white;
   }
-  & .article__meta {
-    color: white;
-
-    & .article-meta__tags {
-      & .article-meta__tag {
-        color: var(--slate-300);
-        border-bottom: 2px dotted var(--slate-300);
-        &:nth-child(1) {
-          color: var(--green);
-          border-bottom: 2px dotted var(--green);
-        }
-      }
+  .article-meta__excerpt {
+    color: var(--slate-500);
+  }
+  .article-meta__date {
+    color: var(--slate-500);
+  }
+  .article-meta__tags-wrapper {
+    a {
+      color: var(--slate-400);
+      border-bottom: 1px dotted var(--slate-400);
+      text-decoration: none;
     }
-
-    & .article-meta__author-date-reading {
-      & .article-meta__author>a {
-        color: var(--slate-100);
-        border-bottom-color: var(--slate-100);
-      }
-
-      & .article-meta__date {
-        color: var(--slate-300);
-      }
-      & .article-meta__reading-time {
-        color: var(--slate-300);
-      }
-    }
+  }
+  .article-meta__date-reading-wrapper {
+    color: var(--slate-500);
   }
 }
 </style>

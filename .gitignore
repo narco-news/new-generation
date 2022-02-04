@@ -6,3 +6,4 @@ dist-ssr
 .env
 pnpm-lock.yaml
 _app/dist
+yarn-error.log

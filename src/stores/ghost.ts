@@ -1,6 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import GhostContentAPI, { PostOrPage } from '@tryghost/content-api'
-import { Tags } from '../types'
 
 export const ghost = new GhostContentAPI({
   url: String(import.meta.env.VITE_GHOST_URI),
@@ -12,19 +11,36 @@ export const useGhostStore = defineStore({
   id: 'ghostStore',
   state: () => ({
     allArticles: [],
-    tags: <Tags>[],
-    selectedTags: [],
-    selectedTagArticles: [],
-    test: 'Client',
+    latestArticles: [],
+    maxLatest: 12,
+    allTagArticles: [],
+    maxTagArticles: 12,
+    allAuthorArticles: [],
+    maxAuthorArticles: 12,
+
   }),
   getters: {
+    listArticle(state) {
+      return (articleSlug: string) => state.allArticles.filter(article => article.slug === articleSlug)
+    },
     // List all articles unfiltered
     listAllArticles(state) {
       return state.allArticles
     },
-    // List latest articles based on amount
     listLatestArticles(state) {
-      return (amount: number) => state.allArticles.slice(0, amount)
+      return state.latestArticles
+        .filter((article: PostOrPage) => {
+          return !article.tags?.find(tag =>
+            tag.slug === 'translation',
+          )
+            && !article.tags?.find(tag =>
+              tag.slug === 'around-the-web',
+            )
+            && !article.tags?.find(tag =>
+              tag.slug === 'opinion',
+            )
+        })
+        .slice(0, state.maxLatest)
     },
     // List latest four featured articles
     listFeaturedFourArticles(state) {
@@ -36,50 +52,83 @@ export const useGhostStore = defineStore({
         return article.tags?.find(tag => tag.slug === 'opinion')
       }).slice(0, 6)
     },
-    // List latest 4 articles from specified author
+    // List latest translation articles
+    listTranslationArticles(state) {
+      return state.allArticles.filter((article: PostOrPage) => {
+        return article.tags?.find(tag => tag.slug === 'translation')
+      }).slice(0, 6)
+    },
+    // List latest ATW
+    listAroundTheWebArticles(state) {
+      return state.allArticles.filter((article: PostOrPage) => {
+        return article.tags?.find(tag => tag.slug === 'around-the-web')
+      }).slice(0, 6)
+    },
+    listLatestFive(state) {
+      return state.allArticles
+        .filter((article: PostOrPage) => {
+          return !article.tags?.find(tag =>
+            tag.slug === 'translation',
+          )
+            && !article.tags?.find(tag =>
+              tag.slug === 'around-the-web',
+            )
+            && !article.tags?.find(tag =>
+              tag.slug === 'opinion',
+            )
+        })
+        .slice(0, 5)
+    },
+    listLatestList(state) {
+      return state.allArticles
+        .filter((article: PostOrPage) => {
+          return !article.tags?.find(tag =>
+            tag.slug === 'translation',
+          )
+            && !article.tags?.find(tag =>
+              tag.slug === 'around-the-web',
+            )
+            && !article.tags?.find(tag =>
+              tag.slug === 'opinion',
+            )
+        })
+        .slice(5, 13)
+    },
+    //
+    // Author articles
     listAuthorArticles(state) {
-      return (authorSlug: string) => state.allArticles.filter(article => article.primary_author.slug === authorSlug).splice(0, 4)
+      return (authorSlug: string) => state.allAuthorArticles.filter(article => article.primary_author.slug === authorSlug).slice(0, state.maxAuthorArticles)
+    },
+    listMaxAuthorArticles(state) {
+      return state.maxAuthorArticles
     },
     //
     // Tags
-    listTags(state) {
-      return state.tags
+    listTagArticles(state) {
+      return (tagSlug: string, articlesAmount: number) => state.allTagArticles
+        .filter((article) => {
+          return article.tags?.find(tag => tag.slug === tagSlug)
+        }).slice(0, articlesAmount)
     },
-    listSelectedTags(state) {
-      return state.selectedTags
-    },
-    listSelectedTagArticles(state) {
-      return state.selectedTagArticles
+    listMaxTagArticles(state) {
+      return state.maxTagArticles
     },
   },
   actions: {
     addArticles(articles) {
       this.allArticles = articles
+      this.latestArticles = articles
+      this.allTagArticles = articles
+      this.allAuthorArticles = articles
     },
-    //
-    // Tags page
-    async getTags() {
-      this.tags = await ghost.tags.browse({
-        filter: 'visibility:public',
-        include: 'count.posts',
-      })
+    loadMoreLatest() {
+      this.maxLatest = this.maxLatest + 12
     },
-    async addSelectedTag(slugToAdd: string) {
-      this.selectedTags.push(slugToAdd)
-      this.getTagArticles()
+    loadMoreTagArticles() {
+      this.maxTagArticles = this.maxTagArticles + 12
     },
-    async removeSelectedtag(slugToRemove: string) {
-      this.selectedTags = this.selectedTags.filter(slug => slug !== slugToRemove)
-      if (this.selectedTags.length === 0)
-        this.selectedTagArticles = []
-      else
-        this.getTagArticles()
-    },
-    async getTagArticles() {
-      this.selectedTagArticles = await ghost.posts.browse({
-        limit: 9,
-        filter: `tags:[${this.selectedTags}]`,
-      })
+    loadMoreAuthorArticles() {
+      this.maxAuthorArticles = this.maxAuthorArticles + 12
     },
   },
 })

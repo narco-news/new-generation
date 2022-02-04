@@ -21,35 +21,40 @@ defineEmits(['close'])
 <style lang="postcss" scoped>
 
 ::v-deep(.modal-container) {
-  img {
-    object-fit: contain;
-    aspect-ratio: 1/1;
-    max-height: 300px;
-    @media (max-width: 425px) {
-      max-height: 200px;
-      margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  .book-modal-wrapper {
+    display: flex;
+    align-items: center;
+    img {
+      object-fit: contain;
+      aspect-ratio: 1/1;
+      max-height: 300px;
+      @media (max-width: 640px) {
+        max-height: 200px;
+      }
+    }
+    .modal-meta {
+      padding: 0 4rem;
+      @media (max-width: 640px) {
+        padding: 10px;
+      }
+      .modal-author {
+        color: var(--green);
+        font-weight: 400;
+      }
+      .modal-title {
+        font-size: clamp(100%, 1rem + 2vw, 28px);
+      }
     }
   }
-  p {
-    font-weight: 500;
-    font-size: clamp(100%, 11px + 2vw, 16px);
+  .modal-desc {
     font-style: italic;
-  }
-  .modal-author {
-    color: var(--green);
-    font-weight: 400;
-  }
-  .modal-meta {
-    padding: 10px;
-    @media (min-width: 426px) {
-      padding: 2rem;
-    }
-  }
-  p.modal-desc {
-    font-family: 'Noto Serif';
-    @media (max-width: 425px) {
-      font-size: 13px;
-      margin: 0;
+    height: 300px;
+    overflow-y: scroll;
+    margin: 2rem 0;
+    @media (max-width: 640px) {
+      margin: 20px 0;
     }
   }
 }
@@ -67,7 +72,8 @@ defineEmits(['close'])
   display: table;
 
   @supports not (backdrop-filter: blur(7px)) {
-    background-color: var(--slate-50);
+    /* background-color: var(--slate-50); */
+    background-color: rgba(255, 255, 255, .95);
   }
 }
 
@@ -76,9 +82,11 @@ defineEmits(['close'])
   align-items: center;
   height: 100%;
   margin: 0 auto;
+  margin-top: 2rem;
   max-width: 1000px;
-  @media (max-width: 425px) {
+  @media (max-width: 640px) {
     align-items: flex-start;
+    margin: 0;
   }
 }
 

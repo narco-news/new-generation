@@ -1,64 +1,51 @@
 <script setup lang="ts">
-import { ContentLoader } from 'vue-content-loader'
 const props = defineProps<{
-  featureImage: string
-  title: string
+  featureImage?: string
+  title?: string
 }>()
-// Content loader watcher
-const hasLoaded = ref(false)
-function imageLoaded() {
-  hasLoaded.value = true
-}
+const isLoaded = ref(false)
 </script>
+
 <template>
-  <div class="article__image-wrapper">
+  <div class="article-image__wrapper">
+    <!-- <ImageLoader v-show="!isLoaded" /> -->
     <img
-      loading="lazy"
-      :src="props.featureImage"
-      :alt="props.title"
-      class="article-image"
-      @load="imageLoaded"
+      :src="props?.featureImage"
+      :alt="props?.title"
+      class="article-image__image"
+      @load="isLoaded = true"
     >
-    <!-- <content-loader
-      v-show="!hasLoaded"
-      :width="1000"
-      :height="500"
-      :speed="2"
-      primary-color="#f3f3f3"
-      secondary-color="#ecebeb"
-      style="border: 1px solid red"
-    >
-      <rect
-        x="0"
-        y="0"
-        rx="2"
-        ry="2"
-        width="1000"
-        height="500"
-      />
-    </content-loader> -->
   </div>
 </template>
 
 <style lang="postcss" scoped>
-.article__image-wrapper {
-  width: 100%;
-  max-width: 1000px;
-  /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
-
-  @media (min-width: 1000px) {
-    padding: 2em 1em;
+.article-image__wrapper {
+  min-width: 300px;
+  @media (min-width: 768px) {
+    margin: 2rem;
   }
-  & img {
+  .article-image__image {
+    aspect-ratio: 4/3;
     object-fit: cover;
     width: 100%;
-    max-width: 1000px;
     max-height: 500px;
-    @media (min-width: 1000px) {
+    @media (min-width: 768px) {
+      aspect-ratio: 16/9;
       border-radius: 8px;
-      box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

@@ -1,24 +1,77 @@
 <script setup lang="ts">
 import { useGhostStore } from '~/stores/ghost'
-const ghostStore = useGhostStore()
-const latestArticles = computed(() => ghostStore.listLatestArticles(12))
+const useGhost = useGhostStore()
+const props = defineProps<{
+  articles: []
+}>()
+const { t } = useI18n()
+const loadMoreArticles = () => useGhost.loadMoreLatest()
 </script>
 
 <template>
-  <h1>Latest Articles</h1>
-  <div class="articles-latest">
-    <div v-for="article in latestArticles" :key="article.slug" class="articles-wrapper">
-      <articles-latest-article :article="article" />
+  <h1 class="article-latest__header">
+    {{ t('articles.latest') }}
+  </h1>
+  <div class="articles-latest__wrapper">
+    <div
+      v-for="article in props.articles"
+      :key="article.slug"
+      class="articles-wrapper"
+    >
+      <article-card
+        :article="article"
+      />
     </div>
+  </div>
+  <div class="button-wrapper">
+    <button class="load-more-button" @click="loadMoreArticles">
+      Load More
+    </button>
   </div>
 </template>
 
 <style lang="postcss" scoped>
-.articles-latest {
+.article-latest__header {
+  font-size: clamp(100%, 1rem + 2vw, 28px);
+  font-family: 'Oswald';
+  font-weight: 400;
+  margin: 0;
+  background-color: var(--green);
+  color: white;
+  padding: 0.5rem 1rem;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 100;
+  @media (min-width: 1200px) {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+}
+.button-wrapper {
+  display: grid;
+  place-content: center;
+}
+.load-more-button {
+  background: none;
+  padding: 1em 2em;
+  border: none;
+  border-radius: 9999px;
+  margin-top: 2em;
+  box-shadow: 0 0 0 1px black;
+  transition: box-shadow color 180ms ease-in;
+  &:hover {
+    box-shadow: 0 0 0 2px var(--green);
+    color: var(--green);
+  }
+}
+.articles-latest__wrapper {
   color: black;
   padding: 5px;
   width: 100%;
   overflow: hidden;
+  margin-top: 1rem;
+  padding: 1rem;
   /* first breakpoint*/
   --w1:800px;
   --n:4;
@@ -42,108 +95,15 @@ const latestArticles = computed(() => ghostStore.listLatestArticles(12))
     )
   );
   gap: 20px;
-
-  & .articles-wrapper {
-    &:nth-child(1) {
-      grid-column: 1 / -1;
-      ::v-deep(.article-latest) {
-        position: relative;
-        & .article-latest__meta {
-          position: absolute;
-          width: auto;
-          bottom: 0;
-          color: white;
-          background-color: transparent;
-
-          & .article-latest__title {
-            color: white;
-            background-color: transparent;
-            font-size: 26px;
-            font-weight: 600;
-          }
-
-          & .article-latest__tag {
-            color: white;
-            font-weight: 400;
-            font-family: 'Oswald';
-            font-size: 16px;
-          }
-
-          & .article-latest__excerpt-wrapper {
-            background-color: transparent;
-          }
-          & .article-latest__excerpt {
-            color: white;
-            font-size: clamp(16px, calc(0.75rem + ((1vw - 3.2px) * 0.25)), 18px);
-            font-weight: 400;
-            font-family: 'Oswald';
-          }
-
-          & .article-latest__date-author-reading {
-            color: white;
-          }
-        }
-        & .article-latest__feature-image {
-          height: 300px;
-          border-radius: 8px;
-          filter: blur(2px);
-        }
-      }
-    }
-    &:nth-child(5n) {
-      /* grid-column: 1 / -1; */
-      ::v-deep(.article-latest) {
-        position: relative;
-        border: 2px solid red;
-        & .article-latest__meta {
-          position: absolute;
-          width: auto;
-          bottom: 0;
-          color: white;
-          background-color: transparent;
-
-          & .article-latest__title {
-            color: white;
-            background-color: transparent;
-            font-size: 26px;
-            font-weight: 600;
-          }
-
-          & .article-latest__tag {
-            color: white;
-            font-weight: 400;
-            font-family: 'Oswald';
-            font-size: 16px;
-          }
-
-          & .article-latest__excerpt-wrapper {
-            background-color: transparent;
-          }
-          & .article-latest__excerpt {
-            color: white;
-            font-size: clamp(16px, calc(0.75rem + ((1vw - 3.2px) * 0.25)), 18px);
-            font-weight: 400;
-            font-family: 'Oswald';
-          }
-          & .article-latest__date-author-reading {
-            color: white;
-          }
-        }
-        & .article-latest__feature-image {
-          height: 300px;
-          border-radius: 8px;
-          filter: blur(2px);
-        }
-      }
-    }
-    &:nth-child(10) {
-      grid-column: span 2;
-    }
+  .articles-wrapper {
+    margin-bottom: 1rem;
   }
 }
 
 html.dark {
-  & .articles-latest {
+  .load-more-button {
+    box-shadow: 0 0 0 1px white;
+    color: white;
   }
 }
 </style>
