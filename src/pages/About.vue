@@ -9,6 +9,7 @@ const infoCluster = ref(null)
 const infoClusterIsVisible = useElementVisibility(infoCluster)
 
 onMounted(() => {
+  // window.scroll(0, 0)
   const infoClusterElement = document.querySelector('#infoCluster')
   const infoClusterAnnotation = annotate(infoClusterElement, { type: 'highlight', color: '#f6d982', iterations: 3, animationDuration: 1500, multiline: true })
   const makeSenseElement = document.querySelector('#makeSense')

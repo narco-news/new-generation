@@ -5,20 +5,21 @@ useHead({
   title: 'Articles',
 })
 const featuredArticles = computed(() => useGhost.listFeaturedFourArticles)
-const opinionArticles = computed(() => useGhost.listOpinionArticles)
+const latestArticles = computed(() => useGhost.listLatestArticles)
 </script>
 
 <template>
   <template v-if="featuredArticles">
-    <articles-featured :articles="featuredArticles" />
+    <articles-featured
+      :articles="featuredArticles"
+    />
   </template>
-  <div v-else>
-    Loading...
-  </div>
-  <template v-if="opinionArticles">
-    <articles-opinion :articles="opinionArticles" />
-  </template>
-  <div v-else>
-    Loading...
+  <div>
+    <!-- <articles-latest
+      :articles="latestArticles"
+    /> -->
+    <pagination
+      :articles="latestArticles"
+    />
   </div>
 </template>
