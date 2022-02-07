@@ -25,12 +25,6 @@ onMounted(() => {
 <template>
   <section>
     <p>
-      <!-- Organizing and analyzing information will be one of the biggest modern challenges
-    civilization face in the centuries ahead. Unimagined careers in the future will exist.
-    Focused on interpreting digital visual and textual content. Carefully classifying it to
-    achieve various objectives.
-    <br />
-    <br /> -->
       <strong>narco.news</strong> aims to be an information collective. An experiment blending traditional
       investigative journalism with the modern information landscape. Bringing together people
       of different perspectives, working towards further understanding. With the goal of
