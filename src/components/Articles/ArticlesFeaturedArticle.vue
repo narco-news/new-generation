@@ -3,15 +3,25 @@ import { PostOrPage } from '@tryghost/content-api'
 const props = defineProps<{
   article: PostOrPage
 }>()
-const imageHoverStyles = ref()
 const articleLink = ref()
 const isHovered = useElementHover(articleLink)
-watchEffect(() => {
-  if (isHovered.value)
-    imageHoverStyles.value = 'none'
-  else
-    imageHoverStyles.value = 'brightness(0.55) saturate(1.55)'
+// CSS values
+const CSS_imageFilter = ref()
+const CSS_titleTextDecoration = ref()
+// Hover watcher
+const stopWatcher = watchEffect(() => {
+  if (isHovered.value === true) {
+    // Hover styles
+    CSS_imageFilter.value = 'brightness(0.90) saturate(1)'
+    CSS_titleTextDecoration.value = 'underline'
+  }
+  else {
+    // Default styles
+    CSS_imageFilter.value = 'brightness(0.50) saturate(0.75)'
+    CSS_titleTextDecoration.value = 'none'
+  }
 })
+tryOnBeforeUnmount(() => stopWatcher())
 </script>
 
 <template>
@@ -72,7 +82,9 @@ watchEffect(() => {
       margin: 0;
       padding: 0;
       color: white;
-      font-size: clamp(100%, 1rem + 2vw, 24px);
+      font-size: clamp(100%, 1rem + 2vw, 32px);
+      text-decoration: v-bind('CSS_titleTextDecoration');
+      text-decoration-color: var(--green);
     }
   }
 
@@ -85,7 +97,7 @@ watchEffect(() => {
       width: 100%;
       height: 100%;
       z-index: 10;
-      filter: v-bind(imageHoverStyles);
+      filter: v-bind('CSS_imageFilter');
       border-radius: 8px;
     }
   }
