@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useGhostStore } from '~/stores/ghost'
+useHead({
+  title: 'Home',
+})
 const useGhost = useGhostStore()
 const latestListFive = computed(() => useGhost.listLatestFive)
 const featuredArticles = computed(() => useGhost.listFeaturedFourArticles)

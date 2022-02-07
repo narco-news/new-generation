@@ -24,6 +24,9 @@ await useAsyncData(
 function loadMoreArticles() {
   useGhost.loadMoreAuthorArticles()
 }
+useHead({
+  title: author.value.name,
+})
 </script>
 
 <template>

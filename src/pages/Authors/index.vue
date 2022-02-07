@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useAsyncData } from '~/helpers/useAsyncData'
+useHead({
+  title: 'Authors',
+})
 const key = import.meta.env.VITE_GHOST_KEY
 const uri = import.meta.env.VITE_GHOST_URI
 const authorsList = await useAsyncData(

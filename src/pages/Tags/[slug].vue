@@ -18,6 +18,7 @@ async function updateTag() {
     .get(`${uri}/ghost/api/v3/content/tags/slug/${route.params.slug}/?key=${key}&include=tags,authors,count.posts`)
     .then((response) => {
       tag.value = response.data.tags[0]
+      document.title = response.data.tags[0].name
     })
     .catch((error) => {
       console.error(error)

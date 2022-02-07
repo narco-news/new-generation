@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useAsyncData } from '~/helpers/useAsyncData'
+useHead({
+  title: 'Tags',
+})
 const { t } = useI18n()
 // Ghost creds
 const key = import.meta.env.VITE_GHOST_KEY
