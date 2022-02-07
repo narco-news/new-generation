@@ -22,7 +22,7 @@ useHead({
     {
       hid: 'og:image',
       property: 'og:image',
-      content: () => import('../assets/library-meta-image.png'),
+      content: 'https://narco.news/library-meta-image.png',
     },
     {
       hid: 'og:site_name',
