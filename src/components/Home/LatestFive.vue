@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Articles } from '~/ghostTypes'
 const props = defineProps<{
-  articles: Articles[]
+  articles: Articles
 }>()
 </script>
 
@@ -9,7 +9,11 @@ const props = defineProps<{
   <div
     class="latest-five__wrapper"
   >
-    <article v-for="article in props.articles" :key="article.slug" class="latest-five__article">
+    <article
+      v-for="article in props.articles"
+      :key="article.slug"
+      class="latest-five__article"
+    >
       <LatestFiveArticle :article="article" />
     </article>
   </div>
@@ -40,6 +44,9 @@ const props = defineProps<{
     overflow: hidden;
     &:nth-child(1) {
       grid-area: 1 / 1 / 5 / 4;
+      ::v-deep(.lf-article__title) {
+        font-size: clamp(100%, 1rem + 2vw, 36px);
+      }
     }
     /* Second article */
     &:nth-child(2) {
