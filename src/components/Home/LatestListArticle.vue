@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VLazyImage from 'v-lazy-image'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { Article } from '~/ghostTypes'
@@ -7,34 +8,37 @@ const props = defineProps<{
   article: Article
 }>()
 const articleEl = ref()
-const titleTextDecoration = ref('none')
-const imageBorder = ref('1px solid var(--slate-400)')
-const boxShadow = ref('none')
 const isHovered = useElementHover(articleEl)
-watchEffect(() => {
+// CSS values
+const CSS_titleTextDecoration = ref()
+const CSS_imageBorder = ref()
+const CSS_imageBoxShadow = ref()
+// Hover watcher
+const stopWatcher = watchEffect(() => {
   if (isHovered.value === true) {
-    imageBorder.value = '1px solid var(--green)'
-    titleTextDecoration.value = 'underline'
-    boxShadow.value = '0 0 0 2px var(--green)'
+    CSS_imageBorder.value = '1px solid var(--green)'
+    CSS_imageBoxShadow.value = '0 0 0 2px var(--green)'
+    CSS_titleTextDecoration.value = 'underline'
   }
   else {
-    imageBorder.value = '1px solid var(--slate-400)'
-    titleTextDecoration.value = 'none'
-    boxShadow.value = 'none'
+    CSS_imageBorder.value = '1px solid var(--slate-400)'
+    CSS_imageBoxShadow.value = 'none'
+    CSS_titleTextDecoration.value = 'none'
   }
 })
+tryOnBeforeUnmount(() => stopWatcher())
 </script>
 
 <template>
   <div ref="articleEl" class="article-wrapper">
     <router-link :to="`/articles/${props.article.slug}`">
-      <div class="image-wrapper">
-        <img
+      <div class="article-image-wrapper">
+        <v-lazy-image
           :src="props.article.feature_image"
           :alt="props.article.title"
           :title="props.article.title"
           class="article-image"
-        >
+        />
       </div>
       <div class="meta-wrapper">
         <h1
@@ -95,18 +99,29 @@ a {
 .article-title {
   font-size: clamp(100%, 1.3rem + 2vw, 32px);
   color: var(--slate-800);
-  text-decoration: v-bind('titleTextDecoration');
+  text-decoration: v-bind('CSS_titleTextDecoration');
 }
-.image-wrapper {
-  /* margin: 0.5rem; */
+
+.article-image-wrapper {
+  img {
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border: v-bind('CSS_imageBorder');
+    box-shadow: v-bind('CSS_imageBoxShadow');
+    transition: all 180ms ease-in;
+  }
 }
-.article-image {
-  object-fit: cover;
-  aspect-ratio: 16/9;
-  width: 100%;
-  border: v-bind('imageBorder');
-  border-radius: 8px;
-  box-shadow: v-bind('boxShadow');
+
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+  background: transparent;
 }
 
 .author-box {
