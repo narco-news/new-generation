@@ -114,7 +114,7 @@ tryOnMounted(() => {
     }
   }
 }
-#app > main > section > div > article > div.modal-mask > div > div > img {
+#app > main > section > div > div > div.modal-mask > div > div.modal-container > img {
   object-fit: contain;
   aspect-ratio: 1/1;
   width: 100%;
