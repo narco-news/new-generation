@@ -117,8 +117,7 @@ const props = defineProps<{
   font-size: clamp(100%, 1.5rem + 2vw, 32px);
   font-family: 'Oswald';
   font-weight: 400;
-  margin: 1rem 0.5rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0.5rem;
   color: var(--slate-700);
   background-color: var(--slate-100);
   border-bottom: 2px solid var(--slate-700);
