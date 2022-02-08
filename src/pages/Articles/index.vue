@@ -14,11 +14,8 @@ const latestArticles = computed(() => useGhost.listLatestArticles)
       :articles="featuredArticles"
     />
   </template>
-  <div>
-    <!-- <articles-latest
-      :articles="latestArticles"
-    /> -->
-    <pagination
+  <div v-if="latestArticles">
+    <articles-latest
       :articles="latestArticles"
     />
   </div>
