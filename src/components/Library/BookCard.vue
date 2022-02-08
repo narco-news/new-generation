@@ -18,7 +18,7 @@ defineEmits(['openModal'])
       <v-lazy-image
         :src="props.book.imageUrl"
         :alt="props.book.title"
-        src-placeholder="/lazy-image-placeholder.png"
+        src-placeholder="/lazy-image-placeholder.webp"
         class="book-card__image"
       />
     </div>
