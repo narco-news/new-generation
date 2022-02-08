@@ -9,6 +9,7 @@ const featuredArticles = computed(() => useGhost.listFeaturedFourArticles)
 const latestList = computed(() => useGhost.listLatestList)
 const translationArticles = computed(() => useGhost.listTranslationArticles)
 const aroundTheWebArticles = computed(() => useGhost.listAroundTheWebArticles)
+const opinionArticles = computed(() => useGhost.listOpinionArticles)
 </script>
 
 <template>
@@ -28,6 +29,11 @@ const aroundTheWebArticles = computed(() => useGhost.listAroundTheWebArticles)
         :articles="latestList"
       />
     </div>
+    <template v-if="opinionArticles.length">
+      <articles-opinion
+        :articles="opinionArticles"
+      />
+    </template>
   </section>
 </template>
 
