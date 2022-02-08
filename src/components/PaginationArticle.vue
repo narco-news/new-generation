@@ -41,6 +41,7 @@ tryOnBeforeUnmount(() => stopWatcher())
         <!-- Image  -->
         <v-lazy-image
           :src="props.article.feature_image"
+          src-placeholder="/lazy-load-pagination-article.webp"
           :alt="props.article.title"
           :title="props.article.title"
         />
@@ -63,11 +64,11 @@ tryOnBeforeUnmount(() => stopWatcher())
             </time>
           </div>
         </div>
-        <p v-if="props.article.custom_excerpt" class="pa__excerpt">
+        <p
+          v-if="props.article.custom_excerpt"
+          class="pa__excerpt"
+        >
           {{ props.article.custom_excerpt }}
-        </p>
-        <p v-else class="pa__excerpt">
-          {{ props.article.excerpt }}
         </p>
       </div>
     </router-link>
@@ -135,6 +136,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       -webkit-box-orient: vertical;
       overflow: hidden;
       padding-top: 0;
+      padding-bottom: 2px;
       text-decoration: v-bind('CSS_titleTextDecoration');
     }
     .pa__author-box {
