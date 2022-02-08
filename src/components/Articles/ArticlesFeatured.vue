@@ -28,6 +28,7 @@ const props = defineProps<{
 <style lang="postcss" scoped>
 .articles-featured {
   padding: 1rem;
+  padding-bottom: 2rem;
   background-color: var(--green);
   @media (min-width: 1100px) {
     margin: 0 0rem 1rem 0rem;
