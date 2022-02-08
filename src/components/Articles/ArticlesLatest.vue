@@ -18,7 +18,7 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
       :key="article.slug"
       class="articles-wrapper"
     >
-      <article-card
+      <pagination-article
         :article="article"
       />
     </div>
@@ -32,20 +32,24 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
 
 <style lang="postcss" scoped>
 .article-latest__header {
-  font-size: clamp(100%, 1rem + 2vw, 28px);
+  font-size: clamp(100%, 1.5rem + 2vw, 32px);
   font-family: 'Oswald';
   font-weight: 400;
-  margin: 0;
-  background-color: var(--green);
-  color: white;
-  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  color: var(--slate-700);
+  background-color: var(--slate-100);
+  border-bottom: 2px solid var(--slate-700);
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   @media (min-width: 1200px) {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    /* border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px; */
+    padding: 1rem 1.5rem;
+    margin-top: 2rem;
   }
 }
 .button-wrapper {
@@ -71,13 +75,13 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
   width: 100%;
   overflow: hidden;
   margin-top: 1rem;
-  padding: 1rem;
+  padding: 2rem;
   /* first breakpoint*/
   --w1:800px;
   --n:4;
   /* second breakpoint*/
-  --w2:390px;
-  --m:2;
+  --w2: 640px;
+  --m: 2;
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
@@ -96,7 +100,7 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
   );
   gap: 20px;
   .articles-wrapper {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 }
 

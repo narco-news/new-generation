@@ -114,21 +114,19 @@ const props = defineProps<{
 }
 
 .latest-list__header {
-  font-size: clamp(100%, 1rem + 2vw, 28px);
+  font-size: clamp(100%, 1.5rem + 2vw, 32px);
   font-family: 'Oswald';
   font-weight: 400;
-  margin: 1rem 0;
+  margin: 1rem 0.5rem;
+  margin-bottom: 2rem;
+  color: var(--slate-700);
   background-color: var(--slate-100);
-  color: black;
+  border-bottom: 2px solid var(--slate-700);
   padding: 0.5rem 1rem;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
   z-index: 100;
-  @media (min-width: 1200px) {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-  }
 }
 
 html.dark {
