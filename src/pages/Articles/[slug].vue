@@ -380,7 +380,7 @@ const visibleSlideLeft = useMotion(shareButtons, {
     margin: 2rem 1rem;
     color: var(--slate-500);
     a {
-      border: 1px solid var(--slate-400);
+      box-shadow: 0 0 0 1px var(--slate-400);
       border-radius: 100%;
       display: grid;
       place-content: center;
@@ -403,7 +403,8 @@ const visibleSlideLeft = useMotion(shareButtons, {
     }
   }
   .copy-button {
-    border: 1px solid var(--slate-400);
+    box-shadow: 0 0 0 1px var(--slate-400);
+    border: none;
     border-radius: 100%;
     display: grid;
     place-content: center;
@@ -432,7 +433,7 @@ const visibleSlideLeft = useMotion(shareButtons, {
       background: none;
       border: none;
       background-color: var(--slate-100);
-      color: var(--green);
+      color: black;
       box-shadow: 0 0 0 1px var(--slate-400);
       padding: 10px;
       display: grid;
@@ -498,7 +499,7 @@ html.dark {
   .last-updated {
     color: var(--slate-500);
   }
-  .share-buttons {
+  .bottom-buttons__share-buttons {
     a {
       background-color: var(--slate-100);
       border-color: var(--green);
