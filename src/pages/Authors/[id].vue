@@ -32,7 +32,10 @@ useHead({
 <template>
   <section class="author-page-wrapper">
     <div v-if="author">
-      <AuthorCard :author="author" :show-articles="false" />
+      <!-- <AuthorCard :author="author" :show-articles="false" /> -->
+      <author-slug-card
+        :author="author"
+      />
     </div>
     <div v-if="latestAuthorArticles">
       <Pagination
