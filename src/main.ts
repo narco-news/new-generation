@@ -7,7 +7,6 @@
 import '../node_modules/normalize.css/normalize.css'
 // import '../node_modules/animate.css/animate.min.css'
 import '../node_modules/hover.css/css/hover-min.css'
-// import '../node_modules/pattern.css/dist/pattern.min.css'
 import '../src/styles/main.css'
 //
 // Pinia
