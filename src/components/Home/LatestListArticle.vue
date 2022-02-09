@@ -21,8 +21,8 @@ const stopWatcher = watchEffect(() => {
     CSS_titleTextDecoration.value = 'underline'
   }
   else {
-    CSS_imageBorder.value = '1px solid var(--slate-400)'
-    CSS_imageBoxShadow.value = 'none'
+    CSS_imageBorder.value = 'none'
+    CSS_imageBoxShadow.value = '0 0 0 1px var(--slate-400)'
     CSS_titleTextDecoration.value = 'none'
   }
 })
@@ -33,12 +33,18 @@ tryOnBeforeUnmount(() => stopWatcher())
   <div ref="articleEl" class="article-wrapper">
     <router-link :to="`/articles/${props.article.slug}`">
       <div class="article-image-wrapper">
-        <v-lazy-image
-          :src="props.article.feature_image"
+        <img
+          :src="props.article?.feature_image"
           :alt="props.article.title"
           :title="props.article.title"
           class="article-image"
-        />
+        >
+        <!-- <v-lazy-image
+          :src="props.article?.feature_image"
+          :alt="props.article.title"
+          :title="props.article.title"
+          class="article-image"
+        /> -->
       </div>
       <div class="meta-wrapper">
         <h1
@@ -48,9 +54,9 @@ tryOnBeforeUnmount(() => stopWatcher())
         </h1>
         <div class="author-box">
           <img
-            :src="props.article.primary_author.profile_image"
-            :alt="props.article.primary_author.name"
-            :title="props.article.primary_author.name"
+            :src="props.article.primary_author?.profile_image"
+            :alt="props.article.primary_author?.name"
+            :title="props.article.primary_author?.name"
           >
           <div
             style="
@@ -58,7 +64,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       "
           >
             <span class="article-author">
-              {{ props.article.primary_author.name }}
+              {{ props.article.primary_author?.name }}
             </span>
             <div
               style="
@@ -93,6 +99,8 @@ a {
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
   @media (max-width: 425px) {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--slate-300);
   }
 }
@@ -128,7 +136,7 @@ a {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: var(--slate-600);
+  color: var(--slate-700);
   margin-top: 0.5rem;
   img {
     width: 35px;
@@ -138,6 +146,13 @@ a {
   }
   .article-author {
     color: var(--green);
+    font-weight: 500;
+    font-size: 18px;
+  }
+  .article-date {
+    font-weight: 400;
+  }
+  .article-tag {
     font-weight: 500;
   }
 }

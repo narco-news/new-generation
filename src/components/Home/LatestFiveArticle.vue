@@ -16,12 +16,12 @@ const CSS_titleTextDecoration = ref()
 const stopWatcher = watchEffect(() => {
   if (articleHovered.value === true) {
     // Hover styles
-    CSS_imageFilter.value = 'brightness(0.80) saturate(1)'
+    CSS_imageFilter.value = 'brightness(0.80) saturate(1) blur(0)'
     CSS_titleTextDecoration.value = 'underline'
   }
   else {
     // Default styles
-    CSS_imageFilter.value = 'brightness(0.50) saturate(0.75)'
+    CSS_imageFilter.value = 'brightness(0.50) saturate(0.90) blur(3px)'
     CSS_titleTextDecoration.value = 'none'
   }
 })
@@ -65,8 +65,7 @@ tryOnBeforeUnmount(() => stopWatcher())
   min-height: 170px;
   display: block;
   border-radius: 8px;
-  border: 1px solid black;
-  box-shadow: none;
+  box-shadow: 0 0 0 2px var(--slate-300);
   transition: border 180ms ease-in;
   transition: box-shadow 180ms ease-in;
   position: relative;
@@ -128,9 +127,9 @@ tryOnBeforeUnmount(() => stopWatcher())
       align-self: flex-start;
     }
     .lf-article__title {
-      color: white;
+      color: var(--slate-200);
       background-color: transparent;
-      font-size: clamp(100%, 0.6rem + 2vw, 26px);
+      font-size: clamp(100%, 0.5rem + 2vw, 28px);
       margin: 0;
       line-height: 1.3;
       margin: 0;
@@ -146,7 +145,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       margin: 0;
       font-size: 11px;
       font-family: monospace;
-      color: white;
+      color: var(--slate-200);
       background-color: transparent;
       align-self: flex-start;
       @media (min-width: 425px) {

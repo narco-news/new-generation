@@ -21,7 +21,7 @@ const stopWatcher = watchEffect(() => {
     // Default
     CSS_titleTextDecoration.value = 'none'
     CSS_titleColor.value = 'var(--slate-800)'
-    CSS_authorImageFilter.value = 'grayscale(.90)'
+    CSS_authorImageFilter.value = 'saturate(0.60)'
   }
 })
 tryOnBeforeUnmount(() => stopWatcher())
@@ -53,11 +53,11 @@ a {
   text-decoration: none;
   display: block;
   width: 100%;
-  padding: 5px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   border-bottom: 1px solid var(--slate-300);
+  color: var(--slate-800);
   &:last-child {
     border-bottom: none;
   }
@@ -79,7 +79,7 @@ a {
   transition: all 180ms ease-in;
 }
 .opinion__author {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--green);
   text-transform: uppercase;

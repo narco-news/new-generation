@@ -44,8 +44,11 @@ const props = defineProps<{
     overflow: hidden;
     &:nth-child(1) {
       grid-area: 1 / 1 / 5 / 4;
+      ::v-deep(.lf-article) {
+        box-shadow: 0 0 0 2px var(--green);
+      }
       ::v-deep(.lf-article__title) {
-        font-size: clamp(100%, 1rem + 2vw, 36px);
+        font-size: clamp(100%, 1.2rem + 2vw, 36px);
       }
     }
     /* Second article */
@@ -57,6 +60,7 @@ const props = defineProps<{
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
+          font-size: clamp(100%, 0.7rem + 2vw, 36px);
           /* margin-bottom: 3px;
           padding-bottom: 3px; */
         }

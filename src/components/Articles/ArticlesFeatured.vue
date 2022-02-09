@@ -29,7 +29,8 @@ const props = defineProps<{
 .articles-featured {
   padding: 1rem;
   padding-bottom: 2rem;
-  background-color: var(--green);
+  background-color: var(--slate-300);
+  color: var(--green);
   @media (min-width: 1100px) {
     margin: 0 0rem 1rem 0rem;
     padding: 1rem 2rem;
@@ -42,20 +43,28 @@ const props = defineProps<{
     position: -webkit-sticky;
     top: 0;
     z-index: 200;
-    background-color: var(--green);
-    padding: 0.5rem 0;
+    background-color: none;
+    margin: 2rem 0rem;
+    /* padding: 1rem 0.5rem; */
+    border-bottom: 3px solid var(--green);
+    /* border-top: 3px solid var(--green); */
+    background-color: var(--slate-300);
+    letter-spacing: 1.2px;
+    color: var(--green);
     .articles-featured__header {
-      color: white;
+      color: var(--green);
       font-weight: 400;
       margin: 0;
-      padding: 0;
-      font-size: clamp(100%, 1rem + 2vw, 32px);
+      padding: 1rem 0.5rem;
+      padding-right: 1rem;
+      font-size: clamp(100%, 1.5rem + 2vw, 28px);
+      text-transform: uppercase;
     }
   }
   .articles-featured__articles-wrapper {
     margin: 1rem 0;
     --min: 45ch;
-    --gap: 1.5rem;
+    --gap: 0rem;
 
     display: grid;
     grid-gap: var(--gap);
@@ -63,7 +72,14 @@ const props = defineProps<{
     in extra narrow spaces */
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
     .articles-featured__article {
-      /* margin: 0 0 1.5rem 0; */
+      background-color: var(--slate-300);
+      padding-bottom: 1rem;
+      &:last-child {
+        ::v-deep(.featured-article__wrapper) {
+          border-bottom: 3px solid var(--green);
+          padding-bottom: 3rem;
+        }
+      }
     }
   }
 }
@@ -79,9 +95,12 @@ const props = defineProps<{
 
 html.dark {
   .articles-featured {
-    background-color: #1cc992;
+    background-color: #161618;
     .articles-featured__header-wrapper {
-      background-color: #1cc992;
+      background-color: #161618;
+    }
+    .articles-featured__article {
+      background-color: #161618;
     }
   }
 }

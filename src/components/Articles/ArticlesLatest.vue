@@ -43,7 +43,7 @@ const { y } = useWindowScroll()
   font-family: 'Oswald';
   font-weight: 400;
   margin: 0 0.5rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   padding: 1rem;
   color: var(--slate-700);
   background-color: var(--slate-100);
