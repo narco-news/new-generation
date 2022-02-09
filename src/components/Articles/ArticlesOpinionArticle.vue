@@ -14,7 +14,7 @@ const stopWatcher = watchEffect(() => {
   if (articleElHovered.value === true) {
     //
     CSS_titleTextDecoration.value = 'underline'
-    CSS_titleColor.value = 'var(--green)'
+    CSS_titleColor.value = 'var(--green-400)'
     CSS_authorImageFilter.value = 'none'
   }
   else {
@@ -81,7 +81,7 @@ a {
 .opinion__author {
   font-size: 14px;
   font-weight: 400;
-  color: var(--green);
+  color: var(--green-400);
   text-transform: uppercase;
   font-family: monospace;
   margin: 0;
@@ -103,7 +103,7 @@ html.dark {
         color: white;
     }
     .opinion__author {
-        color: var(--slate-300);
+        color: var(--green-400);
     }
 }
 </style>

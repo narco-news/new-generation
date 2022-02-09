@@ -125,17 +125,25 @@ const props = defineProps<{
       }
     }
     ::v-deep(.article-image) {
-      height: 100%;
       aspect-ratio: 1/1;
+      height: 100%;
       filter: brightness(55%) saturate(65%);
+      @media (min-height: 768px) {
+        height: 450px;
+      }
+      @media (max-height: 1025px) {
+        /* height: 100%; */
+      }
     }
   }
   &:nth-child(8) {
     grid-column: 1/-1;
     ::v-deep(.article-wrapper) {
+      @media (max-width: 768px) {
       padding-bottom: 2rem;
       margin-bottom: 1rem;
       border-bottom: 3px solid var(--green-400);
+      }
     }
     @media (min-width: 1024px) {
       grid-column: auto;

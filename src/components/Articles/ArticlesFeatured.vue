@@ -64,8 +64,11 @@ const props = defineProps<{
   .articles-featured__articles-wrapper {
     margin: 1rem 0;
     --min: 45ch;
-    --gap: 0rem;
+    --gap: 2rem;
 
+    @media (max-width: 768px) {
+      --gap: 0rem;
+    }
     display: grid;
     grid-gap: var(--gap);
     /* min() with 100% prevents overflow
@@ -76,8 +79,10 @@ const props = defineProps<{
       padding-bottom: 1rem;
       &:last-child {
         ::v-deep(.featured-article__wrapper) {
-          border-bottom: 3px solid var(--green);
-          padding-bottom: 3rem;
+          @media (max-width: 768px) {
+            border-bottom: 3px solid var(--green);
+            padding-bottom: 3rem;
+          }
         }
       }
     }

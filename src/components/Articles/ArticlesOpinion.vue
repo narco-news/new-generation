@@ -37,6 +37,9 @@ const props = defineProps<{
   margin: 1rem 0.5rem;
   padding-bottom: 1rem;
   border-bottom: 3px solid var(--green-400);
+  @media (min-width: 1140px) {
+    margin-bottom: 3rem;
+  }
   .opinion__header-wrapper {
     margin-top: 1rem;
     padding: 1rem 1rem 0.5rem 1rem;
@@ -61,19 +64,23 @@ const props = defineProps<{
         margin: 0;
     }
     a {
-        font-size: 12px;
-        text-decoration: none;
-        color: var(--slate-500);
-        font-family: monospace;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        -webkit-tap-highlight-color: none;
-        border-radius: 6px;
-        &:hover {
-            background-color: var(--slate-200);
-        }
+
+      color: var(--slate-600);
+      font-size: 12px;
+      text-decoration: none;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      -webkit-tap-highlight-color: none;
+      border-radius: 6px;
+      transition: all 180ms ease-in;
+      text-transform: uppercase;
+      &:hover {
+          box-shadow: 0 0 0 1px var(--green);
+          color: var(--green);
+      }
     }
   }
   .opinion__articles-wrapper {

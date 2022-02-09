@@ -23,6 +23,7 @@ const stopWatcher = watchEffect(() => {
   }
 })
 tryOnBeforeUnmount(() => stopWatcher())
+const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
 
 <template>
@@ -31,6 +32,17 @@ tryOnBeforeUnmount(() => stopWatcher())
     :title="props.article.title"
     class="featured-article__wrapper"
   >
+    <div
+      v-if="isLargeScreen"
+      class="featured-article__image-wrapper"
+      style="margin-bottom: 2rem;"
+    >
+      <img
+        :src="props.article.feature_image"
+        :alt="props.article.title"
+        class="featured-article__image"
+      >
+    </div>
     <h1 class="featured-article__title">
       {{ props.article.title }}
     </h1>
@@ -47,6 +59,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       {{ props.article.custom_excerpt }}
     </div>
     <div
+      v-if="!isLargeScreen"
       class="featured-article__image-wrapper"
       style="margin-bottom: 2rem;"
     >
@@ -64,10 +77,12 @@ tryOnBeforeUnmount(() => stopWatcher())
   display: block;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  border-bottom: 1px solid var(--slate-400);
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   margin: 0 0.5rem;
+  @media (max-width: 768px) {
+    border-bottom: 1px solid var(--slate-400);
+  }
   /*  */
   .featured-article__image-wrapper {
     overflow: hidden;
@@ -102,7 +117,7 @@ tryOnBeforeUnmount(() => stopWatcher())
     color: var(--green);
     margin: 0 1rem;
     padding: 0;
-    text-decoration: 2px dotted underline var(--slate-700);
+    text-decoration: 2px solid underline var(--slate-700);
     font-size: clamp(100%, 1.5rem + 2vw, 32px);
     letter-spacing: 1px;
   }

@@ -11,18 +11,15 @@ const articleHovered = useElementHover(latestFiveArticle)
 const imageLoaded = ref(false)
 // CSS values
 const CSS_imageFilter = ref()
-const CSS_titleTextDecoration = ref()
 // Hover watcher
 const stopWatcher = watchEffect(() => {
   if (articleHovered.value === true) {
     // Hover styles
     CSS_imageFilter.value = 'brightness(0.80) saturate(1) blur(0)'
-    CSS_titleTextDecoration.value = 'underline'
   }
   else {
     // Default styles
     CSS_imageFilter.value = 'brightness(0.50) saturate(0.90) blur(3px)'
-    CSS_titleTextDecoration.value = 'none'
   }
 })
 tryOnBeforeUnmount(() => stopWatcher())
@@ -127,7 +124,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       align-self: flex-start;
     }
     .lf-article__title {
-      color: var(--slate-200);
+      color: white;
       background-color: transparent;
       font-size: clamp(100%, 0.5rem + 2vw, 28px);
       margin: 0;
@@ -135,9 +132,6 @@ tryOnBeforeUnmount(() => stopWatcher())
       margin: 0;
       padding: 0 10px 4px 10px;
       align-self: flex-start;
-      text-decoration: v-bind('CSS_titleTextDecoration');
-      text-decoration-color: var(--green);
-      transition: all 180ms ease-in;
     }
     .lf-article__date {
       display: inline-block;

@@ -47,7 +47,10 @@ const boxHeadingBar = ref()
 <style lang="postcss" scoped>
 .box__wrapper {
   margin: 1rem 0.5rem;
-  border-bottom: 3px solid var(--green-400);
+  padding-bottom: 2rem;
+  @media (max-width: 768px) {
+    border-bottom: 3px solid var(--green-400);
+  }
     .box__heading-bar {
         margin-bottom: 2rem;
         padding: 1rem 0.5rem 0.5rem 1rem;
@@ -88,6 +91,15 @@ const boxHeadingBar = ref()
     }
     .box__articles-wrapper {
         .box__article {
+            &:first-child {
+              ::v-deep(.article) {
+                .image {
+                  @media (min-width: 768px) {
+                    max-height: 275px;
+                  }
+                }
+              }
+            }
             &:last-child {
                 ::v-deep(.article) {
                     .meta {

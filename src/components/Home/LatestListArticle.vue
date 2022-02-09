@@ -11,17 +11,14 @@ const articleEl = ref()
 const isHovered = useElementHover(articleEl)
 // CSS values
 const CSS_titleTextDecoration = ref()
-const CSS_imageBorder = ref()
 const CSS_imageBoxShadow = ref()
 // Hover watcher
 const stopWatcher = watchEffect(() => {
   if (isHovered.value === true) {
-    CSS_imageBorder.value = '1px solid var(--green)'
     CSS_imageBoxShadow.value = '0 0 0 2px var(--green)'
     CSS_titleTextDecoration.value = 'underline'
   }
   else {
-    CSS_imageBorder.value = 'none'
     CSS_imageBoxShadow.value = '0 0 0 1px var(--slate-400)'
     CSS_titleTextDecoration.value = 'none'
   }
@@ -117,7 +114,6 @@ a {
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    border: v-bind('CSS_imageBorder');
     box-shadow: v-bind('CSS_imageBoxShadow');
     transition: all 180ms ease-in;
   }
