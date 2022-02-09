@@ -29,36 +29,39 @@ const authorArticles = computed((): Articles => useGhost.listAuthorArticles(prop
     </p>
     <div class="social-links">
       <a
+        v-if="props.author.facebook"
+        :href="`https://patreon.com/${props.author.facebook}`"
+        :title="`${props.author.name}'s Patreon`"
+        target="_blank"
+        style="text-decoration: none;margin: 0 1rem 0 0;"
+      >
+        <PatreonColorIcon />
+      </a>
+      <a
         v-if="props.author.twitter"
         :href="`https://twitter.com/${props.author.twitter}`"
         :title="`${props.author.name}'s Twitter profile`"
         target="_blank"
+        style="color: var(--slate-600);margin: 0 0.5rem"
       >
-        <TwitterIcon />
+        <TwitterColorIcon :border="true" />
       </a>
       <a
         v-if="props.author.location"
         :href="`mailto:${props.author.location}`"
         :title="`Email ${props.author.name}`"
+        style="color: var(--slate-600);margin: 0 0.5rem"
       >
-        <MailIcon />
+        <MailIcon :border="true" />
       </a>
       <a
         v-if="props.author.website"
         :href="`${props.author.website}`"
         :title="`${props.author.name}'s website`"
         target="_blank"
+        style="color: var(--slate-600);margin: 0 0.5rem"
       >
-        <ExternalLinkIcon />
-      </a>
-      <a
-        v-if="props.author.facebook"
-        :href="`https://patreon.com/${props.author.facebook}`"
-        :title="`${props.author.name}'s Patreon`"
-        target="_blank"
-        style="text-decoration: none;"
-      >
-        <PatreonColorIcon />
+        <ExternalLinkIcon :border="true" />
       </a>
     </div>
     <!-- Articles -->
@@ -136,7 +139,7 @@ a {
         margin: 20px 0;
         height: auto;
         & a:hover {
-          color: var(--green);
+          color: var(--green) !important;
         }
     }
 
@@ -182,6 +185,11 @@ html.dark {
     }
     .author__bio {
       color: var(--slate-400);
+    }
+    .social-links {
+      a {
+        color: white !important;
+      }
     }
   }
 }
