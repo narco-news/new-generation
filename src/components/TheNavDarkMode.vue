@@ -11,7 +11,7 @@ const { t } = useI18n()
     @click="toggleDark()"
   >
     <transition name="slide" mode="out-in">
-      <moon-color-icon v-if="!isDark" src="../assets/moon.svg" alt="Moon" />
+      <moon-color-icon v-if="!isDark" alt="Moon" />
       <sun-color-icon v-else alt="Sun" />
     </transition>
   </button>
@@ -22,15 +22,15 @@ const { t } = useI18n()
   display: grid;
   place-content: center;
   background: none;
-  /* border: 1px solid black; */
   border: none;
-  padding: 9px 10px;
+  padding: 8px;
+  margin: 0.5rem 0;
   border-radius: 6px;
   cursor: pointer;
   overflow: hidden;
-  /* border: 1px solid black; */
-  box-shadow: 0 0 0 1px black;
+  box-shadow: 0 0 0 1px var(--slate-400);
   transition: box-shadow 180ms ease-in;
+  color: var(--slate-700);
   &:hover {
     box-shadow: 0 0 0 2px var(--green);
   }
@@ -64,6 +64,10 @@ html.dark {
   & .dark-mode-button {
     box-shadow: 0 0 0 1px white;
     color: white;
+    &:hover {
+        box-shadow: 0 0 0 2px var(--green-400);
+        color: var(--green-400);
+    }
   }
 }
 </style>

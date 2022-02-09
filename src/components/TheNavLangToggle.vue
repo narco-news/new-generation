@@ -36,13 +36,14 @@ const toggleLocales = () => {
     font-size: 12px;
     font-family: monospace;
     font-weight: 500;
-    color: black;
+    color: var(--slate-800);
     border-radius: 8px;
-    box-shadow: 0 0 0 1px black;
+    box-shadow: 0 0 0 1px var(--slate-400);
     padding: 8px;
-    transition: box-shadow 180ms ease-in;
+    transition: all 180ms ease-in;
     &:hover {
       box-shadow: 0 0 0 2px var(--green);
+      color: var(--green);
     }
   }
 }
@@ -52,6 +53,10 @@ html.dark {
     span {
       color: white;
       box-shadow: 0 0 0 1px white;
+      &:hover {
+          box-shadow: 0 0 0 2px var(--green-400);
+          color: var(--green-400);
+      }
     }
   }
 }
