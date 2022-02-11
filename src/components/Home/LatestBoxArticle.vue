@@ -62,7 +62,7 @@ tryOnBeforeUnmount(() => stopWatcher())
 .article {
     max-width: 75ch;
     margin: 1rem auto;
-    padding: 0;
+    padding: 0 0.5rem;
     .image {
         object-fit: cover;
         aspect-ratio: 16/9;
