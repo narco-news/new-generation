@@ -16,7 +16,6 @@
     align-items: center;
     justify-content: center;
     color: var(--slate-50);
-    border: 1px solid black;
     border-radius: 8px;
     padding: 6px 10px;
     margin-right: 10px;
@@ -28,5 +27,10 @@
         width: 18px;
         height: 18px;
     }
+}
+html.dark {
+  .patreon-icon-wrapper {
+    box-shadow: 0 0 0 1px var(--slate-50);
+  }
 }
 </style>

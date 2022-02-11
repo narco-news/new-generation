@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import TheFooterRSS from './TheFooterRSS.vue'
 const { t } = useI18n()
 const route = useRoute()
 const showLangToggle = ref(true)
@@ -19,11 +20,11 @@ function rotate() {
       <div class="footer__article-links">
         <h3>narco.news</h3>
         <ul>
-          <li>
+          <!-- <li>
             <router-link to="/about">
               {{ t('nav.about') }}
             </router-link>
-          </li>
+          </li> -->
           <li>
             <router-link to="/authors">
               {{ t('articles.authors') }}
@@ -34,24 +35,6 @@ function rotate() {
               {{ t('nav.library') }}
             </router-link>
           </li>
-          <!-- <li class="disabled">
-            {{ t('nav.map') }}
-          </li>
-          <li class="disabled">
-            {{ t('nav.wire') }}
-          </li> -->
-          <!-- <li>
-            <ClientOnly>
-              <Popper>
-                <button class="popper-button">
-                  Privacy
-                </button>
-                <template #content>
-
-                </template>
-              </Popper>
-            </ClientOnly>
-          </li> -->
         </ul>
       </div>
       <div class="footer__article-links">
@@ -123,6 +106,7 @@ function rotate() {
           justify-content: flex-end;
         "
       >
+        <TheFooterRSS />
         <TheNavDarkMode style="align-self: flex-end; margin-bottom: 1em" />
         <TheNavLangToggle v-if="showLangToggle" style="margin-bottom: 1em" />
         <a

@@ -71,8 +71,9 @@ const emits = defineEmits(['newSlug'])
   background-color: var(--slate-200);
   padding: 1rem;
   border-top: 1px solid var(--green);
-  border-bottom: 1px solid var(--green);
+  /* border-bottom: 1px solid var(--green); */
   margin: 2rem 0;
+  margin-bottom: 0;
   @media (min-width: 1024px) {
     border-left: 1px solid var(--green);
     border-right: 1px solid var(--green);

@@ -6,11 +6,18 @@ const props = defineProps<{
 }>()
 const { t } = useI18n()
 const loadMoreArticles = () => useGhost.loadMoreLatest()
+const { y } = useWindowScroll()
 </script>
 
 <template>
   <h1 class="article-latest__header">
     {{ t('articles.latest') }}
+    <div
+      v-show="y > 3000"
+      class="top-scroll"
+    >
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.14645 2.14645C7.34171 1.95118 7.65829 1.95118 7.85355 2.14645L11.8536 6.14645C12.0488 6.34171 12.0488 6.65829 11.8536 6.85355C11.6583 7.04882 11.3417 7.04882 11.1464 6.85355L8 3.70711L8 12.5C8 12.7761 7.77614 13 7.5 13C7.22386 13 7 12.7761 7 12.5L7 3.70711L3.85355 6.85355C3.65829 7.04882 3.34171 7.04882 3.14645 6.85355C2.95118 6.65829 2.95118 6.34171 3.14645 6.14645L7.14645 2.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" /></svg>
+    </div>
   </h1>
   <div class="articles-latest__wrapper">
     <div
@@ -18,7 +25,7 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
       :key="article.slug"
       class="articles-wrapper"
     >
-      <article-card
+      <pagination-article
         :article="article"
       />
     </div>
@@ -32,32 +39,35 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
 
 <style lang="postcss" scoped>
 .article-latest__header {
-  font-size: clamp(100%, 1rem + 2vw, 28px);
+  font-size: clamp(100%, 1.5rem + 2vw, 32px);
   font-family: 'Oswald';
   font-weight: 400;
-  margin: 0;
-  background-color: var(--green);
-  color: white;
-  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  /* margin-top: 1rem; */
+  padding: 1rem;
+  color: var(--slate-700);
+  background-color: var(--slate-100);
+  border-bottom: 2px solid var(--slate-700);
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
+  display: flex;
+  justify-content: space-between;
   @media (min-width: 1200px) {
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    padding: 1rem 1.5rem;
   }
 }
 .button-wrapper {
   display: grid;
   place-content: center;
+  margin-bottom: 2rem;
 }
 .load-more-button {
   background: none;
   padding: 1em 2em;
   border: none;
   border-radius: 9999px;
-  margin-top: 2em;
   box-shadow: 0 0 0 1px black;
   transition: box-shadow color 180ms ease-in;
   &:hover {
@@ -67,17 +77,15 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
 }
 .articles-latest__wrapper {
   color: black;
-  padding: 5px;
   width: 100%;
   overflow: hidden;
-  margin-top: 1rem;
-  padding: 1rem;
+  padding: 2rem;
   /* first breakpoint*/
   --w1:800px;
   --n:4;
   /* second breakpoint*/
-  --w2:390px;
-  --m:2;
+  --w2: 640px;
+  --m: 2;
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
@@ -96,7 +104,7 @@ const loadMoreArticles = () => useGhost.loadMoreLatest()
   );
   gap: 20px;
   .articles-wrapper {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -104,6 +112,11 @@ html.dark {
   .load-more-button {
     box-shadow: 0 0 0 1px white;
     color: white;
+  }
+  .article-latest__header {
+    background-color: black;
+    color: white;
+    border-color: var(--slate-400);
   }
 }
 </style>

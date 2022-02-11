@@ -97,6 +97,7 @@ function bounce() {
     transition: color 180ms ease-in;
     /* cursor: none; */
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
     strong {
       font-weight: 500;
     }

@@ -27,7 +27,6 @@
     "vue": "^3.2.26",
     "vue-i18n": "^9.2.0-beta.23",
     "vue-router": "^4.0.12",
-    "vue3-lazyload": "^0.2.5-beta",
     "vue3-popper": "^1.4.1"
   },
   "devDependencies": {
@@ -59,6 +58,7 @@
     "unplugin-auto-import": "^0.5.3",
     "unplugin-icons": "^0.13.0",
     "unplugin-vue-components": "^0.17.9",
+    "v-lazy-image": "^2.0.1",
     "vite": "^2.6.4",
     "vite-plugin-fonts": "^0.2.2",
     "vite-plugin-pages": "^0.19.3",

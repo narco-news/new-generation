@@ -13,7 +13,7 @@ const uri = import.meta.env.VITE_GHOST_URI
 if (!useGhost.allArticles[0]) {
   const articles = await useAsyncData(
     'articles',
-    `${uri}/ghost/api/v3/content/posts/?key=${key}&limit=all&filter=tags:${filter.value}&include=authors,tags&fields=slug,title,featured,feature_image,primary_author,published_at,excerpt,custom_excerpt`,
+    `${uri}/ghost/api/v3/content/posts/?key=${key}&limit=all&filter=tags:${filter.value}&include=authors,tags&fields=slug,title,featured,feature_image,primary_author,published_at,custom_excerpt`,
     {
       awaitSetup: false,
     },

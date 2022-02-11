@@ -17,12 +17,11 @@ const props = defineProps<{
 <style lang="postcss" scoped>
 .pagination {
   .pagination__wrapper {
-    padding: 10px; /* first breakpoint*/
-    --w1: 800px;
+    --w1: 1060px;
     --n: 4;
     /* second breakpoint*/
-    --w2: 390px;
-    --m: 2;
+    --w2: 768px;
+    --m: 3;
     display: grid;
     grid-template-columns: repeat(
       auto-fill,
@@ -39,7 +38,42 @@ const props = defineProps<{
         1fr
       )
     );
-    gap: 20px;
+    gap: 10px;
+
+    article {
+      padding: 0.5rem;
+      margin: 1rem;
+      @media (min-width: 1060px) {
+        margin: 1rem 0;
+        &:nth-child(12n + 1) {
+          grid-column: 1/-1;
+          ::v-deep(.pa) {
+            position: relative;
+            .pa__image-wrapper {
+              min-height: 450px;
+            }
+            .pa__meta {
+              background-color: white;
+              max-width: 75ch;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              border-top-right-radius: 6px;
+              border-bottom-left-radius: 6px;
+            }
+          }
+        }
+        &:nth-child(12n) {
+          grid-column: 3/-1;
+          ::v-deep(.pa) {
+            .pa__excerpt {
+              width: 75%;
+            }
+          }
+        }
+      }
+
+    }
   }
   .pagination__header {
     font-size: clamp(100%, 1rem + 2vw, 24px);
@@ -70,6 +104,33 @@ const props = defineProps<{
       &:hover {
         border: 1px solid var(--green);
         color: var(--green);
+      }
+    }
+  }
+}
+
+html.dark {
+  .pagination {
+    .pagination__wrapper {
+      article {
+        &:nth-child(12n + 1) {
+          ::v-deep(.pa) {
+            box-shadow: none;
+            .pa__meta {
+              background-color: black;
+              .pa__author-box {
+                div {
+                  time {
+                    color: white;
+                  }
+                }
+              }
+              .pa__excerpt {
+                color: white;
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -7,6 +7,9 @@ const useGhost = useGhostStore()
 const article = useGhost.listArticle(route.params.all[0])
 if (article.length === 1)
   router.replace(`/articles/${route.params.all[0]}`)
+useHead({
+  title: 'Not found',
+})
 </script>
 
 <template>

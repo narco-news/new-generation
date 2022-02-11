@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VLazyImage from 'v-lazy-image'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { Article } from '~/ghostTypes'
@@ -7,34 +8,40 @@ const props = defineProps<{
   article: Article
 }>()
 const articleEl = ref()
-const titleTextDecoration = ref('none')
-const imageBorder = ref('1px solid var(--slate-400)')
-const boxShadow = ref('none')
 const isHovered = useElementHover(articleEl)
-watchEffect(() => {
+// CSS values
+const CSS_titleTextDecoration = ref()
+const CSS_imageBoxShadow = ref()
+// Hover watcher
+const stopWatcher = watchEffect(() => {
   if (isHovered.value === true) {
-    imageBorder.value = '1px solid var(--green)'
-    titleTextDecoration.value = 'underline'
-    boxShadow.value = '0 0 0 2px var(--green)'
+    CSS_imageBoxShadow.value = '0 0 0 2px var(--green)'
+    CSS_titleTextDecoration.value = 'underline'
   }
   else {
-    imageBorder.value = '1px solid var(--slate-400)'
-    titleTextDecoration.value = 'none'
-    boxShadow.value = 'none'
+    CSS_imageBoxShadow.value = '0 0 0 1px var(--slate-400)'
+    CSS_titleTextDecoration.value = 'none'
   }
 })
+tryOnBeforeUnmount(() => stopWatcher())
 </script>
 
 <template>
   <div ref="articleEl" class="article-wrapper">
     <router-link :to="`/articles/${props.article.slug}`">
-      <div class="image-wrapper">
+      <div class="article-image-wrapper">
         <img
-          :src="props.article.feature_image"
+          :src="props.article?.feature_image"
           :alt="props.article.title"
           :title="props.article.title"
           class="article-image"
         >
+        <!-- <v-lazy-image
+          :src="props.article?.feature_image"
+          :alt="props.article.title"
+          :title="props.article.title"
+          class="article-image"
+        /> -->
       </div>
       <div class="meta-wrapper">
         <h1
@@ -44,9 +51,9 @@ watchEffect(() => {
         </h1>
         <div class="author-box">
           <img
-            :src="props.article.primary_author.profile_image"
-            :alt="props.article.primary_author.name"
-            :title="props.article.primary_author.name"
+            :src="props.article.primary_author?.profile_image"
+            :alt="props.article.primary_author?.name"
+            :title="props.article.primary_author?.name"
           >
           <div
             style="
@@ -54,7 +61,7 @@ watchEffect(() => {
       "
           >
             <span class="article-author">
-              {{ props.article.primary_author.name }}
+              {{ props.article.primary_author?.name }}
             </span>
             <div
               style="
@@ -89,31 +96,43 @@ a {
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
   @media (max-width: 425px) {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--slate-300);
   }
 }
 .article-title {
   font-size: clamp(100%, 1.3rem + 2vw, 32px);
   color: var(--slate-800);
-  text-decoration: v-bind('titleTextDecoration');
+  text-decoration: v-bind('CSS_titleTextDecoration');
 }
-.image-wrapper {
-  /* margin: 0.5rem; */
+
+.article-image-wrapper {
+  img {
+    object-fit: cover;
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: v-bind('CSS_imageBoxShadow');
+    transition: all 180ms ease-in;
+  }
 }
-.article-image {
-  object-fit: cover;
-  aspect-ratio: 16/9;
-  width: 100%;
-  border: v-bind('imageBorder');
-  border-radius: 8px;
-  box-shadow: v-bind('boxShadow');
+
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+  background: transparent;
 }
 
 .author-box {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: var(--slate-600);
+  color: var(--slate-700);
   margin-top: 0.5rem;
   img {
     width: 35px;
@@ -123,6 +142,13 @@ a {
   }
   .article-author {
     color: var(--green);
+    font-weight: 500;
+    font-size: 18px;
+  }
+  .article-date {
+    font-weight: 400;
+  }
+  .article-tag {
     font-weight: 500;
   }
 }

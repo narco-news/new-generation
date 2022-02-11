@@ -4,7 +4,6 @@
 //
 ////////////////////////
 // Imports
-import { log } from 'console'
 import { PostsOrPages } from '@tryghost/content-api'
 import axios from 'axios'
 import { useMotion, useMotionControls, useMotionProperties } from '@vueuse/motion'
@@ -52,11 +51,6 @@ watchEffect(() => {
 useHead({
   // title: article.value?.posts[0].title,
   script: [
-    {
-      'defer': true,
-      'src': 'https://comments.narco.news/js/commento.js',
-      'data-css-override': 'https://narco-news-ssr.vercel.app/comments.css',
-    },
     {
       src: 'https://platform.twitter.com/widgets.js',
     },
@@ -210,18 +204,6 @@ const visibleSlideLeft = useMotion(shareButtons, {
     },
   },
 })
-//
-// Initialize commento when visible
-const commentBox = ref<HTMLElement>()
-const commentBoxVisiblity = useElementVisibility(commentBox)
-tryOnMounted(() => {
-  if (commentBoxVisiblity.value === true)
-    window.commento?.main()
-})
-tryOnBeforeUnmount(() => {
-  const commentsElem = document.getElementById('commento')
-  commentsElem.parentNode.removeChild(commentsElem)
-})
 </script>
 
 <template>
@@ -361,13 +343,6 @@ tryOnBeforeUnmount(() => {
           @new-slug="changeArticle($event)"
         />
       </div>
-      <!-- COMMENTS -->
-      <div
-        ref="commentsBox"
-        class="comments"
-      >
-        <div id="commento" />
-      </div>
       <div v-if="!showBottomBar">
         <transition name="slide" mode="in-out">
           <article-bottom-bar
@@ -405,7 +380,7 @@ tryOnBeforeUnmount(() => {
     margin: 2rem 1rem;
     color: var(--slate-500);
     a {
-      border: 1px solid black;
+      box-shadow: 0 0 0 1px var(--slate-400);
       border-radius: 100%;
       display: grid;
       place-content: center;
@@ -428,7 +403,8 @@ tryOnBeforeUnmount(() => {
     }
   }
   .copy-button {
-    border: 1px solid black;
+    box-shadow: 0 0 0 1px var(--slate-400);
+    border: none;
     border-radius: 100%;
     display: grid;
     place-content: center;
@@ -456,9 +432,9 @@ tryOnBeforeUnmount(() => {
     .scroll-top__button {
       background: none;
       border: none;
-      background-color: var(--green);
-      color: var(--slate-100);
-      box-shadow: 0 0 0 1px var(--slate-300);
+      background-color: var(--slate-100);
+      color: black;
+      box-shadow: 0 0 0 1px var(--slate-400);
       padding: 10px;
       display: grid;
       place-content: center;
@@ -523,7 +499,7 @@ html.dark {
   .last-updated {
     color: var(--slate-500);
   }
-  .share-buttons {
+  .bottom-buttons__share-buttons {
     a {
       background-color: var(--slate-100);
       border-color: var(--green);

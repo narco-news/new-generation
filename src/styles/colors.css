@@ -1,20 +1,21 @@
 :root {
-  /* hsl(0, 87%, 49%) */
-  --red: #EB1010;
+  /* MAIN SCHEME */
+  --indigo-100: #a09bf1;
+  --indigo-200: #908bef;
+  --indigo-300: #817aed;
+  --indigo-400: #716aea;
+  --indigo: #4f46e5;
 
-  --purple: #9048F9;
-
-  /* Chrome White */
-  --chrome: #ddf1d1;
-  /* Kingfisher Daisy */
-  --king: #4c0791;
-  /* Vue black */
-  --vue-black: #2c3e50;
-  /* Green */
+  --green-100: #74c9ae;
+  --green-200: #5dc0a1;
+  --green-300: #45b793;
+  --green-400: #2eae86;
   --green: #17A578;
+  /*  */
   --lt-green: #34B373;
   --lime: #1cc992;
-  --yellow: #FFC100;
+
+  --vue-black: #2c3e50;
 
 
   /* Tailwind colors */

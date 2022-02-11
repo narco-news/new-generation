@@ -1,49 +1,28 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { Article } from '~/ghostTypes'
 dayjs.extend(relativeTime)
 const props = defineProps<{
-  article: {}
+  article: Article
 }>()
 const latestFiveArticle = ref()
-const isLatestFiveArticleHovered = useElementHover(latestFiveArticle)
-const titleDecorationStyle = ref('none')
-const boxShadowStyle = ref('0 0 0 2px transparent')
-const filterStyle = ref('brightness(0.55) saturate(1.25)')
-const borderStyle = ref('1px solid var(--slate-400)')
-const titleColor = ref('white')
-const titleBackgroundColor = ref('transparent')
-const authorBackgroundColor = ref('transparent')
-const authorColor = ref('white')
-const imageScale = ref()
-const dateBackgroundColor = ref()
-watchEffect(() => {
-  if (isLatestFiveArticleHovered.value === true) {
-    titleDecorationStyle.value = 'underline'
-    boxShadowStyle.value = '0 0 0 2px var(--green)'
-    borderStyle.value = '1px solid var(--green)'
-    filterStyle.value = 'brightness(0.85)'
-    titleBackgroundColor.value = 'var(--green)'
-    titleColor.value = 'white'
-    authorBackgroundColor.value = 'var(--green)'
-    authorColor.value = 'white'
-    imageScale.value = 'scale(1.1)'
-    dateBackgroundColor.value = 'var(--green)'
+const articleHovered = useElementHover(latestFiveArticle)
+const imageLoaded = ref(false)
+// CSS values
+const CSS_imageFilter = ref()
+// Hover watcher
+const stopWatcher = watchEffect(() => {
+  if (articleHovered.value === true) {
+    // Hover styles
+    CSS_imageFilter.value = 'brightness(0.80) saturate(1) blur(0)'
   }
   else {
-    titleDecorationStyle.value = 'none'
-    boxShadowStyle.value = '0 0 0 2px transparent'
-    borderStyle.value = '1px solid var(--slate-500)'
-    filterStyle.value = 'brightness(0.55) saturate(1.25)'
-    titleBackgroundColor.value = 'transparent'
-    titleColor.value = 'white'
-    authorBackgroundColor.value = 'transparent'
-    authorColor.value = 'var(--lime)'
-    imageScale.value = 'scale(1)'
-    dateBackgroundColor.value = 'transparent'
+    // Default styles
+    CSS_imageFilter.value = 'brightness(0.50) saturate(0.90) blur(3px)'
   }
 })
-const imageLoaded = ref(false)
+tryOnBeforeUnmount(() => stopWatcher())
 </script>
 
 <template>
@@ -67,7 +46,7 @@ const imageLoaded = ref(false)
           {{ props.article.title }}
         </h1>
         <h2 class="lf-article__author">
-          {{ props.article.primary_author.name }}
+          {{ props.article.primary_author?.name }}
         </h2>
         <p class="lf-article__date">
           {{ dayjs().to(props.article.published_at) }}
@@ -83,8 +62,7 @@ const imageLoaded = ref(false)
   min-height: 170px;
   display: block;
   border-radius: 8px;
-  border: v-bind('borderStyle');
-  box-shadow: v-bind('boxShadowStyle');
+  box-shadow: 0 0 0 2px var(--slate-300);
   transition: border 180ms ease-in;
   transition: box-shadow 180ms ease-in;
   position: relative;
@@ -94,12 +72,16 @@ const imageLoaded = ref(false)
     text-decoration: none;
     color: var(--slate-200);
   }
+  &:hover {
+    box-shadow: 0 0 0 2px var(--green);
+    border-color: var(--green);
+  }
   .lf-article__image-wrapper {
     height: 100%;
     &::before {
       content: 'narco.news';
       font-size: 16px;
-      color: var(--slate-400);
+      color: var(--slate-300);
       animation: blink 3s linear infinite;
       position: absolute;
       width: 100%;
@@ -109,11 +91,11 @@ const imageLoaded = ref(false)
       z-index: -10;
     }
     .lf-article__image {
-      filter: v-bind('filterStyle');
+      filter: v-bind('CSS_imageFilter');
       transition: filter 180ms ease-in;
       transition: transform 0.3s ease;
       z-index: 10;
-      transform: v-bind('imageScale');
+      transform: scale(1);
       object-fit: cover;
       object-position: center;
       aspect-ratio: 1/1;
@@ -133,18 +115,18 @@ const imageLoaded = ref(false)
       padding: 10px;
     }
     .lf-article__author {
-      color: v-bind('authorColor');
+      color: var(--green);
       font-weight: 400;
       font-size: clamp(100%, 1rem + 2vw, 18px);
       margin: 0;
       padding: 5px 10px 5px 10px;
-      background-color: v-bind('authorBackgroundColor');
+      background-color: transparent;
       align-self: flex-start;
     }
     .lf-article__title {
-      color: v-bind('titleColor');
-      background-color: v-bind('titleBackgroundColor');
-      font-size: clamp(100%, 0.6rem + 2vw, 26px);
+      color: white;
+      background-color: transparent;
+      font-size: clamp(100%, 0.5rem + 2vw, 28px);
       margin: 0;
       line-height: 1.3;
       margin: 0;
@@ -157,8 +139,8 @@ const imageLoaded = ref(false)
       margin: 0;
       font-size: 11px;
       font-family: monospace;
-      color: white;
-      background-color: v-bind('dateBackgroundColor');
+      color: var(--slate-200);
+      background-color: transparent;
       align-self: flex-start;
       @media (min-width: 425px) {
         font-size: 12px;
@@ -172,5 +154,4 @@ const imageLoaded = ref(false)
     opacity: 0;
   }
 }
-
 </style>
