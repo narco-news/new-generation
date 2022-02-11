@@ -27,7 +27,7 @@ const authorArticles = computed((): Articles => useGhost.listAuthorArticles(prop
     <p class="author__bio">
       {{ props.author.bio }}
     </p>
-    <div class="social-links">
+    <!-- <div class="social-links">
       <a
         v-if="props.author.facebook"
         :href="`https://patreon.com/${props.author.facebook}`"
@@ -63,7 +63,7 @@ const authorArticles = computed((): Articles => useGhost.listAuthorArticles(prop
       >
         <ExternalLinkIcon :border="true" />
       </a>
-    </div>
+    </div> -->
     <!-- Articles -->
     <ul v-if="props.showArticles" class="author__latest-articles">
       <li v-for="article in authorArticles.slice(0, 4)" :key="article.slug">
