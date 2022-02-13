@@ -37,14 +37,19 @@ tryOnBeforeUnmount(() => stopWatcher())
       class="pa"
       :title="props.article.title"
     >
-      <div class="pa__image-wrapper">
-        <!-- Image  -->
-        <v-lazy-image
+      <div
+        v-if="props.article"
+        class="pa__image-wrapper"
+      >
+        <img
           :src="props.article.feature_image"
-          src-placeholder="/lazy-load-pagination-article.webp"
           :alt="props.article.title"
           :title="props.article.title"
-        />
+          loading="lazy"
+        >
+        <!-- <v-lazy-image
+          :src="props.article.feature_image"
+        /> -->
       </div>
       <div class="pa__meta">
         <h1 class="pa__title">
