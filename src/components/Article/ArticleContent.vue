@@ -411,10 +411,10 @@ html.dark {
     & ::v-deep(.article__content) {
       color: white;
       p {
-        color: white;
+        color: var(--slate-200);
       }
       a {
-        color: var(--green);
+        color: var(--green-400);
       }
       blockquote {
         background-color: #161618;

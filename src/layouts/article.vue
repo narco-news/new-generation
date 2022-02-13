@@ -26,7 +26,8 @@
 
 html.dark {
   & .article-layout {
-    background-color: #000000;
+    /* background-color: #000000; */
+    background-color: #161618;
   }
 }
 </style>

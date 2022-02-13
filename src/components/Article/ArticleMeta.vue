@@ -217,19 +217,21 @@ tryOnMounted(() => {
 
 html.dark {
   .article-meta__title {
-    color: white;
+    color: var(--slate-100);
   }
   .article-meta__excerpt {
-    color: var(--slate-500);
+    color: var(--slate-400);
   }
   .article-meta__date {
     color: var(--slate-500);
   }
-  .article-meta__tags-wrapper {
-    a {
-      color: var(--slate-400);
-      border-bottom: 1px dotted var(--slate-400);
-      text-decoration: none;
+  .article-meta__tag {
+    color: var(--green-400);
+  }
+  .article-meta__author-date-wrapper {
+    .article-meta__author {
+      color: var(--green-400);
+      border-color: var(--green-400);
     }
   }
   .article-meta__date-reading-wrapper {
