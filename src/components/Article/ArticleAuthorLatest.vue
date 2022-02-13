@@ -13,6 +13,18 @@ const emits = defineEmits(['newSlug'])
 
 <template>
   <section class="mfa-wrapper">
+    <div v-if="author?.facebook" class="support">
+      <h1>
+        Support {{ author?.name }}
+      </h1>
+      <a :href="`https://patreon.com/${author?.facebook}`" target="_blank" class="patreon-button">
+        <svg width="15px" height="15px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 0H0V15H3V0Z" fill="currentColor" />
+          <path d="M9.5 0C6.46243 0 4 2.46243 4 5.5C4 8.53757 6.46243 11 9.5 11C12.5376 11 15 8.53757 15 5.5C15 2.46243 12.5376 0 9.5 0Z" fill="currentColor" />
+        </svg>
+        Join Patreon
+      </a>
+    </div>
     <h1 class="mfa__header">
       More from
       <router-link
@@ -34,23 +46,15 @@ const emits = defineEmits(['newSlug'])
         <h2>{{ article.title }}</h2>
       </div>
     </div>
-    <div v-if="author?.facebook" class="support">
-      <h1 class="mfa__header">
-        Support {{ author?.name }}
-      </h1>
-      <a :href="`https://patreon.com/${author?.facebook}`" target="_blank" class="patreon-button">
-        <svg width="15px" height="15px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 0H0V15H3V0Z" fill="currentColor" />
-          <path d="M9.5 0C6.46243 0 4 2.46243 4 5.5C4 8.53757 6.46243 11 9.5 11C12.5376 11 15 8.53757 15 5.5C15 2.46243 12.5376 0 9.5 0Z" fill="currentColor" />
-        </svg>
-        Join Patreon
-      </a>
-    </div>
   </section>
 </template>
 
 <style lang="postcss" scoped>
 .support {
+  h1 {
+    color: var(--green);
+    font-size: 24px;
+  }
   .patreon-button {
     text-decoration: none;
     background: #f96854;
@@ -59,7 +63,7 @@ const emits = defineEmits(['newSlug'])
     border-radius: 9999px;
     font-family: 'Oswald';
     font-weight: 400;
-    margin: 0.5rem;
+    margin: 1rem 0.5rem;
     display: inline-flex;
     align-items: center;
     svg {
@@ -71,20 +75,18 @@ const emits = defineEmits(['newSlug'])
   background-color: var(--slate-200);
   padding: 1rem;
   border-top: 1px solid var(--green);
-  /* border-bottom: 1px solid var(--green); */
-  margin: 2rem 0;
-  margin-bottom: 0;
+  max-width: 95ch;
+  margin: 0;
+  margin-top: 2rem;
   @media (min-width: 1024px) {
-    border-left: 1px solid var(--green);
-    border-right: 1px solid var(--green);
+    margin: 3rem auto;
+    border: 1px solid var(--green);
     border-radius: 6px;
   }
   .mfa__header {
     color: var(--green);
     a {
       color: var(--green);
-      /* border-bottom: 1px dotted var(--green); */
-      /* text-decoration: none; */
       text-decoration-thickness: 2px;
       text-decoration-color: var(--green);
       text-decoration-style: dotted;
