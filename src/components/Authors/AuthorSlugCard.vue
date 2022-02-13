@@ -114,7 +114,7 @@ const motionInstance = useMotion(authorCard, {
           :border="false"
         />
         <span>
-          {{ props.author.website }}
+          Personal site
         </span>
       </a>
     </div>
