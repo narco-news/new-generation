@@ -24,6 +24,8 @@ export default defineConfig({
     vue(),
     SSR(),
     // https://github.com/antfu/unplugin-auto-import
+    Pages(),
+    Layouts(),
     AutoImport({
       imports: [
         'vue',
@@ -31,17 +33,6 @@ export default defineConfig({
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
-        {
-          'vue-content-loader': [
-            'content-loader',
-          ],
-          'dayjs': [
-            'dayjs',
-          ],
-          'vue3-popper': [
-            'popper',
-          ],
-        },
       ],
       dts: 'src/auto-imports.d.ts',
     }),
@@ -54,10 +45,6 @@ export default defineConfig({
       ],
       dts: 'src/components.d.ts',
     }),
-    Pages({
-      extensions: ['vue'],
-    }),
-    Layouts(),
     VueI18n({
       include: [path.resolve(__dirname, 'src/locales/translations/**')],
       globalSFCScope: true,
@@ -86,11 +73,6 @@ export default defineConfig({
       'vue',
       'vue-router',
       '@vueuse/core',
-      'animate.css',
-      'hover.css',
-      'vue-content-loader',
-      'dayjs',
-      'axios',
     ],
   },
 })

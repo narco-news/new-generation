@@ -20,13 +20,14 @@ export const useGhostStore = defineStore({
 
   }),
   getters: {
+    // List article for 404 article redirect
     listArticle(state) {
       return (articleSlug: string) => state.allArticles.filter(article => article.slug === articleSlug)
     },
-    // List all articles unfiltered
-    listAllArticles(state) {
-      return state.allArticles
-    },
+    // // List all articles unfiltered
+    // listAllArticles(state) {
+    //   return state.allArticles
+    // },
     listLatestArticles(state) {
       return state.latestArticles
         .filter((article: PostOrPage) => {
@@ -42,7 +43,7 @@ export const useGhostStore = defineStore({
         })
         .slice(0, state.maxLatest)
     },
-    // List latest four featured articles
+    // // List latest four featured articles
     listFeaturedFourArticles(state) {
       return state.allArticles.filter((article: PostOrPage) => article.featured === true).slice(0, 4)
     },
@@ -79,6 +80,7 @@ export const useGhostStore = defineStore({
         })
         .slice(0, 5)
     },
+    // Latest article list for home page component
     listLatestList(state) {
       return state.allArticles
         .filter((article: PostOrPage) => {
@@ -94,7 +96,6 @@ export const useGhostStore = defineStore({
         })
         .slice(5, 13)
     },
-    //
     // Author articles
     listAuthorArticles(state) {
       return (authorSlug: string) => state.allAuthorArticles.filter(article => article.primary_author.slug === authorSlug).slice(0, state.maxAuthorArticles)
@@ -102,7 +103,6 @@ export const useGhostStore = defineStore({
     listMaxAuthorArticles(state) {
       return state.maxAuthorArticles
     },
-    //
     // Tags
     listTagArticles(state) {
       return (tagSlug: string, articlesAmount: number) => state.allTagArticles
@@ -115,12 +115,6 @@ export const useGhostStore = defineStore({
     },
   },
   actions: {
-    addArticles(articles) {
-      this.allArticles = articles
-      this.latestArticles = articles
-      this.allTagArticles = articles
-      this.allAuthorArticles = articles
-    },
     loadMoreLatest() {
       this.maxLatest = this.maxLatest + 12
     },

@@ -6,7 +6,7 @@
     "build:deploy": "npm run build && npm run deploy",
     "move": "node scripts/vercelBuild.js",
     "start": "node ./_app/server/main.js",
-    "deploy": "cd ./serverless && vercel --prod"
+    "deploy": "cd ./serverless && vercel"
   },
   "dependencies": {
     "@nuxt/devalue": "^2.0.0",

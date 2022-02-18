@@ -5,9 +5,8 @@
 //
 // Import CSS styles
 import '../node_modules/normalize.css/normalize.css'
-// import '../node_modules/animate.css/animate.min.css'
-import '../node_modules/hover.css/css/hover-min.css'
 import '../src/styles/main.css'
+import reframe from 'reframe.js'
 //
 // Pinia
 import { createPinia } from 'pinia'
@@ -33,12 +32,24 @@ import NProgress from 'nprogress'
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import { MotionPlugin } from '@vueuse/motion'
+import VLazyImage from 'v-lazy-image'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import axios from 'axios'
 import { useGhostStore } from './stores/ghost'
-
 //
 //
 // i18n
 import { installI18n, extractLocaleFromPath, DEFAULT_LOCALE } from '~/locales'
+
+// Ghost keys
+const key = import.meta.env.VITE_GHOST_KEY
+const uri = import.meta.env.VITE_GHOST_URI
+
+// Dayjs relativeTime plugin
+dayjs.extend(relativeTime)
+// reframe
+// reframe('iframe')
 
 // Routes
 const routes = setupLayouts(generatedRoutes)
@@ -85,11 +96,9 @@ export default viteSSR(App, Options, async(params) => {
   //
   // Declare pinia
   const pinia = createPinia()
-
   //
   // Connect head and pinia to App
-  app.use(pinia).use(head).use(MotionPlugin)
-
+  app.use(pinia).use(head).use(MotionPlugin).component(VLazyImage)
   //
   // Create <ClientOnly> component
   app.component(ClientOnly.name, ClientOnly)
@@ -98,17 +107,69 @@ export default viteSSR(App, Options, async(params) => {
   // Load language asyncrhonously to avoid bundling all languages
   await installI18n(app, extractLocaleFromPath(initialRoute.href))
 
-  if (isClient) {
+  // Check language to get correct tag for Ghost
+  const locale = extractLocaleFromPath(initialRoute.href)
+  const filter = ref()
+  if (locale === 'es')
+    filter.value = 'hash-es'
+  else
+    filter.value = '-hash-es'
+
+  //
+  // IF CLIENT
+  // if (isClient) {
+  // // if (import.meta.env.SSR) {
+  //   pinia.state.value = initialState.pinia
+  //   useGhostStore(pinia)
+  //   //
+  //   // ######################
+  //   await axios.get(
+  //     `${uri}/ghost/api/v3/content/posts/?key=${key}&limit=all&filter=tags:${filter.value}&include=authors,tags&fields=slug,title,featured,feature_image,primary_author,published_at,custom_excerpt`,
+  //   )
+  //     .then((response) => {
+  //       pinia.state.value.ghostStore.allArticles = response.data.posts
+  //       pinia.state.value.ghostStore.latestArticles = response.data.posts
+  //       pinia.state.value.ghostStore.allTagArticles = response.data.posts
+  //       pinia.state.value.ghostStore.allAuthorArticles = response.data.posts
+  //     })
+
+  //   // ######################
+  //   router.beforeEach(() => {
+  //     useGhostStore(pinia)
+  //     NProgress.start()
+  //   })
+  //   router.afterEach(() => { NProgress.done() })
+  // }
+
+  // else {
+  //   initialState.pinia = pinia.state.value
+  //   // useGhostStore(pinia)
+  // }
+
+  if (import.meta.env.SSR) {
+    initialState.pinia = pinia.state.value
+  }
+  else {
+    pinia.state.value = initialState.pinia
+    useGhostStore(pinia)
+    // ######################
+    await axios.get(
+      `${uri}/ghost/api/v3/content/posts/?key=${key}&limit=all&filter=tags:${filter.value}&include=authors,tags&fields=slug,title,featured,feature_image,primary_author,published_at,custom_excerpt`,
+    )
+      .then((response) => {
+        pinia.state.value.ghostStore.allArticles = response.data.posts
+        pinia.state.value.ghostStore.latestArticles = response.data.posts
+        pinia.state.value.ghostStore.allTagArticles = response.data.posts
+        pinia.state.value.ghostStore.allAuthorArticles = response.data.posts
+      })
+
+    // ######################
     router.beforeEach(() => {
+      // useGhostStore(pinia)
       NProgress.start()
-      useGhostStore(pinia)
-      // const store = useGhostStore(pinia)
     })
     router.afterEach(() => { NProgress.done() })
-    pinia.state.value = initialState.pinia
   }
-
-  else { initialState.pinia = pinia.state.value }
 
   return {
     head,

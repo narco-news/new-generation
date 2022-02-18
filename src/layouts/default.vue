@@ -1,33 +1,12 @@
-<script setup lang="ts">
-import { useAsyncData } from '~/helpers/useAsyncData'
-import { useGhostStore } from '~/stores/ghost'
-const useGhost = useGhostStore()
-const locale = useI18n()
-const filter = ref()
-if (locale.locale.value === 'es')
-  filter.value = 'hash-es'
-else
-  filter.value = '-hash-es'
-const key = import.meta.env.VITE_GHOST_KEY
-const uri = import.meta.env.VITE_GHOST_URI
-if (!useGhost.allArticles[0]) {
-  const articles = await useAsyncData(
-    'articles',
-    `${uri}/ghost/api/v3/content/posts/?key=${key}&limit=all&filter=tags:${filter.value}&include=authors,tags&fields=slug,title,featured,feature_image,primary_author,published_at,custom_excerpt`,
-    {
-      awaitSetup: false,
-    },
-  )
-  useGhost.addArticles(articles.value.posts)
-}
+<script lang="ts" setup>
 </script>
+
 <template>
   <header>
     <the-nav />
   </header>
   <main class="default-layout">
     <div class="page_wrapper">
-      <!-- <router-view v-bind="$attrs" /> -->
       <router-view />
     </div>
   </main>

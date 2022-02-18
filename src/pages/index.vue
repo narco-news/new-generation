@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useGhostStore } from '~/stores/ghost'
-useHead({
-  title: 'Home',
-})
 const useGhost = useGhostStore()
 const latestListFive = computed(() => useGhost.listLatestFive)
 const featuredArticles = computed(() => useGhost.listFeaturedFourArticles)
@@ -10,6 +7,9 @@ const latestList = computed(() => useGhost.listLatestList)
 const translationArticles = computed(() => useGhost.listTranslationArticles)
 const aroundTheWebArticles = computed(() => useGhost.listAroundTheWebArticles)
 const opinionArticles = computed(() => useGhost.listOpinionArticles)
+useHead({
+  title: 'Home',
+})
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const opinionArticles = computed(() => useGhost.listOpinionArticles)
         :articles="featuredArticles"
       />
     </div>
-    <div v-if="latestList">
+    <div v-if="latestList.length">
       <LatestList
         :articles="latestList"
       />
@@ -36,6 +36,9 @@ const opinionArticles = computed(() => useGhost.listOpinionArticles)
         />
       </div>
     </template>
+    <div v-else>
+      <FoldingCube />
+    </div>
     <div
       class="trans-atw"
     >

@@ -2,7 +2,7 @@
 import { Articles } from '~/ghostTypes'
 const { t } = useI18n()
 const props = defineProps<{
-  articles: Articles[]
+  articles: Articles
 }>()
 </script>
 
@@ -13,7 +13,7 @@ const props = defineProps<{
         {{ t('articles.latest') }}
       </h1>
     </div>
-    <div class="latest-list__articles-wrapper">
+    <div v-if="props.articles" class="latest-list__articles-wrapper">
       <article
         v-for="article in props.articles"
         :key="article.slug"
@@ -21,6 +21,9 @@ const props = defineProps<{
       >
         <LatestListArticle :article="article" />
       </article>
+    </div>
+    <div v-else>
+      <FoldingCube />
     </div>
   </section>
 </template>

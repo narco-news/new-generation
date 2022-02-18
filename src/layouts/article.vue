@@ -1,8 +1,10 @@
 <template>
   <main class="article-layout">
-    <section class="article-layout__wrapper">
-      <router-view />
-    </section>
+    <div class="article-layout__wrapper">
+      <suspense>
+        <router-view />
+      </suspense>
+    </div>
   </main>
   <footer>
     <the-footer />

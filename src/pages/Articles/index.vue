@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useGhostStore } from '~/stores/ghost'
 const useGhost = useGhostStore()
+const latestArticles = computed(() => useGhost.listLatestArticles)
 useHead({
   title: 'Articles',
 })
-const latestArticles = computed(() => useGhost.listLatestArticles)
 </script>
 
 <template>
