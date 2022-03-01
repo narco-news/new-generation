@@ -38,11 +38,11 @@ const motionInstance = useMotion(authorCard, {
   >
     <!--  -->
     <div
-      class="hex"
+      class="author-image-wrapper"
       :class="elClass"
       @click="clickSpin()"
     >
-      <div class="hex-background">
+      <div class="author-card__image">
         <img
           :src="props.author.profile_image"
           :alt="props.author.name"
@@ -51,16 +51,6 @@ const motionInstance = useMotion(authorCard, {
     </div>
     <h1 class="author-card__name" style="display:flex;align-items:center">
       {{ props.author.name }}
-      <a
-        v-if="props.author.facebook"
-        :href="`https://patreon.com/${props.author.facebook}`"
-        :title="`${props.author.name}'s Patreon`"
-        target="_blank"
-        class="author-card__link"
-        style="display: inline-block;text-decoration: none; margin-left: 2rem"
-      >
-        <PatreonColorIcon />
-      </a>
     </h1>
     <p class="author-card__bio">
       {{ props.author.bio }}
@@ -87,22 +77,13 @@ const motionInstance = useMotion(authorCard, {
         />
         <span>
           <span v-if="hideEmail" @click="showEmail()">
-            Click to reveal
+            Click me
           </span>
           <span v-else>
             {{ props.author.location }}
           </span>
         </span>
       </button>
-      <!-- <a
-        v-if="props.author.facebook"
-        :href="`https://patreon.com/${props.author.facebook}`"
-        :title="`${props.author.name}'s Patreon`"
-        target="_blank"
-        class="author-card__link"
-      >
-        <PatreonColorIcon />
-      </a> -->
       <a
         v-if="props.author.website"
         :href="`${props.author.website}`"
@@ -114,8 +95,18 @@ const motionInstance = useMotion(authorCard, {
           :border="false"
         />
         <span>
-          {{ props.author.website }}
+          Website
         </span>
+      </a>
+      <a
+        v-if="props.author.facebook"
+        :href="`https://patreon.com/${props.author.facebook}`"
+        :title="`${props.author.name}'s Patreon`"
+        target="_blank"
+        class="author-card__link"
+        style="margin: 1rem 0"
+      >
+        <PatreonColorIcon />
       </a>
     </div>
   </section>
@@ -127,40 +118,50 @@ const motionInstance = useMotion(authorCard, {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 2rem 0 0 0;
     margin: 0 1rem;
     margin-bottom: 2rem;
     border-bottom: 3px solid var(--green-400);
     .author-card__image {
-        border-radius: 100%;
-        width: 65px;
-        height: 65px;
-        box-shadow: 0 0 0 2px var(--green-400);
+      border-radius: 100%;
+      overflow: hidden;
+      box-shadow: 0 0 0 3px var(--green-400);
+      width: 125px;
+      & img {
+        object-fit: cover;
+        width: 100%;
+        transform: scale(1.05);
+      }
+      @media (min-width: 768px) {
+        width: 150px;
+      }
     }
     .author-card__name {
         color: var(--slate-700);
         font-size: clamp(100%, 2rem + 2vw, 36px);
     }
     .author-card__bio {
-        color: var(--slate-600);
-        padding: 0;
+        color: var(--slate-500);
+        padding-left: 1rem;
         margin: 0;
         font-size: 13px;
-        max-width: 65ch;
+        max-width: 40ch;
     }
     .social {
-        margin: 1rem 0;
         display: flex;
         flex-direction: column;
+        margin: 2rem 0;
+        margin-left: 5rem;
+        width: 220px;
         .author-card__twitter-link {
             text-decoration: none;
             color: var(--green-400);
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             -webkit-tap-highlight-color: transparent;
             span {
-                color: var(--slate-600);
+                color: var(--slate-500);
                 font-weight: 500;
                 font-size: 13px;
                 font-family: monospace;
@@ -171,11 +172,11 @@ const motionInstance = useMotion(authorCard, {
             color: var(--green-400);
             display: flex;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             text-decoration: none;
             -webkit-tap-highlight-color: transparent;
             span {
-                color: var(--slate-600);
+                color: var(--slate-500);
                 font-weight: 500;
                 font-size: 13px;
                 font-family: monospace;
@@ -186,7 +187,7 @@ const motionInstance = useMotion(authorCard, {
           color: var(--green-400);
           display: flex;
           align-items: center;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1rem;
           text-decoration: none;
           border: none;
           background: none;
@@ -194,7 +195,7 @@ const motionInstance = useMotion(authorCard, {
           outline: none;
           -webkit-tap-highlight-color: transparent;
           span {
-              color: var(--slate-600);
+              color: var(--slate-500);
               font-weight: 500;
               font-size: 13px;
               font-family: monospace;
@@ -206,46 +207,11 @@ const motionInstance = useMotion(authorCard, {
         }
     }
 }
-/* https://codeconvey.com/css-hexagon-image-with-border/ */
-.hex {
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  width: 150px;
-  height: 129.9px; /* width * 0.866 */
-  background: var(--green-400);
-  box-sizing: border-box;
-  -webkit-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
-  -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
-  /* -webkit-animation: v-bind('spinAnimation');
-  -moz-animation: v-bind('spinAnimation');
-  animation: v-bind('spinAnimation'); */
-}
 
 .spin {
   -webkit-animation:spin 3s linear infinite;
   -moz-animation:spin 3s linear infinite;
   animation:spin 3s linear infinite;
-}
-
-.hex-background {
-  position: absolute;
-  background-color: var(--green); /*color of the main-background*/
-  top: 2px; /* equal to border thickness */
-  left: 2px; /* equal to border thickness */
-  width: 146px; /* container height - (border thickness * 2) */
-  height: 125.9px; /* container height - (border thickness * 2) */
-  -webkit-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
-  -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
-}
-
-.hex img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  -webkit-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
-  -moz-clip-path: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
 }
 
 /* Spin */

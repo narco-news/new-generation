@@ -63,9 +63,9 @@ onClickOutside(modalWrapper, () => {
 
 <template>
   <section class="library__wrapper">
-    <h1 class="library__header">
+    <!-- <h1 class="library__header">
       {{ t('nav.library') }}
-    </h1>
+    </h1> -->
     <div class="library__booklist-wrapper">
       <div
         v-for="book in booksList.books"
@@ -194,6 +194,7 @@ html.overflow-y-hidden {
 
 .library__wrapper {
   margin: 0 1rem;
+  margin-top: 2rem;
   .library__header {
     font-weight: 400;
     margin-bottom: 2rem;

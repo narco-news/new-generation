@@ -29,9 +29,10 @@ const { t } = useI18n()
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 0 0 1px var(--slate-400);
-  transition: box-shadow 180ms ease-in;
+  transition: all 180ms ease-in;
   color: var(--slate-700);
   &:hover {
+    color: var(--green);
     box-shadow: 0 0 0 2px var(--green);
   }
   & img {
@@ -61,12 +62,12 @@ const { t } = useI18n()
 }
 
 html.dark {
-  & .dark-mode-button {
-    box-shadow: 0 0 0 1px white;
-    color: white;
+  .dark-mode-button {
+    color: var(--slate-200);
+    box-shadow: 0 0 0 1px var(--slate-500);
     &:hover {
-        box-shadow: 0 0 0 2px var(--green-400);
-        color: var(--green-400);
+      color: var(--green-400);
+      box-shadow: 0 0 0 2px var(--green-400);
     }
   }
 }

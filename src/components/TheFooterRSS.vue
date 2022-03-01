@@ -49,6 +49,7 @@ a {
     box-shadow: 0 0 0 1px var(--slate-400);
     align-self: flex-end;
     transition: all 180ms ease-in;
+    color: var(--slate-700);
         &:hover {
             box-shadow: 0 0 0 2px var(--green);
             color: var(--green);
@@ -58,8 +59,8 @@ a {
 
 html.dark {
     .rss-button {
-        color: white;
-        box-shadow: 0 0 0 1px white;
+        color: var(--slate-200);
+        box-shadow: 0 0 0 1px var(--slate-500);
         &:hover {
             box-shadow: 0 0 0 2px var(--green-400);
             color: var(--green-400);

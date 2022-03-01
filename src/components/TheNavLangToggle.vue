@@ -51,8 +51,8 @@ const toggleLocales = () => {
 html.dark {
   .the-nav__lang-toggle {
     span {
-      color: white;
-      box-shadow: 0 0 0 1px white;
+      color: var(--slate-200);
+      box-shadow: 0 0 0 1px var(--slate-500);
       &:hover {
           box-shadow: 0 0 0 2px var(--green-400);
           color: var(--green-400);

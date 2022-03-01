@@ -78,8 +78,9 @@ tryOnBeforeUnmount(() => stopWatcher())
 <style lang="postcss" scoped>
 .pa {
   overflow: hidden;
-  height: 100%;
-  min-height: 450px;
+  height: auto;
+  /* height: 100%; */
+  /* height: 520px; */
   display: block;
   background-color: white;
   color: black;
@@ -130,13 +131,13 @@ tryOnBeforeUnmount(() => stopWatcher())
     .pa__title {
       font-weight: 400;
       font-size: clamp(100%, 1.5rem + 2vw, 32px);
+      color: var(--slate-800);
       margin: 0;
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
       padding-top: 0;
-      padding-bottom: 2px;
       text-decoration: v-bind('CSS_titleTextDecoration');
     }
     .pa__author-box {
@@ -154,7 +155,8 @@ tryOnBeforeUnmount(() => stopWatcher())
         }
         time {
           font-size: 12px;
-          color: var(--slate-500);
+          font-family: monospace;
+          color: var(--slate-600);
         }
       }
       .pa__author-image {
@@ -174,11 +176,12 @@ tryOnBeforeUnmount(() => stopWatcher())
       color: var(--slate-500);
       margin: 0;
       margin-top: 1rem;
-      font-size: 13px;
+      font-family: sans-serif;
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      font-size: clamp(100%, 1.5rem + 2vw, 16px);
     }
   }
 }
@@ -202,6 +205,9 @@ html.dark {
     color: white;
     box-shadow: 0 0 0 1px var(--slate-600);
     .pa__meta {
+      .pa__title {
+        color: white;
+      }
       .pa__author-box {
         time {
           color: var(--slate-400);

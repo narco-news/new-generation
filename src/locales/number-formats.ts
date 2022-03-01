@@ -37,7 +37,7 @@ const DEFAULT_FORMAT = {
 export const NUMBER_FORMATS = Object.freeze({
   ...SUPPORTED_LOCALES.reduce(
     (acc, l) => ({ ...acc, [l]: DEFAULT_FORMAT }),
-    {}
+    {},
   ),
   // Overwrite formats here for specific locales
 })

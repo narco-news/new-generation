@@ -3,15 +3,31 @@ import TheFooterRSS from './TheFooterRSS.vue'
 const { t } = useI18n()
 const route = useRoute()
 const showLangToggle = ref(true)
+const isArticlePage = ref()
 watchEffect(() => {
-  if (route.matched[0].path === '/articles/:slug') showLangToggle.value = false
+  if (route.matched[0].path === '/articles/:slug') {
+    showLangToggle.value = false
+    isArticlePage.value = true
+  }
+  else {
+    isArticlePage.value = false
+  }
 })
 const rotateStyle = ref('transform: none')
 function rotate() {
   rotateStyle.value = 'transform: scale(1, -1)'
   useTimeoutFn(() => {
-    rotateStyle.value = 'transform: none;color: inherit'
+    rotateStyle.value = 'transform: none;color:inherit'
   }, 2000)
+}
+//
+// Scroll to top button
+function scrollToTop() {
+  const intervalId = setInterval(() => {
+    if (window.pageYOffset === 0) clearInterval(intervalId)
+
+    window.scroll(0, window.pageYOffset - 50)
+  }, 20)
 }
 </script>
 <template>
@@ -33,6 +49,11 @@ function rotate() {
           <li>
             <router-link to="/library">
               {{ t('nav.library') }}
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/tags">
+              {{ t('articles.tags') }}
             </router-link>
           </li>
         </ul>
@@ -58,11 +79,6 @@ function rotate() {
           <li>
             <router-link to="/tags/around-the-web">
               {{ t('articles.atw') }}
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/tags">
-              {{ t('articles.tags') }}
             </router-link>
           </li>
         </ul>
@@ -106,6 +122,16 @@ function rotate() {
           justify-content: flex-end;
         "
       >
+        <visible-right>
+          <button
+            v-if="isArticlePage"
+            ref="scrollTopButton"
+            class="scroll-top-button"
+            @click="scrollToTop()"
+          >
+            <up-arrow-icon />
+          </button>
+        </visible-right>
         <TheFooterRSS />
         <TheNavDarkMode style="align-self: flex-end; margin-bottom: 1em" />
         <TheNavLangToggle v-if="showLangToggle" style="margin-bottom: 1em" />
@@ -132,6 +158,24 @@ function rotate() {
 </template>
 
 <style lang="postcss">
+.scroll-top-button {
+  border: none;
+  background: none;
+  display: flex;
+  margin: 0.5rem 0;
+  padding: 9px;
+  float: right;
+  border-radius: 6px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--slate-400);
+  transition: box-shadow 180ms ease-in;
+  color: var(--slate-700);
+  &:hover {
+    color: var(--green);
+    box-shadow: 0 0 0 2px var(--green);
+  }
+}
 .regions {
   @media (max-width: 425px) {
     display: none;
@@ -202,9 +246,10 @@ function rotate() {
     cursor: none;
     user-select: none;
     width: 100%;
+    margin-top: 1rem;
     padding-top: 2rem;
-    padding-bottom: 1rem;
-    &:focus {
+    padding-bottom: 2rem;
+    &:hover {
       background: #ff0000; /* fallback for old browsers */
       background: -webkit-linear-gradient(
         to right,
@@ -253,6 +298,14 @@ html.dark {
     .footer__site-title {
       background-color: #161618;
       color: white;
+    }
+    .scroll-top-button {
+      color: var(--slate-200);
+      box-shadow: 0 0 0 1px var(--slate-500);
+      &:hover {
+        color: var(--green-400);
+        box-shadow: 0 0 0 2px var(--green-400);
+      }
     }
   }
 }

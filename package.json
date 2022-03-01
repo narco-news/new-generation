@@ -6,7 +6,7 @@
     "build:deploy": "npm run build && npm run deploy",
     "move": "node scripts/vercelBuild.js",
     "start": "node ./_app/server/main.js",
-    "deploy": "cd ./serverless && vercel --prod"
+    "deploy": "cd ./serverless && vercel"
   },
   "dependencies": {
     "@nuxt/devalue": "^2.0.0",
@@ -22,6 +22,7 @@
     "node-fetch": "^3.1.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.6",
+    "scrollbooster": "^3.0.2",
     "v-shared-element": "^3.1.0",
     "vite-ssr": "^0.14.3",
     "vue": "^3.2.26",

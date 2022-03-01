@@ -2,7 +2,7 @@
 import { Articles } from '~/ghostTypes'
 const { t } = useI18n()
 const props = defineProps<{
-  articles: Articles[]
+  articles: Articles
 }>()
 </script>
 
@@ -13,7 +13,7 @@ const props = defineProps<{
         {{ t('articles.latest') }}
       </h1>
     </div>
-    <div class="latest-list__articles-wrapper">
+    <div v-if="props.articles" class="latest-list__articles-wrapper">
       <article
         v-for="article in props.articles"
         :key="article.slug"
@@ -21,6 +21,9 @@ const props = defineProps<{
       >
         <LatestListArticle :article="article" />
       </article>
+    </div>
+    <div v-else>
+      <FoldingCube />
     </div>
   </section>
 </template>
@@ -65,6 +68,10 @@ const props = defineProps<{
   in extra narrow spaces */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
   margin: 1rem;
+  @media (min-width: 1140px) {
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--green-400);
+  }
 }
 
 .article {
@@ -140,9 +147,9 @@ const props = defineProps<{
     grid-column: 1/-1;
     ::v-deep(.article-wrapper) {
       @media (max-width: 768px) {
-      padding-bottom: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 3px solid var(--green-400);
+      padding-bottom: 3rem;
+      margin-bottom: 0rem;
+      border-bottom: 2px solid var(--green-400);
       }
     }
     @media (min-width: 1024px) {

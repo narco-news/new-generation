@@ -36,7 +36,8 @@ const props = defineProps<{
 .opinion-wrapper {
   margin: 1rem 0.5rem;
   padding-bottom: 1rem;
-  border-bottom: 3px solid var(--green-400);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
   @media (min-width: 1140px) {
     margin-bottom: 3rem;
   }
@@ -45,7 +46,7 @@ const props = defineProps<{
     padding: 1rem 1rem 0.5rem 1rem;
     color: var(--slate-700);
     background-color: var(--slate-100);
-    border-bottom: 2px solid var(--slate-600);
+    border-bottom: 2px solid var(--slate-700);
     position: sticky;
     position: -webkit-sticky;
     top: 0;
