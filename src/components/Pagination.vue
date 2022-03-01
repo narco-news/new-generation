@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { Articles } from '~/ghostTypes'
 const props = defineProps<{
-  articles: Array<[]>
+  articles: Articles
 }>()
 </script>
 
@@ -18,10 +19,10 @@ const props = defineProps<{
 .pagination {
   .pagination__wrapper {
     --w1: 1060px;
-    --n: 4;
+    --n: 3;
     /* second breakpoint*/
     --w2: 768px;
-    --m: 3;
+    --m: 2;
     display: grid;
     grid-template-columns: repeat(
       auto-fill,
@@ -64,8 +65,12 @@ const props = defineProps<{
           }
         }
         &:nth-child(12n) {
-          grid-column: 3/-1;
+          width: 800px;
           ::v-deep(.pa) {
+            .pa__meta {
+              max-width: 600px;
+              margin: 0 auto;
+            }
             .pa__excerpt {
               width: 75%;
             }

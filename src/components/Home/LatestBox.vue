@@ -48,8 +48,9 @@ const boxHeadingBar = ref()
 .box__wrapper {
   margin: 1rem 0.5rem;
   padding-bottom: 2rem;
-  @media (max-width: 768px) {
-    border-bottom: 3px solid var(--green-400);
+  @media (max-width: 769px) {
+    border-bottom: 2px solid var(--green-400);
+    padding-bottom: 0;
   }
     .box__heading-bar {
         margin-bottom: 2rem;

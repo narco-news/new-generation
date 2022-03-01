@@ -8,14 +8,14 @@ const props = defineProps<{
 const { t } = useI18n()
 const articleTitle = ref()
 const isTitleVisible = useElementVisibility(articleTitle)
-tryOnMounted(() => {
-  watchEffect(() => {
-    if (isTitleVisible.value === true)
-      emits('titleVisible', true)
-    else
-      emits('titleVisible', false)
-  })
-})
+// tryOnMounted(() => {
+//   watchEffect(() => {
+//     if (isTitleVisible.value === true)
+//       emits('titleVisible', true)
+//     else
+//       emits('titleVisible', false)
+//   })
+// })
 </script>
 
 <template>

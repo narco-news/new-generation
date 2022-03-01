@@ -30,7 +30,6 @@ const props = defineProps<{
   padding: 1rem;
   padding-bottom: 2rem;
   background-color: var(--slate-300);
-  color: var(--green);
   @media (min-width: 1100px) {
     margin: 0 0rem 1rem 0rem;
     padding: 1rem 2rem;
@@ -45,14 +44,11 @@ const props = defineProps<{
     z-index: 200;
     background-color: none;
     margin: 2rem 0rem;
-    /* padding: 1rem 0.5rem; */
-    border-bottom: 3px solid var(--green);
-    /* border-top: 3px solid var(--green); */
+    border-bottom: 3px solid var(--slate-700);
     background-color: var(--slate-300);
     letter-spacing: 1.2px;
-    color: var(--green);
     .articles-featured__header {
-      color: var(--green);
+      color: var(--slate-700);
       font-weight: 400;
       margin: 0;
       padding: 1rem 0.5rem;
@@ -76,12 +72,15 @@ const props = defineProps<{
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
     .articles-featured__article {
       background-color: var(--slate-300);
-      padding-bottom: 1rem;
+      @media (max-width: 994px) {
+        padding-bottom: 1rem;
+      }
       &:last-child {
         ::v-deep(.featured-article__wrapper) {
           @media (max-width: 768px) {
-            border-bottom: 3px solid var(--green);
-            padding-bottom: 3rem;
+            /* border-bottom: 3px solid var(--green);
+            padding-bottom: 3rem; */
+            border-bottom: none;
           }
         }
       }
@@ -103,6 +102,10 @@ html.dark {
     background-color: #161618;
     .articles-featured__header-wrapper {
       background-color: #161618;
+      border-color: var(--slate-200);
+      .articles-featured__header {
+        color: var(--slate-200);
+      }
     }
     .articles-featured__article {
       background-color: #161618;

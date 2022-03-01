@@ -147,9 +147,13 @@ a {
   }
   .article-date {
     font-weight: 400;
+    font-family: monospace;
+    font-size: 13px;
   }
   .article-tag {
     font-weight: 500;
+    font-family: monospace;
+    font-size: 13px;
   }
 }
 

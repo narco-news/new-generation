@@ -130,7 +130,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       margin: 0;
       line-height: 1.3;
       margin: 0;
-      padding: 0 10px 4px 10px;
+      padding: 0 10px 3px 10px;
       align-self: flex-start;
     }
     .lf-article__date {

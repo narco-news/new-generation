@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onKeyUp } from '@vueuse/core'
 import reframe from 'reframe.js'
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 const props = defineProps<{
   content?: string
 }>()
@@ -24,23 +25,32 @@ function largeImage(image) {
 // Add buttons to all single images
 tryOnMounted(() => {
   // Lazy load all images
-  const allImages = Array.from(document.getElementsByTagName('img'))
-  allImages.forEach((image) => {
-    image.loading = 'lazy'
-    image.onclick = () => {
-      largeImage(image)
+  const allGalleryImages = Array.from(document.getElementsByClassName('kg-gallery-image'))
+  allGalleryImages.forEach((element) => {
+    const image = element.getElementsByTagName('img')
+    image[0].loading = 'lazy'
+    image[0].onclick = () => {
+      largeImage(image[0])
     }
-    const container = document.querySelector('.article__content')
-    const allLinks = Array.from(container.querySelectorAll('a'))
-    allLinks.forEach((link) => {
-      // const regexLocal = /localhost/g
-      const regex = /https:\/\/narco-news-ssr.vercel.app/g
-      const regexDiscord = /^https:\/\/discord.gg/g
-      if (!link.href.match(regex) && !link.href.match(regexDiscord)) {
-        link.target = '_blank'
-        link.className = `${link.className} external-link`
-      }
-    })
+  })
+  const allSingleImages = Array.from(document.getElementsByClassName('kg-image'))
+  allSingleImages.forEach((element) => {
+    element.loading = 'lazy'
+    element.onclick = () => {
+      largeImage(element)
+    }
+  })
+  // Links
+  const container = document.querySelector('.article__content')
+  const allLinks = Array.from(container.querySelectorAll('a'))
+  allLinks.forEach((link) => {
+    // const regexLocal = /localhost/g
+    const regex = /https:\/\/narco.news/g
+    const regexDiscord = /^https:\/\/discord.gg/g
+    if (!link.href.match(regex) && !link.href.match(regexDiscord)) {
+      link.target = '_blank'
+      link.className = `${link.className} external-link`
+    }
   })
 })
 // // // //
@@ -49,6 +59,27 @@ tryOnMounted(() => {
 onKeyUp('c', () => (showModal.value = false))
 // Twitter
 tryOnMounted(() => {
+  window.twttr = (function(d, s, id) {
+    let js; const fjs = d.getElementsByTagName(s)[0]
+    const t = window.twttr || {}
+    if (d.getElementById(id)) return t
+    js = d.createElement(s)
+    js.id = id
+    js.src = 'https://platform.twitter.com/widgets.js'
+    fjs.parentNode.insertBefore(js, fjs)
+
+    t._e = []
+    t.ready = function(f) {
+      t._e.push(f)
+    }
+
+    return t
+  }(document, 'script', 'twitter-wjs'))
+  window.twttr.widgets?.load()
+})
+//
+// On route update
+onBeforeRouteUpdate(() => {
   window.twttr = (function(d, s, id) {
     let js; const fjs = d.getElementsByTagName(s)[0]
     const t = window.twttr || {}
@@ -114,7 +145,8 @@ tryOnMounted(() => {
     }
   }
 }
-#app > main > section > div > div > div.modal-mask > div > div.modal-container > img {
+/* #app > main > section > div > div > div.modal-mask > div > div.modal-container > img { */
+#app > main > div > section > div:nth-child(1) > div.modal-mask > div > div.modal-container > img {
   object-fit: contain;
   aspect-ratio: 1/1;
   width: 100%;
@@ -201,6 +233,7 @@ tryOnMounted(() => {
     .kg-image-card {
       border-radius: 8px;
       padding: 1.5rem clamp(0, 5%, 3rem);
+      margin: 0 0.5rem;
       img {
         border-radius: 6px;
         border: 1px solid var(--slate-300);
@@ -403,23 +436,25 @@ tryOnMounted(() => {
         font-size: 12px;
       }
     }
+
+    /* TWITER EMBED */
   }
 }
 
 html.dark {
   .article__content-wrapper {
     & ::v-deep(.article__content) {
-      color: white;
+      color: var(--slate-200);
       p {
-        color: white;
+        color: var(--slate-200);
       }
       a {
-        color: var(--green);
+        color: var(--green-400);
       }
       blockquote {
         background-color: #161618;
         color: var(--slate-200);
-        border-color: var(--green);
+        border-color: var(--green-400);
       }
       figcaption {
         color: var(--slate-300);

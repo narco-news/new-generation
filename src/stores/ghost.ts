@@ -59,6 +59,12 @@ export const useGhostStore = defineStore({
         return article.tags?.find(tag => tag.slug === 'translation')
       }).slice(0, 6)
     },
+    // List latest announcements
+    listAnnouncementsArticles(state) {
+      return state.allArticles.filter((article: PostOrPage) => {
+        return article.tags?.find(tag => tag.slug === 'announcements')
+      }).slice(0, 6)
+    },
     // List latest ATW
     listAroundTheWebArticles(state) {
       return state.allArticles.filter((article: PostOrPage) => {
@@ -105,10 +111,10 @@ export const useGhostStore = defineStore({
     },
     // Tags
     listTagArticles(state) {
-      return (tagSlug: string, articlesAmount: number) => state.allTagArticles
+      return (tagSlug: string) => state.allTagArticles
         .filter((article) => {
           return article.tags?.find(tag => tag.slug === tagSlug)
-        }).slice(0, articlesAmount)
+        }).slice(0, state.maxTagArticles)
     },
     listMaxTagArticles(state) {
       return state.maxTagArticles

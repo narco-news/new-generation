@@ -25,8 +25,6 @@ else {
     display: grid;
     place-content: center;
     border-radius: 8px;
-    padding: 6px;
-    margin: 0 5px;
     box-shadow: v-bind(iconBoxShadow);
     transition: all 180ms ease-in;
     color: inherit;
@@ -36,15 +34,15 @@ else {
       border-color: transparent;
     }
     svg {
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
     }
 }
 
 html.dark {
   .twitter-icon-wrapper {
     color: inherit;
-    box-shadow: 0 0 0 1px var(--slate-600);
+    box-shadow: v-bind(iconBoxShadow));
   }
 }
 </style>

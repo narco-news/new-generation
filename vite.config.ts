@@ -64,6 +64,10 @@ export default defineConfig({
             name: 'Noto Serif Display',
             styles: 'ital,wght@0,400;0,500;0,700;1,400;1,500;1,700',
           },
+          {
+            name: 'Quicksand',
+            styles: 'wght@400;500;600',
+          },
         ],
       },
     }),

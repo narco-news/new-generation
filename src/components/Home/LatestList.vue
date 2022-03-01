@@ -68,6 +68,10 @@ const props = defineProps<{
   in extra narrow spaces */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
   margin: 1rem;
+  @media (min-width: 1140px) {
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--green-400);
+  }
 }
 
 .article {
@@ -143,9 +147,9 @@ const props = defineProps<{
     grid-column: 1/-1;
     ::v-deep(.article-wrapper) {
       @media (max-width: 768px) {
-      padding-bottom: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 3px solid var(--green-400);
+      padding-bottom: 3rem;
+      margin-bottom: 0rem;
+      border-bottom: 2px solid var(--green-400);
       }
     }
     @media (min-width: 1024px) {
