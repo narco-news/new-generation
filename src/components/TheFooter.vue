@@ -122,16 +122,14 @@ function scrollToTop() {
           justify-content: flex-end;
         "
       >
-        <visible-right>
-          <button
-            v-if="isArticlePage"
-            ref="scrollTopButton"
-            class="scroll-top-button"
-            @click="scrollToTop()"
-          >
-            <up-arrow-icon />
-          </button>
-        </visible-right>
+        <button
+          v-if="isArticlePage"
+          ref="scrollTopButton"
+          class="scroll-top-button"
+          @click="scrollToTop()"
+        >
+          <up-arrow-icon />
+        </button>
         <TheFooterRSS />
         <TheNavDarkMode style="align-self: flex-end; margin-bottom: 1em" />
         <TheNavLangToggle v-if="showLangToggle" style="margin-bottom: 1em" />
@@ -171,6 +169,7 @@ function scrollToTop() {
   box-shadow: 0 0 0 1px var(--slate-400);
   transition: box-shadow 180ms ease-in;
   color: var(--slate-700);
+  align-self: flex-end;
   &:hover {
     color: var(--green);
     box-shadow: 0 0 0 2px var(--green);

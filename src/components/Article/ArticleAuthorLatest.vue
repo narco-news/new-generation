@@ -1,29 +1,28 @@
 <script setup lang="ts">
 import { useGhostStore } from '~/stores/ghost'
 import { Author } from '~/ghostTypes'
-import formatDate from '~/composables/formatDate'
+import articleVue from '~/layouts/article.vue'
 const useGhost = useGhostStore()
 defineEmits(['changeSlug'])
 const props = defineProps<{
   author?: Author
+  slug?: string
 }>()
 const authorArticles = computed(() =>
-  useGhost.listAuthorArticles(props.author?.slug).slice(0, 6),
+  useGhost.listAuthorArticles(props.author?.slug).slice(0, 4).filter(article => article.slug !== props.slug),
 )
 </script>
 
 <template>
   <section class="mfa-wrapper">
     <div v-if="author?.facebook" class="fin-support-wrapper">
-      <p class="fin-support__pretext">
-        Support {{ author?.name }} on
-      </p>
-      <a :href="`https://patreon.com/${author?.facebook}`" target="_blank" class="patreon-button">
-        <svg width="15px" height="15px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 0H0V15H3V0Z" fill="currentColor" />
-          <path d="M9.5 0C6.46243 0 4 2.46243 4 5.5C4 8.53757 6.46243 11 9.5 11C12.5376 11 15 8.53757 15 5.5C15 2.46243 12.5376 0 9.5 0Z" fill="currentColor" />
-        </svg>
-        Patreon
+      <span>Enjoy the article? Learn something new?</span> Donations from readers like you allow me to invest more time into research and writing articles. Consider contributing a couple of dollars and funding independent drug war research. Thank you all for your support!
+      <a
+        href="https://buymeacoffee.com/elparece"
+        target="_blank no-referer"
+        class="coffee-button"
+      >
+        <img src="../../assets/buy-me-a-coffee-button.webp">
       </a>
     </div>
     <h1 class="mfa-wrapper__header">
@@ -37,7 +36,7 @@ const authorArticles = computed(() =>
     <!-- ARTICLES BEGIN -->
     <div
       v-for="article in authorArticles"
-      :key="article.key"
+      :key="article.slug"
       class="author-articles-wrapper"
     >
       <article-author-latest-article
@@ -56,23 +55,37 @@ const authorArticles = computed(() =>
     </router-link>
     <div>
       <!--  -->
-      <div v-if="author?.facebook" class="fin-support-wrapper">
-        <p class="fin-support__pretext">
-          Support {{ author?.name }} on
-        </p>
-        <a :href="`https://patreon.com/${author?.facebook}`" target="_blank" class="patreon-button">
-          <svg width="15px" height="15px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 0H0V15H3V0Z" fill="currentColor" />
-            <path d="M9.5 0C6.46243 0 4 2.46243 4 5.5C4 8.53757 6.46243 11 9.5 11C12.5376 11 15 8.53757 15 5.5C15 2.46243 12.5376 0 9.5 0Z" fill="currentColor" />
-          </svg>
-          Patreon
+      <!-- <div v-if="author?.facebook" class="fin-support-wrapper">
+        <a href="#" class="coffee-button">
+          Hey, like what you read?
+          <img src="../../assets/buy-me-a-coffee-button.webp">
         </a>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
 
 <style lang="postcss" scoped>
+.coffee-button {
+  display: block;
+  margin: 1rem auto;
+  margin-top: 3rem;
+  color: var(--green);
+  animation: float 4s infinite ease-in-out;
+  img {
+    display: block;
+    margin: var(--space-m) auto;
+    height: 50px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px white;
+    /* box-shadow:
+      0 0 0 1px var(--green),
+      0px 0.5px 0.6px hsl(var(--shadow-color) / 0.36),
+      0px 1.7px 1.9px -0.8px hsl(var(--shadow-color) / 0.36),
+      0px 4.2px 4.7px -1.7px hsl(var(--shadow-color) / 0.36),
+      0.1px 10.2px 11.5px -2.5px hsl(var(--shadow-color) / 0.36); */
+  }
+}
 .mfa-wrapper {
   margin: 2rem 0;
   padding: 1rem;
@@ -85,15 +98,17 @@ const authorArticles = computed(() =>
     border-bottom: 2px solid var(--green);
     color: var(--green);
     font-size: clamp(100%, 0.9rem + 2vw, 2rem);
-    font-family: 'Quicksand';
+    font-family: var(--font-normal);
     font-weight: 400;
     position: sticky;
     position: -webkit-sticky;
     z-index: 100;
     top: 0;
     padding: 1rem 0 0.5rem 0;
+    margin: 0 auto;
     margin-top: 1rem;
     margin-bottom: 2rem;
+    max-width: 45ch;
     a {
       color: var(--green);
       text-decoration: none;
@@ -106,31 +121,28 @@ const authorArticles = computed(() =>
   }
 }
 .fin-support-wrapper {
-  border-bottom: 1px solid var(--green-200);
-  border-top: 1px solid var(--green-200);
-  margin: 2rem 0.5rem;
-  .fin-support__pretext {
-    display: inline-flex;
+  --shadow-color: 210deg 12% 60%;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--step--1);
+  line-height: 1.4;
+  margin: 2rem var(--space-xs);
+  padding: var(--space-xs);
+  padding-top: var(--space-l);
+  background-color: var(--green-100);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 2px var(--green),
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+  max-width: 45ch;
+  span {
     font-weight: 600;
-    color: var(--slate-700);
-    font-size: 18px;
-    font-family: monospace;
-    margin-right: 0.5rem;
   }
-  .patreon-button {
-    text-decoration: none;
-    background: #f96854;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 9999px;
-    font-family: 'Oswald';
-    font-weight: 500;
-    margin: 2rem 0.5rem 2rem 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    svg {
-      margin-right: 1rem;
-    }
+  @media (min-width: 1140px) {
+    margin: 2rem auto;
   }
 }
 .divider {
@@ -149,7 +161,7 @@ const authorArticles = computed(() =>
   color: inherit;
   text-decoration: none;
   padding-bottom: 5px;
-  font-family: 'Quicksand';
+  font-family: var(--font-normal);
   font-weight: 600;
   display: inline-flex;
   margin: 0 0.5rem;
@@ -201,10 +213,26 @@ html.dark {
       border-bottom: 2px solid var(--slate-300);
     }
     .fin-support-wrapper {
-      .fin-support__pretext {
-        color: white;
-      }
+        color: var(--slate-800);
     }
   }
 }
+
+@keyframes float {
+    0% {
+      transform: translatey(0px);
+      filter:
+      drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+    }
+    50% {
+      filter:
+        drop-shadow(0 15px 10px rgba(0,0,0,0.3));
+      transform: translatey(-6px);
+    }
+    100% {
+      filter:
+        drop-shadow( 0 10px 10px rgba(0,0,0,0.2));
+      transform: translatey(0px);
+    }
+  }
 </style>

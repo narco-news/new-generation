@@ -24,7 +24,7 @@ const stopWatcher = watchEffect(() => {
     CSS_titleTextDecoration.value = 'none'
     CSS_titleColor.value = 'var(--green)'
     CSS_authorImageFilter.value = 'saturate(20%)'
-    CSS_authorTextColor.value = 'var(--green)'
+    CSS_authorTextColor.value = 'var(--slate-500)'
   }
 })
 tryOnBeforeUnmount(() => stopWatcher())
@@ -78,50 +78,51 @@ a {
   max-width: 85%;
 }
 .opinion__title {
-  color: v-bind('CSS_titleColor');
-  text-decoration: v-bind('CSS_titleTextDecoration');
-  font-family: 'Noto Serif';
-  font-weight: 600;
+  color: v-bind("CSS_titleColor");
+  text-decoration: v-bind("CSS_titleTextDecoration");
+  font-family: "Noto Serif Display";
+  font-weight: 700;
+  font-size: var(--step-2);
   margin: 0;
   padding: 0;
   padding-right: 2rem;
-  font-size: clamp(100%, 1.5rem + 2vw, 28px);
   transition: all 180ms ease-in;
 }
 .opinion__author {
   font-size: 14px;
+  font-family: var(--font-normal);
   font-weight: 500;
+  font-style: italic;
   color: v-bind(CSS_authorTextColor);
-  font-family: 'Quicksand';
   margin: 0;
   padding: 0;
   padding-bottom: 0.5rem;
   transition: all 180ms ease-in;
 }
 .opinion__image-wrapper {
-    border-radius: 100%;
-    overflow: hidden;
-    box-shadow: 0 0 0 2px var(--green-400);
+  border-radius: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px var(--green-400);
+  height: 45px;
+  width: 45px;
+  margin-top: 0.5rem;
+  .opinion__author-image {
+    filter: v-bind("CSS_authorImageFilter");
+    transition: all 180ms ease-in;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    width: 100%;
     height: 45px;
-    width: 45px;
-    margin-top: 0.5rem;
-    .opinion__author-image {
-      filter: v-bind('CSS_authorImageFilter');
-      transition: all 180ms ease-in;
-      object-fit: cover;
-      aspect-ratio: 1/1;
-      width: 100%;
-      height: 45px;
-      transform: scale(1.2);
-    }
+    transform: scale(1.2);
+  }
 }
 
 html.dark {
-    .opinion__title {
-        color: v-bind(CSS_titleColor);
-    }
-    .opinion__author {
-        color: var(--green-400);
-    }
+  .opinion__title {
+    color: v-bind(CSS_titleColor);
+  }
+  .opinion__author {
+    color: var(--green-400);
+  }
 }
 </style>

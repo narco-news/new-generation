@@ -27,7 +27,7 @@
   }
   & .page_wrapper {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1140px;
   }
 }
 

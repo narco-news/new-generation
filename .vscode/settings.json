@@ -1,5 +1,13 @@
 {
   "i18n-ally.localesPaths": [
     "locales"
+  ],
+  "spellright.language": [
+    "English (American)"
+  ],
+  "spellright.documentTypes": [
+    "markdown",
+    "latex",
+    "plaintext"
   ]
 }

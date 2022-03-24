@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import articleVue from '~/layouts/article.vue'
 import { useGhostStore } from '~/stores/ghost'
 dayjs.extend(relativeTime)
 defineEmits(['changeSlug'])
 const useGhost = useGhostStore()
 const props = defineProps<{
   tags: []
+  slug?: string
 }>()
-const tagArticles = await computed(() => useGhost.listTagArticles(props.tags[0]?.slug, 4))
+const tagArticles = computed(() =>
+  useGhost.listTagArticles(props.tags[0]?.slug).slice(0, 4).filter(article => article.slug !== props.slug),
+)
 </script>
 
 <template>
@@ -29,12 +33,20 @@ const tagArticles = await computed(() => useGhost.listTagArticles(props.tags[0]?
         @change-slug="$emit('changeSlug', $event)"
       />
     </div>
-    <router-link
-      :to="`/tags/${props.tags[0].slug}`"
-      class="more-articles-link"
-    >
+    <router-link :to="`/tags/${props.tags[0].slug}`" class="more-articles-link">
       THE REST
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="18" height="18"><path fill="none" d="M0 0h24v24H0z" /><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        width="18"
+        height="18"
+      >
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path
+          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+        />
+      </svg>
     </router-link>
   </section>
 </template>
@@ -43,24 +55,28 @@ const tagArticles = await computed(() => useGhost.listTagArticles(props.tags[0]?
 section {
   padding: 1rem;
   background-color: white;
-  @media(min-width: 992px) {
+  @media (min-width: 992px) {
     border-radius: 16px;
+    margin: 2rem 0;
   }
 }
 .section-header {
   background-color: white;
+
   border-bottom: 2px solid var(--green);
   color: var(--green);
   font-size: clamp(100%, 0.9rem + 2vw, 2rem);
-  font-family: 'Quicksand';
+  font-family: var(--font-normal);
   font-weight: 400;
   position: sticky;
   position: -webkit-sticky;
   z-index: 100;
   top: 0;
   padding: 1rem 0 0.5rem 0;
+  margin: 0 auto;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  max-width: 45ch;
   span {
     font-weight: 600;
   }
@@ -118,26 +134,21 @@ section {
   margin: 0 0.5rem;
   margin-bottom: 2rem;
   svg {
-    margin-left : 5px;
+    margin-left: 5px;
   }
-    background:
-    linear-gradient(
-      to right,
-      var(--slate-800),
-      var(--slate-800)
-    ),
+  background: linear-gradient(to right, var(--slate-800), var(--slate-800)),
     linear-gradient(
       to right,
       rgb(233, 45, 20),
       rgb(241, 166, 25),
       rgb(249, 253, 5)
-  );
+    );
   background-size: 100% 2px, 0 2px;
   background-position: 100% 100%, 0 100%;
   background-repeat: no-repeat;
   transition: background-size 400ms;
   &:hover {
-      background-size: 0 2px, 100% 2px;
+    background-size: 0 2px, 100% 2px;
   }
   @media (min-width: 994px) {
     margin: 2rem 7rem;
@@ -153,7 +164,7 @@ html.dark {
   }
   .more-articles-link {
     color: var(--slate-300);
-    border-bottom: 2px solid var(--slate-300)
+    border-bottom: 2px solid var(--slate-300);
   }
 }
 </style>

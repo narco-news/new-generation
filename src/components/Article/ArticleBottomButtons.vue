@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useMotion, useMotionControls, useMotionProperties } from '@vueuse/motion'
 import { Article } from '~/ghostTypes'
 const props = defineProps<{
   article?: Article
@@ -11,36 +10,19 @@ const options = {
 }
 const { copy, copied } = useClipboard(options)
 
-const buttonBoxShadow = ref('0 0 0 1px var(--slate-500)')
+const buttonBoxShadow = ref('0 0 0 1px var(--slate-300)')
 function clicked() {
   copy()
   buttonBoxShadow.value = '0 0 0 2px var(--green-400)'
   useTimeoutFn(() => {
-    buttonBoxShadow.value = '0 0 0 1px var(--slate-500)'
+    buttonBoxShadow.value = '0 0 0 1px var(--slate-300)'
   }, 3000)
 }
-const shareButtons = ref<HTMLElement>()
-const { stop } = useMotion(shareButtons, {
-  initial: {
-    opacity: 0,
-    x: -40,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: 300,
-      duration: 500,
-      onComplete: () => stop(),
-    },
-  },
-})
 </script>
 
 <template>
   <div class="bottom-share-buttons">
     <div
-      ref="shareButtons"
       style="display: flex;align-items:center"
     >
       <a
@@ -85,7 +67,7 @@ const { stop } = useMotion(shareButtons, {
         display: grid;
         place-content: center;
         border-radius: 100%;
-        box-shadow: 0 0 0 1px var(--slate-500);
+        box-shadow: 0 0 0 1px var(--slate-300);
         margin: 0 0.5rem;
         padding: 10px;
         transition: all 180ms ease-in-out;

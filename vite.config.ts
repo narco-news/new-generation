@@ -62,11 +62,19 @@ export default defineConfig({
           },
           {
             name: 'Noto Serif Display',
-            styles: 'ital,wght@0,400;0,500;0,700;1,400;1,500;1,700',
+            styles: 'ital,wght@0,700;1,500;1,700',
           },
           {
-            name: 'Quicksand',
-            styles: 'wght@400;500;600',
+            name: 'Open Sans',
+            styles: 'ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500',
+          },
+          {
+            name: 'Domine',
+            styles: 'wght@400;500;600;700',
+          },
+          {
+            name: 'Source Code Pro',
+            styles: 'wght@300;400;500',
           },
         ],
       },

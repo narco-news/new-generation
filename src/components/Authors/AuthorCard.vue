@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BadgeIcon from '../Icons/BadgeIcon.vue'
 import { Author, Articles } from '~/ghostTypes'
 import { useGhostStore } from '~/stores/ghost'
 import formatDate from '~/composables/formatDate'
@@ -27,43 +26,6 @@ const authorArticles = computed((): Articles => useGhost.listAuthorArticles(prop
     <p class="author__bio">
       {{ props.author.bio }}
     </p>
-    <!-- <div class="social-links">
-      <a
-        v-if="props.author.facebook"
-        :href="`https://patreon.com/${props.author.facebook}`"
-        :title="`${props.author.name}'s Patreon`"
-        target="_blank"
-        style="text-decoration: none;margin: 0 1rem 0 0;"
-      >
-        <PatreonColorIcon />
-      </a>
-      <a
-        v-if="props.author.twitter"
-        :href="`https://twitter.com/${props.author.twitter}`"
-        :title="`${props.author.name}'s Twitter profile`"
-        target="_blank"
-        style="color: var(--slate-600);margin: 0 0.5rem"
-      >
-        <TwitterColorIcon :border="true" />
-      </a>
-      <a
-        v-if="props.author.location"
-        :href="`mailto:${props.author.location}`"
-        :title="`Email ${props.author.name}`"
-        style="color: var(--slate-600);margin: 0 0.5rem"
-      >
-        <MailIcon :border="true" />
-      </a>
-      <a
-        v-if="props.author.website"
-        :href="`${props.author.website}`"
-        :title="`${props.author.name}'s website`"
-        target="_blank"
-        style="color: var(--slate-600);margin: 0 0.5rem"
-      >
-        <ExternalLinkIcon :border="true" />
-      </a>
-    </div> -->
     <!-- Articles -->
     <ul v-if="props.showArticles" class="author__latest-articles">
       <li v-for="article in authorArticles.slice(0, 4)" :key="article.slug">
@@ -110,9 +72,11 @@ a {
         border-radius: clamp(0px, var(--c) * -1000, 50px);
         object-fit: cover;
         object-position: top;
+        box-shadow: 0 0 0 2px var(--green);
     }
 
     .author__name {
+        font-family: var(--font-title);
         margin: 20px 0 10px clamp(0px, var(--c) * -1000, 70px);
         color: black;
         text-decoration: none;
@@ -129,6 +93,7 @@ a {
         margin: 20px 0 10px clamp(0px, var(--c) * -1000, 70px);
         color: var(--green);
         font-weight: 500;
+        font-family: var(--font-normal);
         cursor: none;
         user-select: none;
     }

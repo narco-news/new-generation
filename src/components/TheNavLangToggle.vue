@@ -12,11 +12,7 @@ const toggleLocales = () => {
 </script>
 
 <template>
-  <button
-    class="the-nav__lang-toggle"
-    :title="t('nav.toggle_langs')"
-    @click="toggleLocales"
-  >
+  <button class="the-nav__lang-toggle" :title="t('nav.toggle_langs')" @click="toggleLocales">
     <span v-if="locale === 'es'">English</span>
     <span v-else>Español</span>
   </button>
@@ -34,8 +30,9 @@ const toggleLocales = () => {
   margin-left: 2em;
   span {
     font-size: 12px;
-    font-family: monospace;
-    font-weight: 500;
+    font-family: var(--font-normal);
+    font-weight: 400;
+    font-size: var(--step--2);
     color: var(--slate-800);
     border-radius: 8px;
     box-shadow: 0 0 0 1px var(--slate-400);
@@ -45,6 +42,9 @@ const toggleLocales = () => {
       box-shadow: 0 0 0 2px var(--green);
       color: var(--green);
     }
+    @media (max-width: 910px) {
+      font-size: 12px;
+    }
   }
 }
 
@@ -52,10 +52,10 @@ html.dark {
   .the-nav__lang-toggle {
     span {
       color: var(--slate-200);
-      box-shadow: 0 0 0 1px var(--slate-500);
+      box-shadow: 0 0 0 1px var(--slate-400);
       &:hover {
-          box-shadow: 0 0 0 2px var(--green-400);
-          color: var(--green-400);
+        box-shadow: 0 0 0 2px var(--green-400);
+        color: var(--green-400);
       }
     }
   }

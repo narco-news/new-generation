@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { isDark, toggleDark } from '../composables'
 const { t } = useI18n()
+// CSS values
+const textColor = ref('var(--slate-700)');
+const borderColor = ref('var(--slate-400)');
+const borderWidth = ref('1px');
+
+// toggleDark helper function
+function tDark() {
+  textColor.value = 'var(--green)'
+  borderColor.value = 'var(--green)'
+  borderWidth.value = '2px'
+  toggleDark()
+  setInterval(() => {
+    textColor.value = 'inherit'
+    borderColor.value = 'var(--slate-400)'
+    borderWidth.value = '1px'
+  }, 2500);
+}
 </script>
 
 <template>
@@ -8,7 +25,7 @@ const { t } = useI18n()
     class="dark-mode-button"
     :aria-label="t('nav.toggle_dark')"
     :title="t('nav.toggle_dark')"
-    @click="toggleDark()"
+    @click="tDark()"
   >
     <transition name="slide" mode="out-in">
       <moon-color-icon v-if="!isDark" alt="Moon" />
@@ -23,17 +40,18 @@ const { t } = useI18n()
   place-content: center;
   background: none;
   border: none;
-  padding: 8px;
-  margin: 0.5rem 0;
   border-radius: 6px;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 0 0 1px var(--slate-400);
-  transition: all 180ms ease-in;
-  color: var(--slate-700);
+  transition: all 180ms ease-in-out;
+  color: v-bind(textColor);
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 0 v-bind(borderWidth) v-bind(borderColor);
+  padding: 8px;
+  margin-top: 0.5rem;
   &:hover {
     color: var(--green);
-    box-shadow: 0 0 0 2px var(--green);
+    box-shadow: 0 0 0 v-bind(borderWidth) v-bind(borderColor);
   }
   & img {
     width: 20px;
@@ -63,12 +81,8 @@ const { t } = useI18n()
 
 html.dark {
   .dark-mode-button {
-    color: var(--slate-200);
-    box-shadow: 0 0 0 1px var(--slate-500);
-    &:hover {
-      color: var(--green-400);
-      box-shadow: 0 0 0 2px var(--green-400);
-    }
+    color: white;
+    box-shadow: 0 0 0 v-bind(borderWidth) v-bind(borderColor);
   }
 }
 </style>

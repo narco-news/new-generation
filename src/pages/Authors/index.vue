@@ -20,13 +20,13 @@ const authors = authorsList.value.authors.slice(0, 4)
     <h1 class="authors-header">
       Authors
     </h1>
-    <div v-if="authors" class="authors-card-wrapper">
+    <div v-if="authors.length" class="authors-card-wrapper">
       <div
         v-for="author in authors"
         :key="author.id"
         class="author-card"
       >
-        <AuthorCard :author="author" :show-articles="false" />
+        <SmallArticleCard :author="author" />
       </div>
     </div>
     <div v-else class="folding-cube">
@@ -49,7 +49,8 @@ const authors = authorsList.value.authors.slice(0, 4)
   margin: 0 auto;
 }
 .authors-header {
-  font-weight: 400;
+  font-family: var(--font-normal);
+  font-weight: 500;
   padding: 0 10px;
   color: var(--slate-800);
   @media (min-width: 426px) {

@@ -9,9 +9,7 @@ const props = defineProps<{
 <template>
   <section class="articles-featured">
     <div class="articles-featured__header-wrapper">
-      <h1 class="articles-featured__header">
-        {{ t('articles.featured') }}
-      </h1>
+      <h1 class="articles-featured__header">{{ t('articles.featured') }}</h1>
     </div>
     <div class="articles-featured__articles-wrapper">
       <article
@@ -48,13 +46,14 @@ const props = defineProps<{
     background-color: var(--slate-300);
     letter-spacing: 1.2px;
     .articles-featured__header {
+      font-family: var(--font-normal);
+      font-size: var(--step-1);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       color: var(--slate-700);
-      font-weight: 400;
       margin: 0;
       padding: 1rem 0.5rem;
       padding-right: 1rem;
-      font-size: clamp(100%, 1.5rem + 2vw, 28px);
-      text-transform: uppercase;
     }
   }
   .articles-featured__articles-wrapper {

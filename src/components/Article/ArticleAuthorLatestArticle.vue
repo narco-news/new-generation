@@ -49,7 +49,7 @@ tryOnBeforeUnmount(() => watchHover())
           {{ article.title }}
         </h1>
         <div class="mfa__article-date-tag-wrapper">
-          <div
+          <!-- <div
             v-for="tag in article.tags.slice(0, 1)"
             :key="tag.id"
             class="mfa__article-tag"
@@ -58,7 +58,7 @@ tryOnBeforeUnmount(() => watchHover())
           </div>
           <span style="color: var(--green);margin-right: 0.7rem">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.10876 14L9.46582 1H10.8178L5.46074 14H4.10876Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" /></svg>
-          </span>
+          </span> -->
           <time class="mfa__article-date">
             {{ dayjs().to(String(article.published_at)) }}
           </time>
@@ -82,7 +82,7 @@ tryOnBeforeUnmount(() => watchHover())
     margin-bottom: 2rem;
     display: block;
     text-decoration: none;
-    border-bottom: 1px solid var(--green-400);
+    border-bottom: 1px solid var(--slate-300);
     -webkit-tap-highlight-color: transparent;
     /* IMAGE */
     .mfa__article-image {
@@ -101,6 +101,7 @@ tryOnBeforeUnmount(() => watchHover())
     .mfa__article-meta {
     padding: 0 0.3rem;
     margin: 0.5rem 0 1rem 0;
+    font-family: var(--font-normal);
     .mfa__article-title {
         margin: 0 0 1rem 0;
         padding: 0;
@@ -108,10 +109,11 @@ tryOnBeforeUnmount(() => watchHover())
         line-height: 1.3;
         text-decoration: v-bind(titleTextDecoration);
         transition: text-decoration 300ms ease-in-out;
+        font-family: var(--font-title);
     }
     .mfa__article-date-tag-wrapper {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       font-size: 14px;
       margin: 0;
       margin-bottom: 1rem;
@@ -122,6 +124,7 @@ tryOnBeforeUnmount(() => watchHover())
         color: v-bind(tagTextColor);
         transition: all 180ms ease-out;
         font-weight: 500;
+        font-size: var(--step--1);
     }
     .mfa__article-date {
       color: var(--green);
@@ -131,8 +134,8 @@ tryOnBeforeUnmount(() => watchHover())
         margin: 0.5rem 0;
         padding: 0;
         color: v-bind(excerptTextColor);
-        font-family: sans-serif;
-        font-weight: 300;
+        font-family: var(--font-normal);
+        font-weight: 400;
         line-height: 1.3;
         transition: all 180ms ease-out;
     }

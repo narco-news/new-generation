@@ -40,10 +40,9 @@ const { y } = useWindowScroll()
 <style lang="postcss" scoped>
 .article-latest__header {
   font-size: clamp(100%, 1.5rem + 2vw, 32px);
-  font-family: 'Oswald';
-  font-weight: 400;
+  font-family: var(--font-normal);
+  font-weight: 500;
   margin: 0 0.5rem;
-  /* margin-top: 1rem; */
   padding: 1rem;
   color: var(--slate-700);
   background-color: var(--slate-100);

@@ -19,7 +19,7 @@ const stopWatcher = watchEffect(() => {
   }
   else {
     // Default styles
-    CSS_imageFilter.value = 'brightness(0.50) saturate(0.90) blur(3px)'
+    CSS_imageFilter.value = 'brightness(0.40) saturate(0.90) blur(3px)'
   }
 })
 tryOnBeforeUnmount(() => stopWatcher())
@@ -38,19 +38,13 @@ tryOnBeforeUnmount(() => stopWatcher())
           @load="imageLoaded = true"
         >
       </div>
-      <div
-        v-show="imageLoaded"
-        class="lf-article__meta"
-      >
-        <h1 class="lf-article__title line-clamp-three">
+      <div v-show="imageLoaded" class="lf-article__meta">
+        <h1 class="lf-article__title">
           {{ props.article.title }}
         </h1>
         <h2 class="lf-article__author">
           {{ props.article.primary_author?.name }}
         </h2>
-        <p class="lf-article__date">
-          {{ dayjs().to(props.article.published_at) }}
-        </p>
       </div>
     </router-link>
   </div>
@@ -62,7 +56,7 @@ tryOnBeforeUnmount(() => stopWatcher())
   min-height: 170px;
   display: block;
   border-radius: 8px;
-  box-shadow: 0 0 0 2px var(--slate-300);
+  box-shadow: 0 0 0 1px var(--slate-300);
   transition: border 180ms ease-in;
   transition: box-shadow 180ms ease-in;
   position: relative;
@@ -79,7 +73,7 @@ tryOnBeforeUnmount(() => stopWatcher())
   .lf-article__image-wrapper {
     height: 100%;
     &::before {
-      content: 'narco.news';
+      content: "narco.news";
       font-size: 16px;
       color: var(--slate-300);
       animation: blink 3s linear infinite;
@@ -91,7 +85,7 @@ tryOnBeforeUnmount(() => stopWatcher())
       z-index: -10;
     }
     .lf-article__image {
-      filter: v-bind('CSS_imageFilter');
+      filter: v-bind("CSS_imageFilter");
       transition: filter 180ms ease-in;
       transition: transform 0.3s ease;
       z-index: 10;
@@ -108,37 +102,45 @@ tryOnBeforeUnmount(() => stopWatcher())
     bottom: 0;
     left: 0;
     z-index: 40;
-    padding: 10px 5px;
     display: flex;
     flex-direction: column;
-    @media (min-width: 425px) {
-      padding: 10px;
-    }
-    .lf-article__author {
-      color: var(--green);
-      font-weight: 400;
-      font-size: clamp(100%, 1rem + 2vw, 18px);
-      margin: 0;
-      padding: 5px 10px 5px 10px;
-      background-color: transparent;
-      align-self: flex-start;
-    }
+    padding: var(--space-2xs);
     .lf-article__title {
+      font-size: var(--step--2);
+      font-family: var(--font-title);
+      font-weight: 700;
       color: white;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
       background-color: transparent;
-      font-size: clamp(100%, 0.5rem + 2vw, 28px);
+      overflow: hidden;
       margin: 0;
       line-height: 1.3;
       margin: 0;
-      padding: 0 10px 3px 10px;
+      padding: 0;
       align-self: flex-start;
+    }
+    .lf-article__author {
+      font-family: var(--font-author);
+      font-size: var(--step--2);
+      font-weight: 500;
+      color: var(--green);
+      margin: 0;
+      padding: var(--space-2xs) 0;
+      background-color: transparent;
+      align-self: flex-start;
+      @media (min-width: 768px) {
+        font-weight: 600;
+      }
     }
     .lf-article__date {
       display: inline-block;
-      padding: 5px 10px;
       margin: 0;
+      padding: 0;
       font-size: 11px;
-      font-family: monospace;
+      font-family: "Open Sans";
+      font-weight: 600;
       color: var(--slate-200);
       background-color: transparent;
       align-self: flex-start;

@@ -92,8 +92,9 @@ function bounce() {
     text-decoration: none;
     padding: 0;
     margin: 0;
-    font-size: clamp(100%, 1rem + 2vw, 22px);
+    font-size: var(--step-1);
     font-weight: 400;
+    font-family: var(--font-normal);
     transition: color 180ms ease-in;
     /* cursor: none; */
     user-select: none;

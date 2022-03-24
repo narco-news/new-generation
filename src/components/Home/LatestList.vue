@@ -14,11 +14,7 @@ const props = defineProps<{
       </h1>
     </div>
     <div v-if="props.articles" class="latest-list__articles-wrapper">
-      <article
-        v-for="article in props.articles"
-        :key="article.slug"
-        class="article"
-      >
+      <article v-for="article in props.articles" :key="article.slug" class="article">
         <LatestListArticle :article="article" />
       </article>
     </div>
@@ -37,7 +33,7 @@ const props = defineProps<{
     padding: 1rem;
     color: var(--slate-700);
     background-color: var(--slate-100);
-    border-bottom: 2px solid var(--slate-700);
+    border-bottom: 3px solid var(--slate-700);
     position: sticky;
     position: -webkit-sticky;
     top: 0;
@@ -50,9 +46,10 @@ const props = defineProps<{
       margin-top: 2rem;
     }
     .latest-list__header {
-      font-size: clamp(100%, 1.5rem + 2vw, 32px);
-      font-family: 'Oswald';
-      font-weight: 400;
+      font-family: var(--font-normal);
+      font-size: var(--step-2);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       margin: 0;
     }
   }
@@ -70,7 +67,7 @@ const props = defineProps<{
   margin: 1rem;
   @media (min-width: 1140px) {
     padding-bottom: 2rem;
-    border-bottom: 2px solid var(--green-400);
+    border-bottom: 2px solid var(--slate-600);
   }
 }
 
@@ -90,73 +87,102 @@ const props = defineProps<{
       grid-column: 1/-2;
     }
     ::v-deep(.article-image) {
-      @media (min-width: 1440px) {
-        max-height: 375px;
+      box-shadow: 0 0 0 2px var(--green);
+      @media (min-width: 768px) {
+        min-height: 400px;
+      }
+      @media (min-width: 1140px) {
+        aspect-ratio: 4/3;
+        min-height: 400px;
       }
     }
   }
   &:nth-child(2) {
     ::v-deep(.article-image) {
-      @media (min-width: 1440px) {
-        max-height: 375px;
-        aspect-ratio: 1/1;
+      @media (min-width: 1140px) {
+        aspect-ratio: 4/3;
+        min-height: 400px;
       }
     }
   }
-  &:nth-child(6) {
+  /* &:nth-child(6) {
+    ::v-deep(.article-image-wrapper) {
+      border: 3px solid white;
+      border-radius: 6px;
+      background-color: white;
+      border-bottom: 0;
+      img {
+        box-shadow: none;
+      }
+    }
     ::v-deep(.article-wrapper) {
-      padding-bottom: 1.2rem;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      background-color: var(--green);
+      border-radius: 4px;
+      border: none;
+      box-shadow: rgba(23, 165, 120, 0.4) -5px 5px,
+        rgba(23, 165, 120, 0.3) -10px 10px, rgba(23, 165, 120, 0.2) -15px 15px,
+        rgba(23, 165, 120, 0.1) -20px 20px, rgba(23, 165, 120, 0.05) -25px 25px;
     }
     ::v-deep(.meta-wrapper) {
       position: absolute;
       bottom: 0;
       left: 0;
       z-index: 50;
-      padding: 20px;
-      margin-bottom: 1rem;
+      margin: 1rem;
+      margin-bottom: 5rem;
       .article-title {
+        background-color: var(--green);
         color: white;
-        font-size: 32px;
+        font-size: var(--step-3);
+        padding: var(--space-2xs);
+      }
+      .author-box {
+        margin-left: var(--space-xs);
+        padding: var(--space-xs) var(--space-2xs);
       }
       .article-author {
+        color: white;
         font-weight: 500;
       }
       .article-excerpt {
         color: white;
+        margin-left: var(--space-xs);
       }
       .article-date {
         color: white;
+        font-weight: 500;
       }
       .article-tag {
         color: white;
+        margin-left: var(--space-s);
       }
     }
     ::v-deep(.article-image) {
       aspect-ratio: 1/1;
       height: 100%;
-      filter: brightness(55%) saturate(65%);
+      filter: brightness(40%) saturate(55%);
       @media (min-height: 768px) {
         height: 450px;
       }
       @media (max-height: 1025px) {
         /* height: 100%; */
-      }
-    }
-  }
+
   &:nth-child(8) {
     grid-column: 1/-1;
     ::v-deep(.article-wrapper) {
       @media (max-width: 768px) {
-      padding-bottom: 3rem;
-      margin-bottom: 0rem;
-      border-bottom: 2px solid var(--green-400);
+        padding-bottom: 3rem;
+        margin-bottom: 0rem;
+        border-bottom: 2px solid var(--slate-600);
       }
     }
     @media (min-width: 1024px) {
       grid-column: auto;
     }
     ::v-deep(.article-image) {
-      @media (min-width: 1440px) {
+      @media (min-width: 768px) {
         max-height: 375px;
       }
     }
