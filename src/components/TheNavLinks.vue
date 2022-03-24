@@ -7,6 +7,7 @@ const { t } = useI18n()
     <router-link to="/" class="the-nav__link">
       {{ t('nav.home') }}
     </router-link>
+    <!-- <router-link to="/resources" class="the-nav__link">{{ t('nav.resources') }}</router-link> -->
     <router-link to="/library" class="the-nav__link">
       {{ t('nav.library') }}
     </router-link>
@@ -27,17 +28,20 @@ const { t } = useI18n()
 .the-nav__link {
   color: black;
   text-decoration: none;
-  margin: 0 5px;
+  margin: 0 var(--space-2xs);
   /* padding: 10px 0; */
   border-bottom: 2px solid transparent;
   padding-bottom: 21px;
   transition: color 180ms ease-in;
   -webkit-tap-highlight-color: transparent;
+  font-family: var(--font-normal);
+  font-size: var(--step--1);
   @media (max-width: 810px) {
     padding-bottom: 0;
     border-bottom: 0;
     border-top: 2px solid transparent;
     padding: 10px 10px 0 10px;
+    font-size: var(--step--2);
   }
   &.router-link-active {
     border-color: var(--green);

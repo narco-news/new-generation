@@ -124,13 +124,15 @@ tryOnBeforeUnmount(() => stopWatcher())
 
   .pa__meta {
     padding: 1.5rem clamp(1rem, 5%, 3rem);
+    font-family: var(--font-normal);
 
     * {
       padding-top: 0.5rem;
     }
     .pa__title {
-      font-weight: 400;
-      font-size: clamp(100%, 1.5rem + 2vw, 32px);
+      font-family: var(--font-title);
+      font-weight: 700;
+      line-height: 1.3;
       color: var(--slate-800);
       margin: 0;
       display: -webkit-box;
@@ -150,19 +152,22 @@ tryOnBeforeUnmount(() => stopWatcher())
         .pa__author {
           color: var(--green);
           margin: 0;
-          font-size: 14px;
           font-weight: 500;
+          font-family: var(--font-normal);
         }
         time {
-          font-size: 12px;
-          font-family: monospace;
-          color: var(--slate-600);
+          font-family: var(--font-normal);
+          font-weight: 500;
+          color: var(--slate-500);
+          margin-top: var(--space-3xs);
+          padding-top: 0;
         }
       }
       .pa__author-image {
-        height: 30px;
-        width: 30px;
+        height: 35px;
+        width: 35px;
         border-radius: 100%;
+        box-shadow: 0 0 0 2px var(--green);
         float: left;
         margin: 0;
         padding: 0;
@@ -176,18 +181,20 @@ tryOnBeforeUnmount(() => stopWatcher())
       color: var(--slate-500);
       margin: 0;
       margin-top: 1rem;
-      font-family: sans-serif;
+      font-family: var(--font-normal);
       display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
       font-size: clamp(100%, 1.5rem + 2vw, 16px);
+      font-family: var(--font-normal);
+      line-height: 1.5;
     }
   }
 }
 .v-lazy-image {
   filter: blur(10px);
-  transition: filter 0.7s;
+  transition: filter 180ms;
 }
 .v-lazy-image-loaded {
   filter: blur(0);

@@ -4,7 +4,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
 <template>
   <a
-    v-if="isLargeScreen"
+    v-if="true"
     href="https://publish.narco.news/0ee142894f12535186d694ad21b2fb/rss/"
     target="_blank"
   >

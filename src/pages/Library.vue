@@ -63,12 +63,20 @@ onClickOutside(modalWrapper, () => {
 
 <template>
   <section class="library__wrapper">
-    <!-- <h1 class="library__header">
-      {{ t('nav.library') }}
-    </h1> -->
+    <div class="library__header-bar">
+      <h1 class="library__header">
+        {{ t('nav.library') }}
+      </h1>
+      <!-- <router-link
+        to="/academic"
+        class="academic-link"
+      >
+        Academic
+      </router-link> -->
+    </div>
     <div class="library__booklist-wrapper">
       <div
-        v-for="book in booksList.books"
+        v-for="book in booksList.books.sort((a, b) => b.datePublished - a.datePublished)"
         :key="book.id"
       >
         <book-card
@@ -78,43 +86,62 @@ onClickOutside(modalWrapper, () => {
       </div>
     </div>
   </section>
-  <the-modal
-    v-if="showModal"
-    @close-modal="showModal = false"
-  >
-    <div ref="modalWrapper" class="modal-wrapper">
-      <button title="Close" alt="Close" class="modal__close-button" @click="showModal = false">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" /></svg>
-      </button>
-      <div class="modal-meta">
-        <img
-          :src="modalData.imageUrl"
-          :alt="modalData.title"
-          class="modal__image"
-        >
-        <div>
-          <h2 class="modal__title">
-            {{ modalData.title }}
-          </h2>
-          <p class="modal__author">
-            {{ modalData.authors }}
-          </p>
-          <p class="modal__date">
-            {{ modalData.datePublished }}
-          </p>
+  <transition name="slide-fade">
+    <the-modal
+      v-if="showModal"
+      @close-modal="showModal = false"
+    >
+      <div ref="modalWrapper" class="modal-wrapper">
+        <button title="Close" alt="Close" class="modal__close-button" @click="showModal = false">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" /></svg>
+        </button>
+        <div class="modal-meta">
+          <img
+            :src="modalData.imageUrl"
+            :alt="modalData.title"
+            class="modal__image"
+          >
+          <div>
+            <h2 class="modal__title">
+              {{ modalData.title }}
+            </h2>
+            <p class="modal__author">
+              {{ modalData.authors }}
+            </p>
+            <p class="modal__date">
+              {{ modalData.datePublished }}
+            </p>
+          </div>
         </div>
+        <p class="modal__desc">
+          {{ modalData.desc }}
+        </p>
       </div>
-      <p class="modal__desc">
-        {{ modalData.desc }}
-      </p>
-    </div>
-  </the-modal>
+    </the-modal>
+  </transition>
 </template>
 
 <style lang="postcss" scoped>
-html.overflow-y-hidden {
-  overflow-y: hidden;
+/*
+  Enter and leave animations can use different
+  durations and timing functions.
+*/
+.slide-fade-enter-active {
+  transition: all 500ms ease-out;
 }
+
+.slide-fade-leave-active {
+  transition: all 300ms cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+/* html.overflow-y-hidden {
+  overflow-y: hidden;
+} */
 
 ::v-global(.g-dialog-frame) {
     @media (min-width: 641px) {
@@ -145,19 +172,22 @@ html.overflow-y-hidden {
     }
     .modal__title {
       font-weight: 400;
-      font-size: 22px;
+      font-size: var(--step-1);
     }
     .modal__author {
       color: var(--green);
       padding-right: 20px;
+      font-size: var(--step-0);
     }
     .modal__date {
       font-family: monospace;
+      font-size: var(--step-0);
+      color: var(--slate-400);
     }
   }
   .modal__desc {
     font-style: italic;
-    font-size: 13px;
+    font-size: var(--step--1);
     padding: 1.5rem clamp(1rem, 5%, 3rem);
     line-height: 1.5;
     max-width: 65ch;
@@ -195,9 +225,22 @@ html.overflow-y-hidden {
 .library__wrapper {
   margin: 0 1rem;
   margin-top: 2rem;
+
+  .library__header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0.5rem;
+
+    .academic-link {
+      font-size: var(--step-0);
+      color: var(--green);
+    }
+  }
   .library__header {
-    font-weight: 400;
     margin-bottom: 2rem;
+    font-size: var(--step-3);
+    font-family: var(--font-normal);
   }
   .library__booklist-wrapper {
     --min: 20ch;

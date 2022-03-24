@@ -3,7 +3,6 @@ import axios from 'axios'
 import { onBeforeRouteLeave } from 'vue-router'
 import { useAsyncData } from '~/helpers/useAsyncData'
 import formatDate from '~/composables/formatDate'
-import NewsletterSignUp from '~/components/NewsletterSignUp.vue'
 // Ghost keys
 const key = import.meta.env.VITE_GHOST_KEY
 const uri = import.meta.env.VITE_GHOST_URI
@@ -24,17 +23,24 @@ useHead({
     { name: 'og:description', content: article.value?.posts[0].custom_excerpt },
     { name: 'og:image', content: article.value?.posts[0].feature_image },
     { name: 'og:title', content: article.value?.posts[0].title },
-    { name: 'og:author', content: article.value?.posts[0].primary_author?.name },
-    { name: 'og:url', content: `https://narco.news/articles/${article.value?.posts[0].slug}` },
+    {
+      name: 'og:author',
+      content: article.value?.posts[0].primary_author?.name,
+    },
+    {
+      name: 'og:url',
+      content: `https://narco.news/articles/${article.value?.posts[0].slug}`,
+    },
     { name: 'twitter:card', content: 'summary_large_image' },
   ],
 })
 // Change article function
 function changeArticle(slug: string) {
   article.value = undefined
-  axios.get(
-    `${uri}/ghost/api/v3/content/posts/slug/${slug}/?key=${key}&include=tags,authors`,
-  )
+  axios
+    .get(
+      `${uri}/ghost/api/v3/content/posts/slug/${slug}/?key=${key}&include=tags,authors`,
+    )
     .then((response) => {
       useTimeoutFn(() => {
         article.value = response.data
@@ -44,7 +50,7 @@ function changeArticle(slug: string) {
 }
 // Watcher for slug change
 const slug = ref()
-const slugWatcher = watchEffect(() => slug.value = route.params.slug)
+const slugWatcher = watchEffect(() => (slug.value = route.params.slug))
 watch(slug, () => {
   try {
     changeArticle(String(slug.value))
@@ -67,125 +73,118 @@ onBeforeRouteLeave(() => slugWatcher())
 //     }
 //   })
 // })
+const titleVisible = ref(true)
+function isTitleVisible(event: boolean) {
+  titleVisible.value = event
+}
+const bottomFooter = ref()
+const bottomVisible = useElementVisibility(bottomFooter)
 </script>
 
 <template>
-  <section>
+  <section el="section">
+    <article-top-bar :title-visible="titleVisible" />
     <div v-if="article">
       <!-- IMAGE -->
-      <article-image
-        :feature-image="article.posts[0].feature_image"
-      />
+      <article-image :feature-image="article.posts[0].feature_image" />
       <!-- META -->
       <article-meta
         :article="article.posts[0]"
+        @title-visible="isTitleVisible($event)"
       />
       <!-- CONTENT -->
-      <article-content
-        :content="article.posts[0].html"
-      />
-      <!-- BOTTOM SHARE BUTTONS -->
-      <div ref="bottomButtons">
+      <article-content :content="article.posts[0].html" />
+
+      <div ref="bottomFooter">
+        <!-- BOTTOM -->
         <article-bottom-buttons
           :article="article.posts[0]"
         />
-      </div>
-      <!-- BOTTOM META -->
-      <div class="tags-wrapper">
-        Filed Under:
-        <router-link
-          v-for="tag in article.posts[0].tags?.slice(0, 4)"
-          :key="tag.id"
-          :to="`/tags/${tag?.slug}`"
-          class="article-meta__tag"
-        >
-          {{ tag.name }}
-        </router-link>
-      </div>
-      <div class="last-updated">
-        Updated:
-        <time>
-          {{
-            formatDate(article.posts[0].updated_at, 'hh:mm:ss A, MM/DD/YY')
-          }}
-        </time>
-      </div>
-
-      <!-- COMMENTS START -->
-      <!-- <the-comments /> -->
-      <!-- COMMENTS END -->
-
-      <!-- Author Latest -->
-      <div ref="authorLatest">
-        <article-author-latest
-          :author="article.posts[0].primary_author"
-          @change-slug="router.push(`/articles/${$event}`)"
-        />
-      </div>
-      <!-- ConvertKit Newsletter Signup -->
-      <!-- <div>
+        <!-- BOTTOM META -->
+        <div class="tags-wrapper">
+          Filed Under:
+          <router-link
+            v-for="tag in article.posts[0].tags?.slice(1, 4)"
+            :key="tag.id"
+            :to="`/tags/${tag?.slug}`"
+            class="article-meta__tag"
+          >
+            {{ tag.name }}
+          </router-link>
+        </div>
+        <div class="last-updated">
+          Updated:
+          <time>
+            {{ formatDate(String(article?.posts[0].updated_at), 'h:mm:ss A, MM/DD/YY') }}
+          </time>
+        </div>
+        <div ref="authorLatest">
+          <article-author-latest
+            :slug="article?.posts[0]?.slug"
+            :author="article?.posts[0]?.primary_author"
+            @change-slug="router.push(`/articles/${$event}`)"
+          />
+        </div>
+        <!-- Author Latest -->
+        <!-- ConvertKit Newsletter Signup -->
+        <!-- <div>
         <NewsletterSignUp :border="false" />
-      </div> -->
-      <!-- Tag Latest -->
-      <div ref="tagLatest">
-        <article-tag-latest
-          :tags="article.posts[0].tags"
-          @change-slug="router.push(`/articles/${$event}`)"
-        />
+      </div>-->
+        <!-- Tag Latest -->
+        <div ref="tagLatest">
+          <article-tag-latest
+            :slug="article.posts[0].slug"
+            :tags="article.posts[0]?.tags"
+            @change-slug="router.push(`/articles/${$event}`)"
+          />
+        </div>
       </div>
     </div>
     <div v-else class="loading">
       <FoldingCube />
     </div>
     <!-- BOTTOM META BAR -->
-    <!-- <div v-if="article">
-      <article-bottom-bar
-        :article="article.posts[0]"
-        :title-visibility="titleVisible"
-      />
-    </div> -->
+    <article-bottom-bar
+      :title-visibility="titleVisible"
+      :bottom-visibility="bottomVisible"
+    />
   </section>
 </template>
 
 <style lang="postcss" scoped>
-section {
-  /* overflow: hidden; */
-  overflow:initial !important;
-}
 .loading {
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
 }
 .last-updated {
   margin: 1.5rem 1rem;
   font-size: 12px;
-  font-family: sans-serif;
+  font-family: var(--font-normal);
   font-weight: 400;
   color: var(--slate-500);
   padding-bottom: 2rem;
   time {
     font-weight: 500;
     padding: 0.5rem;
+    font-family: var(--font-mono);
   }
 }
 .tags-wrapper {
   margin: 1.5rem 1rem;
   font-size: 12px;
-  font-family: sans-serif;
+  font-family: var(--font-normal);
   font-weight: 400;
   color: var(--slate-500);
 }
 .article-meta__tag {
   display: inline-flex;
   color: var(--green);
-  text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  border-bottom: 1px dotted var(--green);
+  font-family: var(--font-mono);
   margin: 0 0.5rem;
-  &:hover {
-    border-bottom: 1px solid var(--green);
-  }
+  text-decoration: underline 2px dotted var(--green);
+  text-underline-offset: 4px;
 }
 </style>
 

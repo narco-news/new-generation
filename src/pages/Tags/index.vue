@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAsyncData } from '~/helpers/useAsyncData'
+import axios from 'axios'
 useHead({
   title: 'Tags',
 })
@@ -8,17 +8,15 @@ const { t } = useI18n()
 const key = import.meta.env.VITE_GHOST_KEY
 const uri = import.meta.env.VITE_GHOST_URI
 // Get tags
-const tagsList = await useAsyncData(
-  'tagsList',
+const tags = ref()
+await axios(
   `${uri}/ghost/api/v3/content/tags/?key=${key}&limit=all&include=tags,authors,count.posts&filter=visibility:public`,
-  {
-    awaitSetup: true,
-  },
 )
-const tags = tagsList.value.tags
-  .filter(tag => tag.count.posts >= 3)
-  .sort((a, b) => { return b.count.posts - a.count.posts })
-
+  .then((response) => {
+    tags.value = response.data.tags
+      .filter(tag => tag.count.posts >= 3)
+      .sort((a, b) => { return b.count.posts - a.count.posts })
+  })
 </script>
 
 <template>
@@ -34,7 +32,7 @@ const tags = tagsList.value.tags
         </span>
       </router-link>
     </div>
-    <div v-else style="display:grid;place-content:center;height:100vh">
+    <div v-else>
       <folding-cube />
     </div>
   </section>
@@ -45,23 +43,26 @@ const tags = tagsList.value.tags
 .tags-header {
   padding: 0 10px;
   color: var(--slate-800);
-  font-weight: 400;
+  font-family: var(--font-normal);
+  font-weight: 500;
 }
 
 .tag-button {
+  font-family: var(--font-normal);
+  font-size: var(--step-0);
+  color: var(--slate-8);
+  box-shadow: 0 0 0 1px var(--slate-800);
   display: inline-flex;
   align-items: center;
   border: 0;
   background: 0;
-  border: 1px solid black;
   border-radius: 9999px;
   padding: 10px;
-  margin: 5px;
+  margin: var(--space-2xs);
   text-decoration: none;
   color: black;
   transition: box-shadow 180ms ease-in;
   transition: color 180ms ease-out;
-  font-size: clamp(100%, 0.2rem + 2vw, 16px);
   &:hover {
     box-shadow: 0 0 0 2px var(--green);
     border-color: transparent;
@@ -69,7 +70,7 @@ const tags = tagsList.value.tags
   }
   span {
     font-size: 12px;
-    font-family: monospace;
+    font-family: var(--font-mono);
     font-weight: 600;
     color: var(--green);
     margin: 0 0.5rem;

@@ -1,26 +1,6 @@
 <script setup lang="ts">
-import { useMotion } from '@vueuse/motion'
 defineEmits(['closeModal'])
 const myModal = ref<HTMLElement>()
-const variants = ref<MotionVariants>({
-  initial: {
-    opacity: 0,
-    y: 100,
-  },
-  enter: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      striffness: '80',
-    },
-  },
-  leave: {
-    y: -100,
-  },
-})
-
-const motionInstance = useMotion(myModal, variants)
 </script>
 
 <template>
@@ -37,6 +17,7 @@ const motionInstance = useMotion(myModal, variants)
 </template>
 
 <style lang="postcss" scoped>
+
 .modal-mask {
     position: fixed;
     z-index: 9999;

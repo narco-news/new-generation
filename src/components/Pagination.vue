@@ -82,7 +82,7 @@ const props = defineProps<{
   }
   .pagination__header {
     font-size: clamp(100%, 1rem + 2vw, 24px);
-    font-family: 'Oswald';
+    font-family: var(--font-normal);
     font-weight: 400;
     margin-bottom: 0.5em;
     padding: 5px;
