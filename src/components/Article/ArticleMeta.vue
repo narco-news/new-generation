@@ -129,7 +129,7 @@ tryOnMounted(() => {
   .article-meta__title {
     color: var(--slate-800);
     font-family: var(--font-title);
-    font-size: var(--step-4);
+    font-size: var(--step-3);
     font-weight: 700;
     letter-spacing: 1.2;
     line-height: 1.1;

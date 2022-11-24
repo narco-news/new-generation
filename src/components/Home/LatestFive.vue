@@ -48,7 +48,7 @@ const props = defineProps<{
           .lf-article__title {
             font-family: var(--font-title);
             font-size: var(--step-2);
-            max-width: 85%;
+            /* max-width: 85%; */
           }
         }
       }
@@ -66,7 +66,7 @@ const props = defineProps<{
           -webkit-box-orient: vertical;
           overflow: hidden;
           font-family: var(--font-title);
-          font-size: var(--step-0);
+          font-size: var(--step-1);
           max-width: 95%;
         }
       }

@@ -54,10 +54,14 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
           :src="props.article.feature_image"
           :alt="props.article.title"
           class="featured-article__image"
-        />
+        >
       </div>
-      <h1 class="featured-article__title">{{ props.article.title }}</h1>
-      <div class="featured-article__excerpt">{{ props.article.custom_excerpt }}</div>
+      <h1 class="featured-article__title">
+        {{ props.article.title }}
+      </h1>
+      <div class="featured-article__excerpt">
+        {{ props.article.custom_excerpt }}
+      </div>
       <p class="featured-article__author">
         <em>By</em>
         {{ props.article.primary_author.name }}
@@ -71,7 +75,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
           :src="props.article.feature_image"
           :alt="props.article.title"
           class="featured-article__image"
-        />
+        >
       </div>
     </router-link>
   </div>
@@ -144,7 +148,7 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
     transition: all 180ms ease-in;
     max-width: 65ch;
     @media (min-width: 1140px) {
-      font-size: var(--step-3);
+      font-size: var(--step-2);
       line-height: 1.2;
     }
   }

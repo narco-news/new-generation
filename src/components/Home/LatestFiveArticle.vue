@@ -106,7 +106,6 @@ tryOnBeforeUnmount(() => stopWatcher())
     flex-direction: column;
     padding: var(--space-2xs);
     .lf-article__title {
-      font-size: var(--step--2);
       font-family: var(--font-title);
       font-weight: 700;
       color: white;

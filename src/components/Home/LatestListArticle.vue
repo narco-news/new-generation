@@ -145,7 +145,7 @@ tryOnBeforeUnmount(() => stopWatcher())
         color: v-bind(titleColor);
         text-decoration: v-bind(titleTextDecoration);
         @media (min-width: 768px) {
-          font-size: var(--step-3);
+          font-size: var(--step-1);
         }
       }
       &__author {
@@ -162,7 +162,7 @@ tryOnBeforeUnmount(() => stopWatcher())
         color: v-bind(excerptColor);
         font-size: var(--step--1);
         font-weight: 400;
-        font-family: var(--font-title);
+        font-family: var(--font-normal);
         line-height: 1.5;
       }
     }

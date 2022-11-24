@@ -527,9 +527,8 @@ onBeforeRouteUpdate(() => {
     }
     .warning {
       @apply font-sans;
-      width: 85%;
       height: 100%;
-      margin: 2rem 0em;
+      width: 65%;
       padding: 0.5em 1em;
       background-color: #fce0dd;
       border-left: 4px solid #f26457;
@@ -538,10 +537,13 @@ onBeforeRouteUpdate(() => {
       font-size: 11px;
       font-weight: 600;
       &::after {
-        content: "This article contains graphic and disturbing content.";
+        content: "This article contains graphic imagery";
       }
+      margin: 0;
+      margin-bottom: var(--space-m);
       @media (min-width: 768px) {
         font-size: 12px;
+        margin: 2rem auto;
       }
     }
 
@@ -558,7 +560,7 @@ onBeforeRouteUpdate(() => {
       font-size: 11px;
       font-weight: 600;
       &::after {
-        content: "Este artículo tiene un contenido gráfico e inquietante.";
+        content: "Este artículo contiene imágenes gráficas";
       }
       @media (min-width: 768px) {
         font-size: 12px;
